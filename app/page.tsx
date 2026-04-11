@@ -1,34 +1,26 @@
-import Container from "@/components/layout/Container";
+import Button from "@/components/ui/Button";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-off-white py-20">
-      <Container>
-        <p className="text-text-muted text-sm uppercase tracking-widest font-body mb-4">
-          Default (1280px)
-        </p>
-        <div className="bg-rotary-blue text-white p-6 rounded-md font-body">
-          Default container
-        </div>
-      </Container>
+    <div className="min-h-screen bg-off-white flex flex-col items-center justify-center gap-8 p-8">
+      <div className="flex flex-wrap gap-4 items-center">
+        <Button variant="primary">Get Involved</Button>
+        <Button variant="primary" size="sm">
+          Join Us
+        </Button>
+      </div>
 
-      <Container variant="narrow" className="mt-8">
-        <p className="text-text-muted text-sm uppercase tracking-widest font-body mb-4">
-          Narrow (768px)
-        </p>
-        <div className="bg-rotary-gold text-grey-900 p-6 rounded-md font-body">
-          Narrow container
-        </div>
-      </Container>
+      <div className="flex flex-wrap gap-4 items-center">
+        <Button variant="secondary">View All Events</Button>
+        <Button variant="secondary" size="sm">
+          Learn More
+        </Button>
+      </div>
 
-      <Container variant="wide" className="mt-8">
-        <p className="text-text-muted text-sm uppercase tracking-widest font-body mb-4">
-          Wide (1440px)
-        </p>
-        <div className="bg-cranberry text-white p-6 rounded-md font-body">
-          Wide container
-        </div>
-      </Container>
+      <div className="flex flex-wrap gap-4 items-center bg-rotary-blue-dark p-6 rounded-lg">
+        <Button variant="ghost">Learn More</Button>
+        <Button variant="primary">Get in Touch</Button>
+      </div>
     </div>
   );
 }
