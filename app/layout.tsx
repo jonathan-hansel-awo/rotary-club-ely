@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
+import PageTransition from "@/components/animation/PageTransition";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${plusJakartaSans.variable} ${inter.variable}`}>
-        {children}
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );
