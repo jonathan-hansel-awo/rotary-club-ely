@@ -1,97 +1,49 @@
-import Container from "@/components/layout/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Card from "@/components/ui/Card";
-import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
-import StaggerChildren, {
-  StaggerItem,
-} from "@/components/animation/StaggerChildren";
-import CountUp from "@/components/animation/CountUp";
+import { getHomepageData } from "@/lib/sanity.fetch";
 
-export default function Home() {
+export default async function Home() {
+  const data = await getHomepageData();
+
   return (
-    <div className="min-h-screen bg-off-white py-20 flex flex-col gap-20">
-      {/* FadeInOnScroll test */}
-      <Container>
-        <FadeInOnScroll>
-          <SectionHeading
-            eyebrow="Animation Test"
-            title="Fade In On Scroll"
-            subtitle="This section fades up when it enters the viewport."
-          />
-        </FadeInOnScroll>
-      </Container>
+    <div className="min-h-screen bg-off-white p-12">
+      <h1 className="font-heading font-bold text-3xl text-rotary-blue mb-8">
+        Sanity Data Test
+      </h1>
 
-      {/* StaggerChildren test */}
-      <Container>
-        <SectionHeading
-          eyebrow="Stagger Test"
-          title="Staggered Cards"
-          className="mb-8"
-        />
-        <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <StaggerItem>
-            <Card
-              title="Ely Aquafest 2026"
-              meta="18 July 2026"
-              description="Our flagship summer event on the river."
-              imageBg="bg-gradient-to-br from-rotary-blue-light to-rotary-blue"
-            />
-          </StaggerItem>
-          <StaggerItem>
-            <Card
-              title="Fireworks Night"
-              meta="1 November 2026"
-              description="East Cambridgeshire's biggest fireworks display."
-              imageBg="bg-gradient-to-br from-rotary-blue-dark to-cranberry"
-            />
-          </StaggerItem>
-          <StaggerItem>
-            <Card
-              title="Community Clean-Up"
-              meta="14 March 2026"
-              description="Volunteers sprucing up Ely's green spaces."
-              imageBg="bg-gradient-to-br from-rotary-gold-dark to-rotary-gold"
-            />
-          </StaggerItem>
-        </StaggerChildren>
-      </Container>
+      <section className="mb-8">
+        <h2 className="font-heading font-semibold text-xl mb-4">
+          Site Settings
+        </h2>
+        <pre className="bg-white p-4 rounded-md text-sm overflow-auto">
+          {JSON.stringify(data.settings, null, 2)}
+        </pre>
+      </section>
 
-      {/* CountUp test */}
-      <div className="bg-rotary-blue py-16">
-        <Container>
-          <div className="grid grid-cols-3 gap-8 text-center">
-            <div>
-              <CountUp
-                target={45000}
-                prefix="£"
-                suffix="+"
-                className="font-heading font-extrabold text-5xl text-white"
-              />
-              <p className="font-body text-white/75 mt-2">
-                Raised for Local Causes
-              </p>
-            </div>
-            <div>
-              <CountUp
-                target={30}
-                suffix="+"
-                className="font-heading font-extrabold text-5xl text-white"
-              />
-              <p className="font-body text-white/75 mt-2">
-                Charities Supported
-              </p>
-            </div>
-            <div>
-              <CountUp
-                target={15}
-                suffix="+"
-                className="font-heading font-extrabold text-5xl text-white"
-              />
-              <p className="font-body text-white/75 mt-2">Years Serving Ely</p>
-            </div>
-          </div>
-        </Container>
-      </div>
+      <section className="mb-8">
+        <h2 className="font-heading font-semibold text-xl mb-4">
+          Upcoming Events ({data.upcomingEvents.length})
+        </h2>
+        <pre className="bg-white p-4 rounded-md text-sm overflow-auto">
+          {JSON.stringify(data.upcomingEvents, null, 2)}
+        </pre>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="font-heading font-semibold text-xl mb-4">
+          Latest News ({data.latestNews.length})
+        </h2>
+        <pre className="bg-white p-4 rounded-md text-sm overflow-auto">
+          {JSON.stringify(data.latestNews, null, 2)}
+        </pre>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="font-heading font-semibold text-xl mb-4">
+          Impact Stats
+        </h2>
+        <pre className="bg-white p-4 rounded-md text-sm overflow-auto">
+          {JSON.stringify(data.impactStats, null, 2)}
+        </pre>
+      </section>
     </div>
   );
 }
