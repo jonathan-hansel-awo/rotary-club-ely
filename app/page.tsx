@@ -1,12 +1,13 @@
+import Hero from "@/components/home/Hero";
+
 export default function Home() {
   return (
     <div>
       {/* Dark hero area to test transparent nav */}
-      <div className="min-h-screen bg-rotary-blue-dark flex items-center justify-center">
-        <h1 className="font-heading font-bold text-5xl text-white">
-          Hero Area
-        </h1>
-      </div>
+      <Hero
+          imageSrc="/images/hero-placeholder.jpg"
+          imageAlt="Members of the Rotary Club of Ely at a community event"
+        />
 
       {/* Light area to test scrolled nav */}
       <div className="min-h-screen bg-off-white flex items-center justify-center">

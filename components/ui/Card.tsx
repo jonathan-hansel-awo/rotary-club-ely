@@ -1,4 +1,13 @@
 import { ReactNode } from "react";
+import Image from "next/image";
+import { urlForImage } from "@/sanity/lib/image";
+
+interface SanityImage {
+  asset: { _ref: string };
+  alt?: string;
+  hotspot?: { x: number; y: number };
+  crop?: object;
+}
 
 interface CardProps {
   title: string;
@@ -8,6 +17,8 @@ interface CardProps {
   href?: string;
   badge?: ReactNode;
   imageBg?: string;
+  image?: SanityImage;
+  imageAlt?: string;
   className?: string;
 }
 
@@ -19,8 +30,21 @@ export default function Card({
   href = "#",
   badge,
   imageBg = "bg-rotary-blue",
+  image,
+  imageAlt,
   className = "",
 }: CardProps) {
+
+  const imageUrl = image
+    ? urlForImage(image).width(800).height(450).url()
+    : null
+
+  const hotspotStyle = image?.hotspot
+    ? {
+        objectPosition: `${image.hotspot.x * 100}% ${image.hotspot.y * 100}%`,
+      }
+    : undefined
+
   return (
     <div
       className={`
@@ -31,19 +55,35 @@ export default function Card({
         overflow-hidden
         cursor-pointer
         transition-all duration-200 ease-out
-        hover:-translate-y-1 hover:shadow-card-hover hover:scale-105
+        hover:-translate-y-1 hover:shadow-card-hover
         ${className}
       `}
     >
       {/* Image area */}
       <div className="relative w-full aspect-video overflow-hidden">
-        <div
-          className={`
-            w-full h-full ${imageBg}
-            transition-transform duration-300 ease-out
-            group-hover:scale-105
-          `}
-        />
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={imageAlt ?? title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="
+              object-cover
+              transition-transform duration-300 ease-out
+              group-hover:scale-105
+            "
+            style={hotspotStyle}
+          />
+        ) : (
+          <div
+            className={`
+              w-full h-full ${imageBg}
+              transition-transform duration-300 ease-out
+              group-hover:scale-105
+            `}
+          />
+        )}
+
         {badge && (
           <div className="absolute top-3 left-3">
             {badge}
