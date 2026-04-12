@@ -1,13 +1,18 @@
+import FeaturedEvents from "@/components/home/FeaturedEvents";
 import Hero from "@/components/home/Hero";
+import { getHomepageData } from "@/lib/sanity.fetch";
 
-export default function Home() {
+export default async function Home() {
+  const data = await getHomepageData();
+
   return (
     <div>
-      {/* Dark hero area to test transparent nav */}
       <Hero
-          imageSrc="/images/hero-placeholder.jpg"
-          imageAlt="Members of the Rotary Club of Ely at a community event"
-        />
+        imageSrc="/images/hero-placeholder.jpg"
+        imageAlt="Members of the Rotary Club of Ely at a community event"
+      />
+
+      <FeaturedEvents events={data.upcomingEvents} />
 
       {/* Light area to test scrolled nav */}
       <div className="min-h-screen bg-off-white flex items-center justify-center">

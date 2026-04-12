@@ -5,25 +5,12 @@ import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
 import Card from "@/components/ui/Card";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Badge from "../ui/Badge";
-
-interface Event {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  dateStart: string;
-  category: string;
-  location?: string;
-  heroImage: {
-    asset: { _ref: string };
-    alt?: string;
-    hotspot?: { x: number; y: number };
-    crop?: object;
-  };
-}
+import type { Event } from '@/lib/types'
 
 interface FeaturedEventsProps {
-  events: Event[];
+  events: Event[]
 }
+
 
 export default function FeaturedEvents({ events }: FeaturedEventsProps) {
   return (
@@ -89,7 +76,7 @@ export default function FeaturedEvents({ events }: FeaturedEventsProps) {
                 key={event._id}
                 title={event.title}
                 href={`/events/${event.slug.current}`}
-                image={event.heroImage}
+                image={event.heroImage} 
                 imageAlt={event.heroImage?.alt ?? event.title}
                 meta={formatEventMeta(event.dateStart, event.location)}
                 badge={<Badge variant="category">{event.category}</Badge>}
