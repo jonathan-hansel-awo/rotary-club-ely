@@ -1,3 +1,4 @@
+import ActivityGrid from "@/components/home/ActivityGrid";
 import FeaturedEvents from "@/components/home/FeaturedEvents";
 import Hero from "@/components/home/Hero";
 import ImpactNumbers from "@/components/home/ImpactNumbers";
@@ -19,6 +20,7 @@ export default async function Home() {
       <ImpactNumbers totalContributions={data.impactStats.totalContributions} />
       <LatestNews posts={data.latestNews} />
       <OurCauses causes={data.causes} />
+      <ActivityGrid />
 
       {/* Light area to test scrolled nav */}
       <div className="min-h-screen bg-off-white flex items-center justify-center">

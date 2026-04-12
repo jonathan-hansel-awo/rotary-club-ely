@@ -124,27 +124,26 @@ export default function OurCauses({ causes }: OurCausesProps) {
       aria-labelledby="our-causes-heading"
       className="bg-[#F8F7F4] py-[clamp(3rem,6vw,6rem)]"
     >
-      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)]">
-
+      <div
+        className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)]"
+        id="our-causes-heading"
+      >
         <FadeInOnScroll>
           <SectionHeading
             eyebrow="Our Causes"
-            heading="Making a Difference, Locally and Globally"
+            title="Making a Difference, Locally and Globally"
             subtitle="From supporting local families to international humanitarian projects, these are the causes closest to our hearts."
-            id="our-causes-heading"
           />
         </FadeInOnScroll>
 
-        <StaggerChildren className="
+        <StaggerChildren
+          className="
           grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
           gap-6 mb-10
-        ">
+        "
+        >
           {displayCauses.map((cause, index) => (
-            <CauseCard
-              key={cause._id}
-              cause={cause}
-              accentIndex={index}
-            />
+            <CauseCard key={cause._id} cause={cause} accentIndex={index} />
           ))}
         </StaggerChildren>
 
@@ -173,8 +172,7 @@ export default function OurCauses({ causes }: OurCausesProps) {
             </div>
           </FadeInOnScroll>
         )}
-
       </div>
     </section>
-  )
+  );
 }
