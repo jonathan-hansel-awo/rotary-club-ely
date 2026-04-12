@@ -227,7 +227,7 @@ export const homepageQuery = `
       _id, name, logo, websiteUrl
     },
     "impactStats": {
-      "totalContributions": count(*[_type == "contribution"]),
+      "totalContributions": count(*[_type == "contribution"])
     },
     "settings": *[_type == "siteSettings"][0] {
       clubName, meetingDay, meetingTime, meetingLocation, contactEmail

@@ -20,6 +20,8 @@ interface CardProps {
   image?: SanityImage;
   imageAlt?: string;
   className?: string;
+
+  
 }
 
 export default function Card({
@@ -35,9 +37,16 @@ export default function Card({
   className = "",
 }: CardProps) {
 
-  const imageUrl = image
-    ? urlForImage(image).width(800).height(450).url()
-    : null
+  function buildImageUrl(image: SanityImage | undefined): string | null {
+    if (!image?.asset?._ref) return null;
+    try {
+      return urlForImage(image).width(800).height(450).url();
+    } catch {
+      return null;
+    }
+  }
+
+  const imageUrl = buildImageUrl(image)
 
   const hotspotStyle = image?.hotspot
     ? {
@@ -48,12 +57,7 @@ export default function Card({
   return (
     <div
       className={`
-        group
-        bg-bg-card
-        rounded-md
-        shadow-sm
-        overflow-hidden
-        cursor-pointer
+        group bg-bg-card rounded-md shadow-sm overflow-hidden cursor-pointer
         transition-all duration-200 ease-out
         hover:-translate-y-1 hover:shadow-card-hover
         ${className}
@@ -93,30 +97,16 @@ export default function Card({
 
       {/* Card body */}
       <div className="p-6">
-        <h3
-          className="
-            font-heading font-semibold
-            text-xl text-text-primary
-            leading-snug mb-2
-          "
-        >
+        <h3 className="font-heading font-semibold text-xl text-text-primary leading-snug mb-2">
           {title}
         </h3>
 
         {meta && (
-          <p className="text-sm text-text-muted font-body mb-3">
-            {meta}
-          </p>
+          <p className="text-sm text-text-muted font-body mb-3">{meta}</p>
         )}
 
         {description && (
-          <p
-            className="
-              text-sm text-text-secondary font-body
-              leading-normal mb-4
-              line-clamp-2
-            "
-          >
+          <p className="text-sm text-text-secondary font-body leading-normal mb-4 line-clamp-2">
             {description}
           </p>
         )}
@@ -125,8 +115,7 @@ export default function Card({
           href={href}
           className="
             inline-flex items-center gap-1
-            text-sm font-medium font-body
-            text-link
+            text-sm font-medium font-body text-link
             transition-all duration-150 ease-out
             group-hover:text-rotary-blue group-hover:gap-2
           "
@@ -135,5 +124,5 @@ export default function Card({
         </a>
       </div>
     </div>
-  );
+  )
 }
