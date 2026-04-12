@@ -2,6 +2,7 @@ import FeaturedEvents from "@/components/home/FeaturedEvents";
 import Hero from "@/components/home/Hero";
 import ImpactNumbers from "@/components/home/ImpactNumbers";
 import LatestNews from "@/components/home/LatestNews";
+import OurCauses from "@/components/home/OurCauses";
 import { getHomepageData } from "@/lib/sanity.fetch";
 
 export default async function Home() {
@@ -17,6 +18,7 @@ export default async function Home() {
       <FeaturedEvents events={data.upcomingEvents} />
       <ImpactNumbers totalContributions={data.impactStats.totalContributions} />
       <LatestNews posts={data.latestNews} />
+      <OurCauses causes={data.causes} />
 
       {/* Light area to test scrolled nav */}
       <div className="min-h-screen bg-off-white flex items-center justify-center">
