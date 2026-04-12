@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/animation/PageTransition";
+import Header from "@/components/layout/Header";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -45,36 +46,38 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`
-          ${plusJakartaSans.variable}
-          ${inter.variable}
-          bg-bg-primary
-          text-text-primary
-          font-body
-          antialiased
-        `}
-      >
-        <a
-          href="#main-content"
-          className="
-            sr-only focus:not-sr-only
-            fixed top-4 left-4 z-100
-            bg-rotary-gold text-grey-900
-            font-body font-semibold text-sm
-            px-4 py-2 rounded-sm
-            focus:outline-none
-          "
-        >
-          Skip to main content
-        </a>
+<body
+  className={`
+    ${plusJakartaSans.variable}
+    ${inter.variable}
+    bg-bg-primary
+    text-text-primary
+    font-body
+    antialiased
+  `}
+>
+  <a
+    href="#main-content"
+    className="
+      sr-only focus:not-sr-only
+      fixed top-4 left-4 z-100
+      bg-rotary-gold text-grey-900
+      font-body font-semibold text-sm
+      px-4 py-2 rounded-sm
+      focus:outline-none
+    "
+  >
+    Skip to main content
+  </a>
 
-        <PageTransition>
-          <main id="main-content">
-            {children}
-          </main>
-        </PageTransition>
-      </body>
+  <Header />
+
+  <PageTransition>
+    <main id="main-content">
+      {children}
+    </main>
+  </PageTransition>
+</body>
     </html>
   );
 }

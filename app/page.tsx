@@ -1,49 +1,19 @@
-import { getHomepageData } from "@/lib/sanity.fetch";
-
-export default async function Home() {
-  const data = await getHomepageData();
-
+export default function Home() {
   return (
-    <div className="min-h-screen bg-off-white p-12">
-      <h1 className="font-heading font-bold text-3xl text-rotary-blue mb-8">
-        Sanity Data Test
-      </h1>
+    <div>
+      {/* Dark hero area to test transparent nav */}
+      <div className="min-h-screen bg-rotary-blue-dark flex items-center justify-center">
+        <h1 className="font-heading font-bold text-5xl text-white">
+          Hero Area
+        </h1>
+      </div>
 
-      <section className="mb-8">
-        <h2 className="font-heading font-semibold text-xl mb-4">
-          Site Settings
+      {/* Light area to test scrolled nav */}
+      <div className="min-h-screen bg-off-white flex items-center justify-center">
+        <h2 className="font-heading font-bold text-3xl text-rotary-blue">
+          Scroll down to see nav change
         </h2>
-        <pre className="bg-white p-4 rounded-md text-sm overflow-auto">
-          {JSON.stringify(data.settings, null, 2)}
-        </pre>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="font-heading font-semibold text-xl mb-4">
-          Upcoming Events ({data.upcomingEvents.length})
-        </h2>
-        <pre className="bg-white p-4 rounded-md text-sm overflow-auto">
-          {JSON.stringify(data.upcomingEvents, null, 2)}
-        </pre>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="font-heading font-semibold text-xl mb-4">
-          Latest News ({data.latestNews.length})
-        </h2>
-        <pre className="bg-white p-4 rounded-md text-sm overflow-auto">
-          {JSON.stringify(data.latestNews, null, 2)}
-        </pre>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="font-heading font-semibold text-xl mb-4">
-          Impact Stats
-        </h2>
-        <pre className="bg-white p-4 rounded-md text-sm overflow-auto">
-          {JSON.stringify(data.impactStats, null, 2)}
-        </pre>
-      </section>
+      </div>
     </div>
   );
 }
