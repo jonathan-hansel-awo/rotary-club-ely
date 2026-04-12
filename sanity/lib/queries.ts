@@ -7,7 +7,10 @@ export const siteSettingsQuery = `
     meetingLocation,
     contactEmail,
     phone,
-    socialLinks,
+    socialLinks[] {
+      platform,
+      url
+    },
     footerText
   }
 `;

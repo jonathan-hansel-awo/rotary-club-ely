@@ -3,6 +3,8 @@ import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/animation/PageTransition";
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import SkipToContent from "@/components/layout/SkipToContent";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -46,8 +48,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-<body
-  className={`
+      <body
+        className={`
     ${plusJakartaSans.variable}
     ${inter.variable}
     bg-bg-primary
@@ -55,10 +57,10 @@ export default function RootLayout({
     font-body
     antialiased
   `}
->
-  <a
-    href="#main-content"
-    className="
+      >
+        <a
+          href="#main-content"
+          className="
       sr-only focus:not-sr-only
       fixed top-4 left-4 z-100
       bg-rotary-gold text-grey-900
@@ -66,18 +68,17 @@ export default function RootLayout({
       px-4 py-2 rounded-sm
       focus:outline-none
     "
-  >
-    Skip to main content
-  </a>
+        >
+          Skip to main content
+        </a>
+        <SkipToContent />
+        <Header />
 
-  <Header />
-
-  <PageTransition>
-    <main id="main-content">
-      {children}
-    </main>
-  </PageTransition>
-</body>
+        <PageTransition>
+          <main id="main-content">{children}</main>
+        </PageTransition>
+        <Footer />
+      </body>
     </html>
   );
 }

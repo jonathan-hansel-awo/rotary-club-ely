@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 
 const navLinks = [
   { label: "Events", href: "/events" },
@@ -48,9 +49,18 @@ export default function Header() {
         <div className="max-w-[1280px] mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0">
-            {/* Rotary wheel placeholder */}
-            <div className="w-8 h-8 rounded-full bg-rotary-gold flex-shrink-0 relative">
-              <div className="absolute inset-[5px] rounded-full border-2 border-white/60" />
+            <div className="relative h-10 w-10">
+            <Image
+              src="/rotary-logo.png"
+              alt="Rotary Club of Ely"
+              fill
+              className={`
+      object-contain object-left
+      transition-all duration-300
+      ${scrolled ? "brightness-100" : "brightness-0 invert"}
+    `}
+              priority
+            />
             </div>
             <span
               className={`
