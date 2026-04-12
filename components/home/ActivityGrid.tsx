@@ -47,7 +47,7 @@ const tiles: ActivityTile[] = [
     bgClass: "bg-gradient-to-br from-[#D4900F] to-[#F7A81B]",
     gradientClass: "from-[#1A1918]/60 to-transparent",
     span: "normal",
-    badge: "15+ Years",
+    badge: "80+ Years",
   },
 ];
 
@@ -281,7 +281,7 @@ export default function ActivityGrid() {
               <div className="absolute inset-0 rounded-[1rem] border-2 border-transparent group-hover:border-white/40 transition-all duration-300 pointer-events-none z-10" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A1918]/60 to-transparent group-hover:opacity-80 transition-opacity duration-300" />
               <div className="absolute top-4 left-4 z-10 bg-white/20 backdrop-blur-sm text-white text-xs font-medium font-body uppercase tracking-wider px-2.5 py-1 rounded-full">
-                15+ Years
+                80+ Years
               </div>
               <div className="relative z-10 p-5 lg:p-6">
                 <h3 className="font-heading font-bold text-white leading-snug mb-1 text-[1.15rem] lg:text-[1.35rem]">
