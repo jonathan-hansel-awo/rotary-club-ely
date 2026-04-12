@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { client } from "@/sanity/lib/client";
 import { siteSettingsQuery } from "@/sanity/lib/queries";
+import Image from 'next/image';
 
 // Social icon SVGs — inline to avoid extra dependencies
 function FacebookIcon() {
@@ -59,53 +60,61 @@ export default async function Footer() {
   return (
     <footer className="bg-[#0C2340]">
       <div className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)] pt-[clamp(3rem,5vw,5rem)] pb-10">
-
         {/* 4-column grid */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-
           {/* Column 1: Club info + social */}
           <div className="lg:col-span-1">
-            {/* Logo mark */}
-            <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-8 h-8 rounded-full bg-[#F7A81B] flex-shrink-0 relative"
-                aria-hidden="true"
-              >
-                <span className="absolute inset-[5px] rounded-full border-2 border-white/60" />
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-3 flex-shrink-0">
+              <div className="relative h-10 w-10">
+                <Image
+                  src="/rotary-logo.png"
+                  alt="Rotary Club of Ely"
+                  fill
+                  className="object-contain object-left"
+                  priority
+                />
               </div>
-              <span className="font-heading font-bold text-white text-[0.95rem] leading-tight">
+              <span
+                className="
+                font-heading font-bold text-base leading-tight
+                transition-colors duration-300"
+              >
                 Rotary Club of Ely
               </span>
-            </div>
+            </Link>
 
             <p className="text-[#B8C4D8] text-sm leading-relaxed mb-6">
-              Serving the Ely community through events, volunteering, and charitable giving.
-              Part of Rotary International's global network of 1.2 million members.
+              Serving the Ely community through events, volunteering, and
+              charitable giving. Part of Rotary International's global network
+              of 1.2 million members.
             </p>
 
             {/* Social links */}
             {settings?.socialLinks && settings.socialLinks.length > 0 && (
               <div className="flex items-center gap-3">
-                {settings.socialLinks.map((social: { platform: string; url: string }) => {
-                  const Icon = socialIconMap[social.platform.toLowerCase()]
-                  if (!Icon) return null
-                  return (
-                    <a
-                      key={social.platform}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Rotary Club of Ely on ${social.platform}`}
-                      className="
+                {settings.socialLinks.map(
+                  (social: { platform: string; url: string }) => {
+                    const Icon = socialIconMap[social.platform.toLowerCase()];
+                    if (!Icon) return null;
+                    return (
+                      <a
+                        key={social.platform}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Rotary Club of Ely on ${social.platform}`}
+                        className="
                         text-[#B8C4D8] hover:text-white
                         transition-all duration-200 ease-out
                         hover:scale-110
                       "
-                    >
-                      <Icon />
-                    </a>
-                  )
-                })}
+                      >
+                        <Icon />
+                      </a>
+                    );
+                  },
+                )}
               </div>
             )}
           </div>
@@ -179,9 +188,7 @@ export default async function Footer() {
                   {settings.meetingDay} at {settings.meetingTime}
                 </p>
               )}
-              {settings?.meetingLocation && (
-                <p>{settings.meetingLocation}</p>
-              )}
+              {settings?.meetingLocation && <p>{settings.meetingLocation}</p>}
             </address>
 
             {settings?.contactEmail && (
@@ -217,11 +224,11 @@ export default async function Footer() {
         {/* Copyright row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#B8C4D8]/60">
           <p>
-            © {currentYear} Rotary Club of Ely.{' '}
-            {settings?.footerText || 'Part of Rotary International.'}
+            © {currentYear} Rotary Club of Ely.{" "}
+            {settings?.footerText || "Part of Rotary International."}
           </p>
           <p>
-            Registered in England.{' '}
+            Registered in England.{" "}
             <a
               href="/privacy"
               className="hover:text-[#B8C4D8] transition-colors duration-150"
@@ -230,8 +237,7 @@ export default async function Footer() {
             </a>
           </p>
         </div>
-
       </div>
     </footer>
-  )
+  );
 }
