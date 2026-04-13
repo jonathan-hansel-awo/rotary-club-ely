@@ -2,6 +2,7 @@ import ActivityGrid from "@/components/home/ActivityGrid";
 import FeaturedEvents from "@/components/home/FeaturedEvents";
 import Hero from "@/components/home/Hero";
 import ImpactNumbers from "@/components/home/ImpactNumbers";
+import JoinCTA from "@/components/home/JoinCTA";
 import LatestNews from "@/components/home/LatestNews";
 import OurCauses from "@/components/home/OurCauses";
 import SponsorsStrip from "@/components/home/SponsorsStrip";
@@ -23,6 +24,7 @@ export default async function Home() {
       <OurCauses causes={data.causes} />
       <ActivityGrid />
       <SponsorsStrip sponsors={data.sponsors} />
+      <JoinCTA settings={data.settings} />
 
       {/* Light area to test scrolled nav */}
       <div className="min-h-screen bg-off-white flex items-center justify-center">
