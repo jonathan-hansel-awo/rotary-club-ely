@@ -98,7 +98,7 @@ export const siteSettingsSchema = defineType({
       type: "array",
       description:
         "The four activity tiles shown on the homepage grid. Recommended: 4 tiles.",
-      validation: (Rule: any) => Rule.max(4),
+      validation: (Rule) => Rule.max(4),
       of: [
         {
           type: "object",
@@ -108,21 +108,21 @@ export const siteSettingsSchema = defineType({
               name: "label",
               title: "Label",
               type: "string",
-              validation: (Rule: any) => Rule.required(),
+              validation: (Rule) => Rule.required(),
             },
             {
               name: "description",
               title: "Description",
               type: "text",
               rows: 2,
-              validation: (Rule: any) => Rule.required(),
+              validation: (Rule) => Rule.required(),
             },
             {
               name: "href",
               title: "Link",
               type: "string",
               description: "Internal path e.g. /events or /impact",
-              validation: (Rule: any) => Rule.required(),
+              validation: (Rule) => Rule.required(),
             },
             {
               name: "badge",
