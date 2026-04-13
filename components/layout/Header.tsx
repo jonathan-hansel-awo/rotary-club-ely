@@ -54,6 +54,7 @@ export default function Header() {
               src="/rotary-logo.png"
               alt="Rotary Club of Ely"
               fill
+              sizes="40px"
               className={`
       object-contain object-left
       transition-all duration-300

@@ -14,8 +14,9 @@ export default async function Home() {
   return (
     <>
       <Hero
-        imageSrc="/images/hero-placeholder.jpg"
+        imageSrc="/images/Hero/AR05B.jpg"
         imageAlt="Members of the Rotary Club of Ely at a community event"
+        heroImages={data.settings.heroImages}
       />
 
       <FeaturedEvents events={data.upcomingEvents} />

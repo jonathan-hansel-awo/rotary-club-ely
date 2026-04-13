@@ -82,6 +82,10 @@ export interface ClubMember {
   order?: number;
 }
 
+export interface HeroImage extends SanityImage {
+  caption?: string;
+}
+
 export interface SiteSettings {
   clubName: string;
   meetingDay?: string;
@@ -91,6 +95,7 @@ export interface SiteSettings {
   phone?: string;
   socialLinks?: { platform: string; url: string }[];
   footerText?: string;
+  heroImages?: HeroImage[]; // add this
 }
 
 export interface ImpactStats {

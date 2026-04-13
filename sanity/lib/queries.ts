@@ -11,7 +11,12 @@ export const siteSettingsQuery = `
       platform,
       url
     },
-    footerText
+    footerText,
+    heroImages[] {
+      ...,
+      alt,
+      caption
+    }
   }
 `;
 

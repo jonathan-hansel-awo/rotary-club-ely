@@ -65,5 +65,32 @@ export const siteSettingsSchema = defineType({
       type: "string",
       description: "Copyright or additional footer content",
     }),
+    {
+      name: "heroImages",
+      title: "Hero Images",
+      type: "array",
+      description:
+        "Images that cycle in the homepage hero. Add 2–5 for best effect.",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            {
+              name: "alt",
+              type: "string",
+              title: "Alt text",
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "caption",
+              type: "string",
+              title: "Caption (optional)",
+              description: 'Short label shown on the card e.g. "Aquafest 2024"',
+            },
+          ],
+        },
+      ],
+    },
   ],
 });
