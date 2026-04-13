@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import Button from "@/components/ui/Button";
+import HeroBackground from "./HeroBackground";
 
 interface HeroProps {
   imageSrc: string;
@@ -99,6 +100,8 @@ const fadeUp = {
             initial="hidden"
             animate="visible"
           >
+
+            <HeroBackground />
             {/* Eyebrow */}
             <motion.p
               variants={fadeUp}

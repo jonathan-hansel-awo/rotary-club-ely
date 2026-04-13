@@ -117,13 +117,15 @@ export default function ActivityGrid() {
       aria-labelledby="activity-grid-heading"
       className="bg-white py-[clamp(3rem,6vw,6rem)]"
     >
-      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)]">
+      <div 
+      className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)]" 
+      id="activity-grid-heading"
+      >
         <FadeInOnScroll>
           <SectionHeading
             eyebrow="What We Do"
-            heading="Events & Activities"
+            title="Events & Activities"
             subtitle="From flagship festivals to quiet acts of community service — here's what keeps us busy."
-            id="activity-grid-heading"
           />
         </FadeInOnScroll>
 
