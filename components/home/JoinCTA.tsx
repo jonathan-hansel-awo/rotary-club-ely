@@ -3,6 +3,7 @@ import Link from 'next/link'
 import FadeInOnScroll from '@/components/animation/FadeInOnScroll'
 import Button from '@/components/ui/Button'
 import type { SiteSettings } from '@/lib/types'
+import Image from 'next/image'
 
 interface JoinCTAProps {
   settings: SiteSettings
@@ -65,13 +66,15 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
 
               {/* Rotary wheel mark */}
               <div className="relative">
-                <div className="
-                  w-14 h-14 rounded-full bg-[#F7A81B]
-                  flex items-center justify-center
-                  mb-6
-                ">
-                  <div className="w-8 h-8 rounded-full border-2 border-white/60" />
-                </div>
+                              <div className="relative h-10 w-10">
+                                <Image
+                                  src="/rotary-logo.png"
+                                  alt="Rotary Club of Ely"
+                                  fill
+                                  className="object-contain object-left"
+                                  priority
+                                />
+                              </div>
 
                 <p className="
                   font-body font-medium text-xs uppercase

@@ -144,7 +144,7 @@ export default function LatestNews({ posts }: LatestNewsProps) {
   return (
     <section
       aria-labelledby="latest-news-heading"
-      className="bg-[#F8F7F4] py-[clamp(3rem,6vw,6rem)]"
+      className="bg-white py-[clamp(3rem,6vw,6rem)]"
     >
       <div
         className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)]"
