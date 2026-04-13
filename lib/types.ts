@@ -86,6 +86,14 @@ export interface HeroImage extends SanityImage {
   caption?: string;
 }
 
+export interface ActivityTile {
+  label: string;
+  description: string;
+  href: string;
+  badge?: string;
+  image?: SanityImage;
+}
+
 export interface SiteSettings {
   clubName: string;
   meetingDay?: string;
@@ -95,7 +103,8 @@ export interface SiteSettings {
   phone?: string;
   socialLinks?: { platform: string; url: string }[];
   footerText?: string;
-  heroImages?: HeroImage[]; // add this
+  heroImages?: HeroImage[];
+  activityTiles?: ActivityTile[]; // add this
 }
 
 export interface ImpactStats {

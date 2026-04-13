@@ -23,21 +23,24 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
     >
       <div className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)]">
         <FadeInOnScroll>
-          <div className="
+          <div
+            className="
             relative overflow-hidden
             rounded-[1.5rem]
             grid grid-cols-1 lg:grid-cols-2
             min-h-[420px]
-          ">
-
+          "
+          >
             {/* ── Left panel: decorative ── */}
-            <div className="
+            <div
+              className="
               relative
               bg-gradient-to-br from-[#17458F] to-[#0C2340]
               p-10 lg:p-14
               flex flex-col justify-between
               min-h-[260px] lg:min-h-0
-            ">
+            "
+            >
               {/* Background pattern */}
               <div
                 aria-hidden="true"
@@ -50,7 +53,7 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
                     radial-gradient(circle at 25% 25%, white 1px, transparent 1px),
                     radial-gradient(circle at 75% 75%, white 1px, transparent 1px)
                   `,
-                  backgroundSize: '48px 48px',
+                  backgroundSize: "48px 48px",
                 }}
               />
 
@@ -66,29 +69,33 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
 
               {/* Rotary wheel mark */}
               <div className="relative">
-                              <div className="relative h-10 w-10">
-                                <Image
-                                  src="/rotary-logo.png"
-                                  alt="Rotary Club of Ely"
-                                  fill
-                                  className="object-contain object-left"
-                                  priority
-                                />
-                              </div>
+                <div className="relative h-10 w-10">
+                  <Image
+                    src="/rotary-logo.png"
+                    alt="Rotary Club of Ely"
+                    fill
+                    className="object-contain object-left"
+                    priority
+                  />
+                </div>
 
-                <p className="
+                <p
+                  className="
                   font-body font-medium text-xs uppercase
                   tracking-[0.08em] text-[#F7A81B]
                   mb-3
-                ">
+                "
+                >
                   Rotary Club of Ely
                 </p>
 
-                <blockquote className="
+                <blockquote
+                  className="
                   font-heading font-bold
                   text-[clamp(1.25rem,2.5vw,1.75rem)]
                   text-white leading-snug
-                ">
+                "
+                >
                   "Service Above Self"
                 </blockquote>
 
@@ -120,11 +127,13 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
             </div>
 
             {/* ── Right panel: text + CTA ── */}
-            <div className="
+            <div
+              className="
               bg-white
               p-10 lg:p-14
               flex flex-col justify-center
-            ">
+            "
+            >
               <h2
                 id="join-cta-heading"
                 className="
@@ -138,45 +147,47 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
                 Be Part of Something Bigger
               </h2>
 
-              <p className="
+              <p
+                className="
                 font-body text-[clamp(0.95rem,1.2vw,1.05rem)]
                 text-[#4A4845] leading-relaxed
                 max-w-[420px] mb-6
-              ">
-                Whether you want to make new connections, give back to your community,
-                or simply be part of a passionate local group — there's a place for
-                you at Ely Rotary.
+              "
+              >
+                Whether you want to make new connections, give back to your
+                community, or simply be part of a passionate local group —
+                there's a place for you at Ely Rotary.
               </p>
 
-              <p className="
+              <p
+                className="
                 font-body text-sm text-[#4A4845] leading-relaxed
                 max-w-[400px] mb-8
-              ">
-                No experience necessary. We welcome people from all walks of life
-                who share a desire to make a positive difference.
+              "
+              >
+                No experience necessary. We welcome people from all walks of
+                life who share a desire to make a positive difference.
               </p>
 
               {/* CTA buttons */}
               <div className="flex flex-wrap gap-4 mb-10">
-                <Link href="/contact" >
-                <Button variant="primary">
-                  Join Us
-                </Button>
+                <Link href="/contact">
+                  <Button variant="primary">Join Us</Button>
                 </Link>
                 <Link href="/about">
-                <Button variant="secondary">
-                  About Us
-                </Button>
+                  <Button variant="secondary">About Us</Button>
                 </Link>
               </div>
 
               {/* Meeting info card */}
-              <div className="
+              <div
+                className="
                 border-t-4 border-t-[#F7A81B]
                 bg-[#F8F7F4] rounded-[0.75rem]
                 p-5
                 flex items-start gap-4
-              ">
+              "
+              >
                 {/* Calendar icon */}
                 <div
                   className="
@@ -205,11 +216,13 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <p className="
+                  <p
+                    className="
                     font-body font-medium text-xs uppercase
                     tracking-[0.06em] text-[#8A8681]
                     mb-1
-                  ">
+                  "
+                  >
                     Come and Meet Us
                   </p>
 
@@ -229,11 +242,12 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
                     <a
                       href={`mailto:${settings.contactEmail}`}
                       className="
-                        inline-block mt-2
-                        font-body text-xs text-[#0067C8]
-                        hover:text-[#17458F] transition-colors duration-150
-                        underline underline-offset-2
-                      "
+    inline-block mt-2
+    font-body text-xs text-[#0067C8]
+    hover:text-[#17458F] transition-colors duration-150
+    underline underline-offset-2
+    break-all
+  "
                     >
                       {settings.contactEmail}
                     </a>
@@ -257,10 +271,9 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
                 </a>
               </div>
             </div>
-
           </div>
         </FadeInOnScroll>
       </div>
     </section>
-  )
+  );
 }

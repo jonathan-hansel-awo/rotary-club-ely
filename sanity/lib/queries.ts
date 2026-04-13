@@ -16,6 +16,16 @@ export const siteSettingsQuery = `
       ...,
       alt,
       caption
+    },
+    activityTiles[] {
+      label,
+      description,
+      href,
+      badge,
+      image {
+        ...,
+        alt
+      }
     }
   }
 `;
@@ -235,7 +245,26 @@ export const homepageQuery = `
       "totalContributions": count(*[_type == "contribution"])
     },
     "settings": *[_type == "siteSettings"][0] {
-      clubName, meetingDay, meetingTime, meetingLocation, contactEmail
+  clubName,
+  meetingDay,
+  meetingTime,
+  meetingLocation,
+  contactEmail,
+  heroImages[] {
+    ...,
+    alt,
+    caption
+  },
+  activityTiles[] {
+    label,
+    description,
+    href,
+    badge,
+    image {
+      ...,
+      alt
     }
+  }
+},
   }
 `;

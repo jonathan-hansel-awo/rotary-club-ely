@@ -88,6 +88,69 @@ export const siteSettingsSchema = defineType({
               title: "Caption (optional)",
               description: 'Short label shown on the card e.g. "Aquafest 2024"',
             },
+            {
+              name: "activityTiles",
+              title: "Activity Tiles",
+              type: "array",
+              description:
+                "The four activity tiles shown on the homepage grid. Recommended: 4 tiles.",
+              validation: (Rule) => Rule.max(4),
+              of: [
+                {
+                  type: "object",
+                  title: "Activity Tile",
+                  fields: [
+                    {
+                      name: "label",
+                      title: "Label",
+                      type: "string",
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      name: "description",
+                      title: "Description",
+                      type: "text",
+                      rows: 2,
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      name: "href",
+                      title: "Link",
+                      type: "string",
+                      description: "Internal path e.g. /events or /impact",
+                      validation: (Rule) => Rule.required(),
+                    },
+                    {
+                      name: "badge",
+                      title: "Badge Text",
+                      type: "string",
+                      description:
+                        'Short label e.g. "Annual Event", "Year Round"',
+                    },
+                    {
+                      name: "image",
+                      title: "Background Image",
+                      type: "image",
+                      options: { hotspot: true },
+                      fields: [
+                        {
+                          name: "alt",
+                          title: "Alt text",
+                          type: "string",
+                        },
+                      ],
+                    },
+                  ],
+                  preview: {
+                    select: {
+                      title: "label",
+                      subtitle: "description",
+                      media: "image",
+                    },
+                  },
+                },
+              ],
+            },
           ],
         },
       ],

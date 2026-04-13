@@ -27,7 +27,7 @@ export default async function Home() {
 
       <OurCauses causes={data.causes} />
 
-      <ActivityGrid />
+      <ActivityGrid tiles={data.settings.activityTiles} />
 
       <SponsorsStrip sponsors={data.sponsors} />
 
