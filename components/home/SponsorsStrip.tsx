@@ -32,9 +32,7 @@ function SponsorLogo({ sponsor }: { sponsor: Sponsor }) {
         height={40}
         className="
           object-contain h-10 w-auto
-          filter grayscale opacity-50
           transition-all duration-300 ease-out
-          group-hover:grayscale-0 group-hover:opacity-100
         "
       />
     </div>
