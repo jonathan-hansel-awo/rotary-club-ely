@@ -86,4 +86,25 @@
       --max-width: 1280px;
       --max-width-narrow: 768px;
       --max-width-wide: 1440px;
+
+      --animate-marquee: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  min-width: max-content;
+}
+
+.pause-marquee {
+  animation-play-state: paused;
 }
