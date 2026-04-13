@@ -160,12 +160,12 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
               <div className="flex flex-wrap gap-4 mb-10">
                 <Link href="/contact" >
                 <Button variant="primary">
-                  Get in Touch
+                  Join Us
                 </Button>
                 </Link>
                 <Link href="/about">
                 <Button variant="secondary">
-                  Learn More About Us
+                  About Us
                 </Button>
                 </Link>
               </div>
