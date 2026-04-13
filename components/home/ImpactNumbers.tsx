@@ -30,6 +30,7 @@ export default function ImpactNumbers({
     {
       value: totalContributions,
       suffix: "+",
+      value: 10000
       label: "Donations & Contributions Made",
     },
     {
