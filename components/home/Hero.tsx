@@ -68,6 +68,35 @@ const fadeUp = {
         pb-[clamp(3rem,6vw,6rem)]
       "
     >
+      {/* Spinning Rotary wheel — half off left edge, behind everything */}
+<motion.div
+  aria-hidden="true"
+  className="
+    absolute -left-[240px] top-1/2 -translate-y-1/2
+    w-[520px] h-[520px]
+    opacity-[0.07]
+    pointer-events-none
+    z-0
+  "
+  animate={shouldReduceMotion ? { rotate: 0 } : { rotate: 360 }}
+  transition={
+    shouldReduceMotion
+      ? { duration: 0 }
+      : {
+          duration: 40,
+          repeat: Infinity,
+          ease: 'linear',
+          repeatType: 'loop' as const,
+        }
+  }
+>
+  <Image
+    src="/rotary-wheel.svg"
+    alt=""
+    fill
+    className="object-contain"
+  />
+</motion.div>
       {/* Decorative circle — sits behind the image on the right */}
       <div
         aria-hidden="true"
