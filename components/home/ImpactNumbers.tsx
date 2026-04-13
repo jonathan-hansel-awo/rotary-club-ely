@@ -33,7 +33,7 @@ export default function ImpactNumbers({
       label: "Donations & Contributions Made",
     },
     {
-      value: 15,
+      value: 80,
       suffix: "+",
       label: "Years Serving the Community",
     },
