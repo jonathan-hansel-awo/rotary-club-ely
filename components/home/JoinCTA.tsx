@@ -74,6 +74,7 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
                     src="/rotary-logo.png"
                     alt="Rotary Club of Ely"
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-contain object-left"
                     priority
                   />

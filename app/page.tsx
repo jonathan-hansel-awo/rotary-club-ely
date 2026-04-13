@@ -36,4 +36,17 @@ export default async function Home() {
   );
 }
 
+
+export const metadata = {
+  title: "Rotary Club of Ely | People of Action in East Cambridgeshire",
+  description:
+    "The Rotary Club of Ely organises community events including Aquafest and the annual Fireworks display, raises funds for local causes, and welcomes new members.",
+  openGraph: {
+    title: "Rotary Club of Ely",
+    description:
+      "Community events, charitable giving, and fellowship in Ely, Cambridgeshire.",
+    images: ["/og-default.jpg"],
+  },
+};
+
 export const revalidate = 3600;

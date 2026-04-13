@@ -38,7 +38,7 @@ useEffect(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length)
       setIsFlipping(false)
     }, 400)
-  }, 4000)
+  }, 6000)
   return () => clearInterval(interval)
 }, [hasMultiple, images.length, shouldReduceMotion])
 
@@ -228,7 +228,6 @@ const currentCaption = (currentImage as HeroImage)?.caption
             </motion.div>
           </motion.div>
 
-          {/* ── Right: Shaped image ── */}
           {/* ── Right: Shaped image carousel ── */}
           <motion.div
             className="flex-1 relative"
@@ -307,7 +306,7 @@ const currentCaption = (currentImage as HeroImage)?.caption
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.1 }}
                   className="
-          absolute bottom-4 left-4 z-20
+          absolute top-4 left-4 z-20
           bg-black/40 backdrop-blur-sm
           text-white text-xs font-medium font-body
           px-3 py-1.5 rounded-full
