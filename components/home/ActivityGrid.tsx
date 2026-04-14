@@ -54,7 +54,7 @@ const fallbackTiles: ActivityTile[] = [
     description:
       "Over £45,000 raised for local causes, charities, and community initiatives.",
     href: "/impact",
-    badge: "15+ Years",
+    badge: "80+ Years",
   },
   {
     label: "Community Events",
