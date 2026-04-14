@@ -118,6 +118,7 @@ export interface HomepageData {
   sponsors: Sponsor[];
   impactStats: ImpactStats;
   settings: SiteSettings;
+  members: ClubMember[]; // add this
 }
 
 export interface Page {

@@ -2,6 +2,7 @@ import { getHomepageData } from "@/lib/sanity.fetch";
 import dynamic from "next/dynamic";
 import Hero from "@/components/home/Hero";
 import FeaturedEvents from "@/components/home/FeaturedEvents";
+import MeetTheTeam from "@/components/home/MeetTheTeam";
 
 // Dynamically import below-fold sections
 const ImpactNumbers = dynamic(() => import("@/components/home/ImpactNumbers"));
@@ -36,6 +37,8 @@ export default async function Home() {
       <SponsorsStrip sponsors={data.sponsors} />
 
       <JoinCTA settings={data.settings} />
+
+      <MeetTheTeam members={data.members} />
     </>
   );
 }

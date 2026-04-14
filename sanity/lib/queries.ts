@@ -244,6 +244,9 @@ export const homepageQuery = `
     "impactStats": {
       "totalContributions": count(*[_type == "contribution"])
     },
+    "members": *[_type == "clubMember"] | order(order asc) [0...8] {
+  _id, name, role, photo, bio
+},
     "settings": *[_type == "siteSettings"][0] {
   clubName,
   meetingDay,

@@ -28,9 +28,8 @@ export default function ImpactNumbers({
       label: "Raised for Local Causes",
     },
     {
-      value: totalContributions,
       suffix: "+",
-      value: 10000
+      value: 10000,
       label: "Donations & Contributions Made",
     },
     {
