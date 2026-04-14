@@ -172,10 +172,10 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
 
               {/* CTA buttons */}
               <div className="flex flex-wrap gap-4 mb-10">
-                <Link href="/contact">
+                <Link href="https://rotary-ribi.org/clubs/homepage.php?ClubID=467">
                   <Button variant="primary">Join Us</Button>
                 </Link>
-                <Link href="/about">
+                <Link href="https://rotary-ribi.org/clubs/homepage.php?ClubID=467">
                   <Button variant="secondary">About Us</Button>
                 </Link>
               </div>
@@ -257,7 +257,7 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
 
                 {/* Members link */}
                 <a
-                  href="https://rotary.org"
+                  href="https://rotary-ribi.org/clubs/homepage.php?ClubID=467g"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="

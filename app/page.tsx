@@ -1,12 +1,16 @@
+import { getHomepageData } from "@/lib/sanity.fetch";
+import dynamic from "next/dynamic";
 import Hero from "@/components/home/Hero";
 import FeaturedEvents from "@/components/home/FeaturedEvents";
-import ImpactNumbers from "@/components/home/ImpactNumbers";
-import LatestNews from "@/components/home/LatestNews";
-import OurCauses from "@/components/home/OurCauses";
-import ActivityGrid from "@/components/home/ActivityGrid";
-import SponsorsStrip from "@/components/home/SponsorsStrip";
-import JoinCTA from "@/components/home/JoinCTA";
-import { getHomepageData } from "@/lib/sanity.fetch";
+
+// Dynamically import below-fold sections
+const ImpactNumbers = dynamic(() => import("@/components/home/ImpactNumbers"));
+const LatestNews = dynamic(() => import("@/components/home/LatestNews"));
+const OurCauses = dynamic(() => import("@/components/home/OurCauses"));
+// const MeetTheTeam = dynamic(() => import("@/components/home/MeetTheTeam"));
+const ActivityGrid = dynamic(() => import("@/components/home/ActivityGrid"));
+const SponsorsStrip = dynamic(() => import("@/components/home/SponsorsStrip"));
+const JoinCTA = dynamic(() => import("@/components/home/JoinCTA"));
 
 export default async function Home() {
   const data = await getHomepageData();

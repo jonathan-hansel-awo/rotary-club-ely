@@ -47,7 +47,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${plusJakartaSans.variable} ${inter.variable}`}>
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="https://rotaryclubely.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcgu2y1hc%2Fproduction%2F3cd2508cf07a5666591ff16635aec37e097e1bef-1072x800.jpg%3Frect%3D0%2C43%2C1072%2C715%26w%3D1200%26h%3D800%26fit%3Dmax%26auto%3Dformat&w=1080&q=75"
+          fetchPriority="high"
+        />
+      </head>
       <body
         className={`
     ${plusJakartaSans.variable}
