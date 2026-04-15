@@ -55,13 +55,15 @@ export interface NewsPost {
 
 export interface Contribution {
   _id: string;
-  recipient: string;
+  title?: string;
   slug: Slug;
   date: string;
   amount?: string;
   summary: string;
-  description?: unknown[];
+  recipient: string;
+  description?: TypedObject[];
   image?: SanityImage;
+  related?: Omit<Contribution, "description" | "related">[];
 }
 
 export interface Cause {

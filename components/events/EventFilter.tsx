@@ -3,16 +3,22 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
+
 const CATEGORIES = [
-  "All",
-  "Aquafest",
-  "Fireworks",
-  "Community",
-  "Social",
-  "Fundraising",
-  "Other",
+  { label: "All", value: "All" },
+  { label: "Aquafest", value: "aquafest" },
+  { label: "Fireworks", value: "fireworks" },
+  { label: "Community", value: "community" },
+  { label: "Social", value: "social" },
+  { label: "Fundraising", value: "fundraising" },
+  { label: "Other", value: "other" },
 ];
-const STATUSES = ["All", "Upcoming", "Past"];
+
+const STATUSES = [
+  { label: "All", value: "All" },
+  { label: "Upcoming", value: "Upcoming" },
+  { label: "Past", value: "Past" },
+];
 
 export default function EventFilter() {
   const router = useRouter();
@@ -57,20 +63,20 @@ export default function EventFilter() {
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map((category) => (
               <button
-                key={category}
-                onClick={() => handleCategory(category)}
+                key={category.value}
+                onClick={() => handleCategory(category.value)}
                 className={`
                   px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200
                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rotary-gold
                   ${
-                    activeCategory === category
+                    activeCategory === category.value
                       ? "bg-rotary-gold text-grey-900 shadow-sm"
                       : "bg-grey-100 text-grey-700 hover:bg-grey-200"
                   }
                 `}
-                aria-pressed={activeCategory === category}
+                aria-pressed={activeCategory === category.value}
               >
-                {category}
+                {category.label}
               </button>
             ))}
           </div>
@@ -79,20 +85,20 @@ export default function EventFilter() {
           <div className="flex gap-2 shrink-0">
             {STATUSES.map((status) => (
               <button
-                key={status}
-                onClick={() => handleStatus(status)}
+                key={status.value}
+                onClick={() => handleStatus(status.value)}
                 className={`
                   px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200
                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rotary-gold
                   ${
-                    activeStatus === status
+                    activeStatus === status.value
                       ? "bg-rotary-blue text-white shadow-sm"
                       : "bg-grey-100 text-grey-700 hover:bg-grey-200"
                   }
                 `}
-                aria-pressed={activeStatus === status}
+                aria-pressed={activeStatus === status.value}
               >
-                {status}
+                {status.label}
               </button>
             ))}
           </div>
