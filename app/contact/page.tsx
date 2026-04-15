@@ -20,7 +20,7 @@ export default function ContactPage() {
             Get In Touch
           </p>
           <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-white leading-tight">
-            Contact & Join Us
+            Contact Us
           </h1>
           <p className="mt-4 text-lg text-white/80 max-w-xl">
             Whether you're curious about joining, have a question about our events, or want to explore a partnership — we'd love to hear from you.

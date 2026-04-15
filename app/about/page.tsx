@@ -115,9 +115,9 @@ export default async function AboutPage() {
               {members.map((member: ClubMember) => (
                 <div key={member._id} className="text-center">
                   <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden bg-grey-200">
-                    {member.photo ? (
+                    {member.photo!.asset ? (
                       <Image
-                        src={urlForImage(member.photo).width(96).height(96).url()}
+                        src={urlForImage(member.photo!).width(96).height(96).url()}
                         alt={member.name}
                         width={96}
                         height={96}
