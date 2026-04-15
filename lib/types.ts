@@ -48,9 +48,10 @@ export interface NewsPost {
   title: string;
   slug: Slug;
   date: string;
-  body?: unknown[];
+  body?: TypedObject[];
   image?: SanityImage;
   pinned?: boolean;
+  related?: Omit<NewsPost, "body" | "related">[];
 }
 
 export interface Contribution {
@@ -76,6 +77,7 @@ export interface Cause {
   externalUrl?: string;
   order?: number;
   active?: boolean;
+  related?: Omit<Cause, "description" | "related">[];
 }
 
 export interface Sponsor {
