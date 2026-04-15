@@ -20,6 +20,7 @@ import {
   clubMembersQuery,
   pageBySlugQuery,
   siteSettingsQuery,
+  aboutPageQuery,
 } from "@/sanity/lib/queries";
 
 import type {
@@ -205,4 +206,8 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
     { slug },
     { next: { revalidate: DEFAULT_REVALIDATE } },
   );
+}
+
+export async function getAboutPage() {
+  return client.fetch(aboutPageQuery);
 }

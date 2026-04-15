@@ -226,6 +226,13 @@ export const pageBySlugQuery = `
   }
 `;
 
+export const aboutPageQuery = `
+  *[_type == "page" && slug.current == "about"][0] {
+    title,
+    body
+  }
+`;
+
 // ─── Homepage (parallel fetch) ────────────────────────────────
 export const homepageQuery = `
   {
