@@ -72,7 +72,7 @@ export interface Cause {
   name: string;
   slug: Slug;
   summary: string;
-  description?: unknown[];
+  description?: TypedObject[];
   image?: SanityImage;
   externalUrl?: string;
   order?: number;
