@@ -98,7 +98,7 @@ function MemberCard({ member, index }: { member: ClubMember; index: number }) {
           className="
           font-heading font-semibold
           text-[1rem] text-text-primary
-          leading-snug mb-1
+          leading-snug mb-1 text-center
         "
         >
           {member.name}
@@ -107,7 +107,7 @@ function MemberCard({ member, index }: { member: ClubMember; index: number }) {
           <p
             className="
             font-body text-xs font-medium uppercase
-            tracking-[0.06em] text-[#D4900F] mb-3
+            tracking-[0.06em] text-[#D4900F] mb-3 text-center
           "
           >
             {member.role}

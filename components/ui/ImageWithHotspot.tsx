@@ -3,7 +3,7 @@ interface Hotspot {
   y: number;
 }
 
-interface SanityImageRef {
+export interface SanityImageRef {
   _type: "image";
   asset: {
     _ref: string;
