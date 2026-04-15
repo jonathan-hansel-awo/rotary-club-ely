@@ -1,61 +1,89 @@
 /* eslint-disable react/no-unescaped-entities */
-import Link from 'next/link'
+import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { siteSettingsQuery } from "@/sanity/lib/queries";
-import Image from 'next/image';
+import Image from "next/image";
 
 // Social icon SVGs — inline to avoid extra dependencies
 function FacebookIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
     </svg>
-  )
+  );
 }
 
 function TwitterIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M4 4l16 16M4 20L20 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        d="M4 4l16 16M4 20L20 4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        fill="none"
+      />
     </svg>
-  )
+  );
 }
 
 function InstagramIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
     </svg>
-  )
+  );
 }
 
 const socialIconMap: Record<string, React.ComponentType> = {
   facebook: FacebookIcon,
   twitter: TwitterIcon,
   instagram: InstagramIcon,
-}
+};
 
 const quickLinks = [
-  { label: 'Events', href: '/events' },
-  { label: 'Our Impact', href: '/impact' },
-  { label: 'Our Causes', href: '/causes' },
-  { label: 'Latest', href: '/news' },
-  { label: 'About', href: '/about' },
-]
+  { label: "Events", href: "/events" },
+  { label: "Our Impact", href: "/impact" },
+  { label: "Our Causes", href: "/causes" },
+  { label: "Latest", href: "/news" },
+  { label: "About", href: "/about" },
+];
 
 const getInvolvedLinks = [
-  { label: 'Join the Club', href: '/contact#join' },
-  { label: 'Volunteer', href: '/contact#volunteer' },
-  { label: 'Contact Us', href: '/contact' },
-  { label: 'Members ↗', href: 'https://rotary.org', external: true },
-]
+  { label: "Join the Club", href: "/contact#join" },
+  { label: "Volunteer", href: "/contact#volunteer" },
+  { label: "Contact Us", href: "/contact" },
+  { label: "Members ↗", href: "https://rotary.org", external: true },
+];
 
 export default async function Footer() {
   const settings = await client.fetch(siteSettingsQuery);
 
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-[#0C2340]">
@@ -68,7 +96,7 @@ export default async function Footer() {
             <Link href="/" className="flex items-center gap-3 flex-shrink-0">
               <div className="relative h-10 w-10">
                 <Image
-                  src="/rotary-logo.png"
+                  src="/rotary-logo.svg"
                   alt="Rotary Club of Ely"
                   fill
                   sizes="40px"

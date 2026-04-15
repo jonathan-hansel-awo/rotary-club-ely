@@ -50,24 +50,24 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0">
             <div className="relative h-10 w-10">
-            <Image
-              src="/rotary-logo.png"
-              alt="Rotary Club of Ely"
-              fill
-              sizes="40px"
-              className={`
+              <Image
+                src="/rotary-logo.svg"
+                alt="Rotary Club of Ely"
+                fill
+                sizes="40px"
+                className={`
       object-contain object-left
       transition-all duration-300
       ${scrolled ? "brightness-100" : "brightness-0 invert"}
     `}
-              priority
-            />
+                priority
+              />
             </div>
             <span
               className={`
                 font-heading font-bold text-base leading-tight
                 transition-colors duration-300
-                ${scrolled ? "text-rotary-blue" : "text-white"}
+                ${scrolled ? "text-rotary-blue" : "text-rotary-gold"}
               `}
             >
               Rotary Club of Ely
@@ -136,7 +136,7 @@ export default function Header() {
             className={`
               lg:hidden flex flex-col gap-1.5 p-2 rounded-md
               transition-colors duration-150
-              ${scrolled ? "text-text-primary" : "text-white"}
+              ${scrolled ? "text-text-primary" : "text-rotary-gold"}
             `}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}

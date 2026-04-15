@@ -8,9 +8,16 @@ import { ClubMember } from '@/lib/types'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'About | Rotary Club of Ely',
-  description: 'Learn about the Rotary Club of Ely — our history, our members, and what Rotary means to our community.',
-}
+  title: "About",
+  description:
+    "Learn about the Rotary Club of Ely — over 80 years of community service, charitable giving, and bringing people together in East Cambridgeshire.",
+  openGraph: {
+    title: "About | Rotary Club of Ely",
+    description:
+      "Over 80 years of community service in Ely. Learn who we are, what we do, and how to get involved.",
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
+  },
+};
 
 export default async function AboutPage() {
   const [page, members] = await Promise.all([

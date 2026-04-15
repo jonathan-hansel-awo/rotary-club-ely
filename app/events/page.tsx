@@ -9,9 +9,15 @@ import Container from "@/components/layout/Container";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Events | Rotary Club of Ely",
+  title: "Events",
   description:
     "Upcoming and past events organised by the Rotary Club of Ely — from Aquafest to Fireworks and community activities.",
+  openGraph: {
+    title: "Events | Rotary Club of Ely",
+    description:
+      "From Aquafest to Fireworks — find upcoming and past events organised by the Rotary Club of Ely.",
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
+  },
 };
 
 interface EventsPageProps {

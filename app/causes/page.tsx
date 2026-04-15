@@ -9,10 +9,16 @@ import { Cause } from '@/lib/types'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Our Causes | Rotary Club of Ely',
+  title: "Our Causes",
   description:
-    'The causes, missions and programmes supported by the Rotary Club of Ely — locally in East Cambridgeshire and as part of Rotary International.',
-}
+    "The causes, missions and programmes supported by the Rotary Club of Ely — locally in East Cambridgeshire and as part of Rotary International.",
+  openGraph: {
+    title: "Our Causes | Rotary Club of Ely",
+    description:
+      "From local community projects to global Rotary programmes — the causes our members work to support.",
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
+  },
+};
 
 export default async function CausesPage() {
   const causes = await getActiveCauses()

@@ -9,9 +9,15 @@ import { Contribution } from "@/lib/types";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Our Impact | Rotary Club of Ely",
+  title: "Our Impact",
   description:
     "For over 80 years the Rotary Club of Ely has supported local causes, charities, and community initiatives across East Cambridgeshire.",
+  openGraph: {
+    title: "Our Impact | Rotary Club of Ely",
+    description:
+      "Over 80 years of fundraising, volunteering and charitable support in Ely and East Cambridgeshire.",
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
+  },
 };
 
 export default async function ImpactPage() {

@@ -23,22 +23,56 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: {
     template: "%s | Rotary Club of Ely",
-    default: "Rotary Club of Ely",
+    default: "Rotary Club of Ely — People of Action",
   },
   description:
     "People of Action, Right Here in Ely. The Rotary Club of Ely organises community events, raises funds for local causes, and welcomes new members.",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://rotaryclubofely.co.uk"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://rotaryclubofely.co.uk",
   ),
   openGraph: {
     siteName: "Rotary Club of Ely",
     type: "website",
     locale: "en_GB",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Rotary Club of Ely — People of Action",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-default.png"],
   },
   robots: {
     index: true,
     follow: true,
   },
+};
+
+const organisationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Rotary Club of Ely",
+  url: "https://rotaryclubofely.co.uk",
+  logo: "https://rotaryclubofely.co.uk/rotary-logo.png",
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "info@rotaryclubofely.co.uk",
+    contactType: "customer service",
+  },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "19 Nutholt Lane",
+    addressLocality: "Ely",
+    addressRegion: "Cambridgeshire",
+    postalCode: "CB7 4PL",
+    addressCountry: "GB",
+  },
+  sameAs: [],
 };
 
 export default function RootLayout({
@@ -49,39 +83,25 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${inter.variable}`}>
       <head>
-        <link
-          rel="preload"
-          as="image"
-          href="https://rotaryclubely.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcgu2y1hc%2Fproduction%2F3cd2508cf07a5666591ff16635aec37e097e1bef-1072x800.jpg%3Frect%3D0%2C43%2C1072%2C715%26w%3D1200%26h%3D800%26fit%3Dmax%26auto%3Dformat&w=1080&q=75"
-          fetchPriority="high"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organisationSchema),
+          }}
         />
       </head>
       <body
         className={`
-    ${plusJakartaSans.variable}
-    ${inter.variable}
-    bg-bg-primary
-    text-text-primary
-    font-body
-    antialiased
-  `}
+          ${plusJakartaSans.variable}
+          ${inter.variable}
+          bg-bg-primary
+          text-text-primary
+          font-body
+          antialiased
+        `}
       >
-        <a
-          href="#main-content"
-          className="
-      sr-only focus:not-sr-only
-      fixed top-4 left-4 z-100
-      bg-rotary-gold text-grey-900
-      font-body font-semibold text-sm
-      px-4 py-2 rounded-sm
-      focus:outline-none
-    "
-        >
-          Skip to main content
-        </a>
         <SkipToContent />
         <Header />
-
         <PageTransition>
           <main id="main-content">{children}</main>
         </PageTransition>

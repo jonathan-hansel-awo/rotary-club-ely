@@ -1,20 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
-import Link from 'next/link'
-import FadeInOnScroll from '@/components/animation/FadeInOnScroll'
-import Button from '@/components/ui/Button'
-import type { SiteSettings } from '@/lib/types'
-import Image from 'next/image'
+import Link from "next/link";
+import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
+import Button from "@/components/ui/Button";
+import type { SiteSettings } from "@/lib/types";
+import Image from "next/image";
 
 interface JoinCTAProps {
-  settings: SiteSettings
+  settings: SiteSettings;
 }
 
 export default function JoinCTA({ settings }: JoinCTAProps) {
   const meetingLine1 = [settings.meetingDay, settings.meetingTime]
     .filter(Boolean)
-    .join(' at ')
+    .join(" at ");
 
-  const meetingLine2 = settings.meetingLocation ?? null
+  const meetingLine2 = settings.meetingLocation ?? null;
 
   return (
     <section
@@ -71,7 +71,7 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
               <div className="relative">
                 <div className="relative h-10 w-10">
                   <Image
-                    src="/rotary-logo.png"
+                    src="/rotary-logo.svg"
                     alt="Rotary Club of Ely"
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"

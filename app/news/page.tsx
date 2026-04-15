@@ -11,9 +11,15 @@ import Container from "@/components/layout/Container";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Latest News | Rotary Club of Ely",
+  title: "Latest News",
   description:
     "The latest news, announcements and updates from the Rotary Club of Ely.",
+  openGraph: {
+    title: "Latest News | Rotary Club of Ely",
+    description:
+      "The latest news, announcements and updates from the Rotary Club of Ely.",
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
+  },
 };
 
 

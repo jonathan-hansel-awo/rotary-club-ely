@@ -1,14 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import { useState, useEffect } from 'react'
-import type { HeroImage } from '@/lib/types'
-import { urlForImage } from '@/sanity/lib/image'
+import { useState, useEffect } from "react";
+import type { HeroImage } from "@/lib/types";
+import { urlForImage } from "@/sanity/lib/image";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import Button from "@/components/ui/Button";
-
 
 interface HeroProps {
   imageSrc: string;
@@ -19,42 +18,45 @@ interface HeroProps {
 export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
 
-  const [currentIndex, setCurrentIndex] = useState(0)
-const [isFlipping, setIsFlipping] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isFlipping, setIsFlipping] = useState(false);
 
-const images = heroImages && heroImages.length > 0
-  ? heroImages
-  : imageSrc
-    ? [{ asset: { _ref: '' }, alt: imageAlt, _type: 'image' as const }]
-    : []
+  const images =
+    heroImages && heroImages.length > 0
+      ? heroImages
+      : imageSrc
+        ? [{ asset: { _ref: "" }, alt: imageAlt, _type: "image" as const }]
+        : [];
 
-const hasMultiple = images.length > 1
+  const hasMultiple = images.length > 1;
 
-useEffect(() => {
-  if (!hasMultiple || shouldReduceMotion) return
-  const interval = setInterval(() => {
-    setIsFlipping(true)
-    setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length)
-      setIsFlipping(false)
-    }, 400)
-  }, 6000)
-  return () => clearInterval(interval)
-}, [hasMultiple, images.length, shouldReduceMotion])
+  useEffect(() => {
+    if (!hasMultiple || shouldReduceMotion) return;
+    const interval = setInterval(() => {
+      setIsFlipping(true);
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % images.length);
+        setIsFlipping(false);
+      }, 400);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [hasMultiple, images.length, shouldReduceMotion]);
 
-function buildUrl(image: HeroImage): string | null {
-  if (!image?.asset?._ref) return imageSrc || null
-  try {
-    return urlForImage(image).width(1200).height(800).url()
-  } catch {
-    return imageSrc || null
+  function buildUrl(image: HeroImage): string | null {
+    if (!image?.asset?._ref) return imageSrc || null;
+    try {
+      return urlForImage(image).width(1200).height(800).url();
+    } catch {
+      return imageSrc || null;
+    }
   }
-}
 
-const currentImage = images[currentIndex]
-const currentUrl = currentImage ? buildUrl(currentImage as HeroImage) : imageSrc
-const currentAlt = currentImage?.alt ?? imageAlt
-const currentCaption = (currentImage as HeroImage)?.caption
+  const currentImage = images[currentIndex];
+  const currentUrl = currentImage
+    ? buildUrl(currentImage as HeroImage)
+    : imageSrc;
+  const currentAlt = currentImage?.alt ?? imageAlt;
+  const currentCaption = (currentImage as HeroImage)?.caption;
 
   // Animation variants
   const containerVariants = {
@@ -130,7 +132,7 @@ const currentCaption = (currentImage as HeroImage)?.caption
         }
       >
         <Image
-          src="/rotary-logo.png"
+          src="/rotary-logo.svg"
           alt=""
           fill
           sizes="h-full w-auto"

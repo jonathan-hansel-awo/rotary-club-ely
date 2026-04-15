@@ -2,12 +2,20 @@
 import ContactForm from '@/components/contact/ContactForm'
 import type { Metadata } from 'next'
 
+
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Contact & Join Us | Rotary Club of Ely',
-  description: 'Get in touch with the Rotary Club of Ely. We meet every Thursday at 8pm at The City of Ely Bowls Club. New visitors always welcome.',
-}
+  title: "Contact Us",
+  description:
+    "Get in touch with the Rotary Club of Ely. We meet every Thursday at 8pm at The City of Ely Bowls Club. New visitors always welcome.",
+  openGraph: {
+    title: "Contact Us | Rotary Club of Ely",
+    description:
+      "Get in touch or come along to a Thursday meeting. We'd love to hear from you.",
+    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
+  },
+};
 
 export default function ContactPage() {
   return (
