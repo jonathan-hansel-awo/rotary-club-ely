@@ -1,3 +1,5 @@
+import { TypedObject } from "sanity";
+
 export interface Slug {
   current: string;
 }
@@ -15,21 +17,30 @@ export interface SanityImage {
   alt?: string;
 }
 
+export interface RelatedEvent {
+  _id: string;
+  title: string;
+  slug: Slug;
+  dateStart: string;
+  category: string;
+  heroImage?: SanityImage;
+  location?: string;
+}
+
 export interface Event {
   _id: string;
   title: string;
   slug: Slug;
   dateStart: string;
   dateEnd?: string;
-  category: string;
   location?: string;
-  description?: unknown[];
+  category: string;
+  description?: TypedObject[];
   heroImage?: SanityImage;
-  gallery?: SanityImage[];
+  gallery?: (SanityImage & { _key: string })[];
   featured?: boolean;
   externalUrl?: string;
-  status?: "upcoming" | "past";
-  sponsors?: Sponsor[];
+  relatedEvents?: RelatedEvent[];
 }
 
 export interface NewsPost {
