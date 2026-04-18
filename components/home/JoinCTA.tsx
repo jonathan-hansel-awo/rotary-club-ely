@@ -175,8 +175,8 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
                 <Link href="https://www.rotarygbi.org/join/">
                   <Button variant="primary">Join Us</Button>
                 </Link>
-                <Link href="/about">
-                  <Button variant="secondary">About Us</Button>
+                <Link href="/contact">
+                  <Button variant="secondary">Contact Us</Button>
                 </Link>
               </div>
 

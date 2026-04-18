@@ -207,11 +207,15 @@ export default function Header() {
               transitionDelay: menuOpen ? `${navLinks.length * 60}ms` : "0ms",
             }}
           >
-            <Button as="a" href="/contact" variant="primary">
+            <Button
+              as="a"
+              href="https://www.rotarygbi.org/join/"
+              variant="primary"
+            >
               Join Us
             </Button>
             <a
-              href="https://rotary.org"
+              href="https://id.rotary.org/login/login.htm"
               target="_blank"
               rel="noopener noreferrer"
               className="font-body text-sm text-white/60 hover:text-white transition-colors"
