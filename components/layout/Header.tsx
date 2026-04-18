@@ -168,14 +168,18 @@ export default function Header() {
 
       {/* Mobile menu overlay */}
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+        aria-hidden={!menuOpen}
         className={`
-          fixed inset-0 z-40
-          bg-rotary-blue-dark/95 backdrop-blur-md
-          flex flex-col
-          transition-all duration-300 ease-out
-          lg:hidden
-          ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
-        `}
+    fixed inset-0 z-40
+    bg-rotary-blue-dark/95 backdrop-blur-md
+    flex flex-col
+    transition-all duration-300 ease-out
+    lg:hidden
+    ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+  `}
       >
         <div className="flex flex-col items-center justify-center h-full gap-8 px-8">
           {navLinks.map((link, i) => (

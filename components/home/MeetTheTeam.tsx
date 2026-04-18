@@ -106,9 +106,9 @@ function MemberCard({ member, index }: { member: ClubMember; index: number }) {
         {member.role && (
           <p
             className="
-            font-body text-xs font-medium uppercase
-            tracking-[0.06em] text-[#D4900F] mb-3 text-center
-          "
+              font-body text-xs font-medium uppercase
+              tracking-[0.06em] text-grey-700 mb-3 text-center
+                "
           >
             {member.role}
           </p>
@@ -324,8 +324,11 @@ export default function MeetTheTeam({ members }: MeetTheTeamProps) {
               scrollbar-hide
               px-[clamp(1rem,2vw,2rem)]
               pb-4
-            "
+                "
             style={{ scrollBehavior: "auto" }}
+            tabIndex={0}
+            role="region"
+            aria-label="Club members carousel — use arrow buttons or arrow keys to scroll"
             onMouseEnter={pause}
             onMouseLeave={resume}
             onTouchStart={pause}
