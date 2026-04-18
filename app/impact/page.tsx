@@ -66,17 +66,19 @@ export default async function ImpactPage() {
                 <p className="text-lg font-semibold text-grey-700">
                   No contributions found
                 </p>
-                <p className="mt-2 text-grey-500">Check back soon.</p>
+                <p className="mt-2 text-grey-700">Check back soon.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {contributions.map((contribution: Contribution, index: number) => (
-                  <ContributionCard
-                    key={contribution._id}
-                    contribution={contribution}
-                    index={index}
-                  />
-                ))}
+                {contributions.map(
+                  (contribution: Contribution, index: number) => (
+                    <ContributionCard
+                      key={contribution._id}
+                      contribution={contribution}
+                      index={index}
+                    />
+                  ),
+                )}
               </div>
             )}
           </Container>

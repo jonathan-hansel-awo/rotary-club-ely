@@ -199,7 +199,7 @@ export default async function NewsPostDetailPage({
                                 <p className="text-sm font-medium text-grey-900 group-hover:text-rotary-blue transition-colors leading-snug">
                                   {related.title}
                                 </p>
-                                <p className="mt-0.5 text-xs text-grey-500">
+                                <p className="mt-0.5 text-xs text-grey-700">
                                   {new Date(related.date).toLocaleDateString(
                                     "en-GB",
                                     {
@@ -329,7 +329,7 @@ function NewsListItem({ post }: { post: NewsPost }) {
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="mb-1 text-xs text-grey-500">
+        <p className="mb-1 text-xs text-grey-700">
           {new Date(post.date).toLocaleDateString("en-GB", {
             day: "numeric",
             month: "long",
@@ -339,7 +339,6 @@ function NewsListItem({ post }: { post: NewsPost }) {
         <h2 className="font-heading text-base font-semibold text-grey-900 leading-snug group-hover:text-rotary-blue transition-colors truncate">
           {post.title}
         </h2>
-
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"

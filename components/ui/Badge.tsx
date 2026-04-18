@@ -9,7 +9,7 @@ interface BadgeProps {
 const variantClasses: Record<BadgeVariant, string> = {
   category: "bg-rotary-blue/10 text-rotary-blue",
   upcoming: "bg-rotary-gold/15 text-rotary-gold-dark",
-  past: "bg-grey-200 text-grey-500",
+  past: "bg-grey-200 text-grey-700",
   featured: "bg-cranberry/10 text-cranberry",
 };
 

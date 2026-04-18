@@ -220,7 +220,7 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
                   <p
                     className="
                     font-body font-medium text-xs uppercase
-                    tracking-[0.06em] text-[#8A8681]
+                    tracking-[0.06em] text-[#4A4845]
                     mb-1
                   "
                   >
@@ -263,7 +263,7 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
                   className="
                     flex-shrink-0 self-start
                     font-body font-medium text-xs
-                    text-[#8A8681] hover:text-[#17458F]
+                    text-[#4A4845] hover:text-[#17458F]
                     transition-colors duration-150
                     whitespace-nowrap
                   "

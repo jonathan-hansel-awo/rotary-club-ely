@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import InteriorHero from "@/components/ui/InteriorHero";
-import EventFilter from "@/components/events/EventFilter"
+import EventFilter from "@/components/events/EventFilter";
 import type { Metadata } from "next";
 import { getAllEvents } from "@/lib/sanity.fetch";
 import EventCard from "@/components/events/EventCard";
@@ -47,7 +47,7 @@ async function EventsList({ searchParams }: EventsPageProps) {
         <p className="text-xl font-heading font-semibold text-grey-700">
           No events found
         </p>
-        <p className="mt-2 text-grey-500">Try adjusting the filters above.</p>
+        <p className="mt-2 text-grey-700">Try adjusting the filters above.</p>
       </div>
     );
   }

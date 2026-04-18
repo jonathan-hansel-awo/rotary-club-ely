@@ -11,7 +11,6 @@ import { getAllContributions, getContributionBySlug } from "@/lib/sanity.fetch";
 import Container from "@/components/layout/Container";
 import { Contribution } from "@/lib/types";
 
-
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
@@ -129,7 +128,7 @@ export default async function ContributionDetailPage({
           <Container>
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="mb-8">
-              <ol className="flex items-center gap-2 text-sm text-grey-500">
+              <ol className="flex items-center gap-2 text-sm text-grey-700">
                 <li>
                   <Link
                     href="/"
@@ -162,7 +161,7 @@ export default async function ContributionDetailPage({
                   <div className="mb-8 rounded-xl bg-white p-6 shadow-sm border border-grey-200">
                     <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div>
-                        <dt className="text-xs font-medium uppercase tracking-wider text-grey-500 mb-1">
+                        <dt className="text-xs font-medium uppercase tracking-wider text-grey-700 mb-1">
                           Recipient
                         </dt>
                         <dd className="text-sm font-semibold text-grey-900">
@@ -170,7 +169,7 @@ export default async function ContributionDetailPage({
                         </dd>
                       </div>
                       <div>
-                        <dt className="text-xs font-medium uppercase tracking-wider text-grey-500 mb-1">
+                        <dt className="text-xs font-medium uppercase tracking-wider text-grey-700 mb-1">
                           Date
                         </dt>
                         <dd className="text-sm font-semibold text-grey-900">
@@ -179,7 +178,7 @@ export default async function ContributionDetailPage({
                       </div>
                       {contribution.amount && (
                         <div className="sm:col-span-2">
-                          <dt className="text-xs font-medium uppercase tracking-wider text-grey-500 mb-1">
+                          <dt className="text-xs font-medium uppercase tracking-wider text-grey-700 mb-1">
                             Contribution
                           </dt>
                           <dd className="inline-flex items-center rounded-full bg-rotary-gold/15 px-4 py-1.5 text-sm font-bold text-rotary-gold-dark">
@@ -250,7 +249,7 @@ export default async function ContributionDetailPage({
 
                     {/* Get involved */}
                     <div className="rounded-xl bg-white p-6 shadow-sm border border-grey-200">
-                      <p className="text-xs font-medium uppercase tracking-wider text-grey-500 mb-2">
+                      <p className="text-xs font-medium uppercase tracking-wider text-grey-700 mb-2">
                         Get Involved
                       </p>
                       <p className="text-sm text-grey-600 leading-relaxed mb-4">
@@ -301,13 +300,15 @@ export default async function ContributionDetailPage({
                 More Impact Stories
               </h2>
               <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {contribution.related.map((related: Contribution, index: number) => (
-                  <ContributionCard
-                    key={related._id}
-                    contribution={related}
-                    index={index}
-                  />
-                ))}
+                {contribution.related.map(
+                  (related: Contribution, index: number) => (
+                    <ContributionCard
+                      key={related._id}
+                      contribution={related}
+                      index={index}
+                    />
+                  ),
+                )}
               </div>
             </Container>
           </section>

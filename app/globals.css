@@ -20,14 +20,14 @@
   --color-grey-100: #F1F0ED;
   --color-grey-200: #E2E0DB;
   --color-grey-300: #C5C2BA;
-  --color-grey-500: #8A8681;
+  --color-grey-700: #4A4845;
   --color-grey-700: #4A4845;
   --color-grey-900: #1A1918;
 
   /* ── Semantic ── */
   --color-text-primary: #1A1918;
   --color-text-secondary: #4A4845;
-  --color-text-muted: #8A8681;
+  --color-text-muted: #4A4845;
   --color-bg-primary: #F8F7F4;
   --color-bg-card: #FFFFFF;
   --color-link: #0067C8;

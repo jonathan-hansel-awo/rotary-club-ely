@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
-import type { Metadata } from 'next'
-import { getActiveCauses } from '@/lib/sanity.fetch'
-import InteriorHero from '@/components/ui/InteriorHero'
-import Container from '@/components/layout/Container'
-import CauseCard from '@/components/impact/CauseCard'
-import { Cause } from '@/lib/types'
+import type { Metadata } from "next";
+import { getActiveCauses } from "@/lib/sanity.fetch";
+import InteriorHero from "@/components/ui/InteriorHero";
+import Container from "@/components/layout/Container";
+import CauseCard from "@/components/impact/CauseCard";
+import { Cause } from "@/lib/types";
 
-export const revalidate = 3600
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Our Causes",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CausesPage() {
-  const causes = await getActiveCauses()
+  const causes = await getActiveCauses();
 
   return (
     <>
@@ -34,7 +34,6 @@ export default async function CausesPage() {
       <main id="main-content">
         <section className="bg-off-white py-12 md:py-20">
           <Container>
-
             {/* Intro */}
             <div className="mb-12 max-w-2xl">
               <p className="mb-2 text-sm font-medium uppercase tracking-wider text-rotary-gold-dark">
@@ -56,16 +55,12 @@ export default async function CausesPage() {
                 <p className="text-lg font-semibold text-grey-700">
                   No causes listed yet
                 </p>
-                <p className="mt-2 text-grey-500">Check back soon.</p>
+                <p className="mt-2 text-grey-700">Check back soon.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {causes.map((cause: Cause, index: number) => (
-                  <CauseCard
-                    key={cause._id}
-                    cause={cause}
-                    index={index}
-                  />
+                  <CauseCard key={cause._id} cause={cause} index={index} />
                 ))}
               </div>
             )}
@@ -83,8 +78,8 @@ export default async function CausesPage() {
                   <p className="text-sm text-grey-600 leading-relaxed">
                     Through our membership of Rotary International we contribute
                     to worldwide initiatives including the eradication of polio,
-                    peacebuilding, clean water projects, and supporting education
-                    in developing countries.
+                    peacebuilding, clean water projects, and supporting
+                    education in developing countries.
                   </p>
                 </div>
                 <a
@@ -111,10 +106,9 @@ export default async function CausesPage() {
                 </a>
               </div>
             </div>
-
           </Container>
         </section>
       </main>
     </>
-  )
+  );
 }

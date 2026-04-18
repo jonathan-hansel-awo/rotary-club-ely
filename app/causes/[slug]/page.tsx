@@ -1,37 +1,37 @@
-import { notFound } from 'next/navigation'
-import Image from 'next/image'
-import Link from 'next/link'
-import type { Metadata } from 'next'
-import { PortableText } from '@portabletext/react'
-import { portableTextComponents } from '@/sanity/lib/portable-text'
-import { urlForImage } from '@/sanity/lib/image'
-import CauseCard from '@/components/impact/CauseCard'
-import FadeInOnScroll from '@/components/animation/FadeInOnScroll'
-import { getActiveCauses, getCauseBySlug } from '@/lib/sanity.fetch'
-import Container from '@/components/layout/Container'
-import { Cause } from '@/lib/types'
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import type { Metadata } from "next";
+import { PortableText } from "@portabletext/react";
+import { portableTextComponents } from "@/sanity/lib/portable-text";
+import { urlForImage } from "@/sanity/lib/image";
+import CauseCard from "@/components/impact/CauseCard";
+import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
+import { getActiveCauses, getCauseBySlug } from "@/lib/sanity.fetch";
+import Container from "@/components/layout/Container";
+import { Cause } from "@/lib/types";
 
-export const revalidate = 3600
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const causes = await getActiveCauses()
+  const causes = await getActiveCauses();
   return causes.map((c: { slug: { current: string } }) => ({
     slug: c.slug.current,
-  }))
+  }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params
-  const cause = await getCauseBySlug(slug)
-  if (!cause) return {}
+  const { slug } = await params;
+  const cause = await getCauseBySlug(slug);
+  if (!cause) return {};
 
   const ogImage = cause.image
     ? urlForImage(cause.image)?.width(1200).height(630).url()
-    : undefined
+    : undefined;
 
   return {
     title: `${cause.name} | Our Causes | Rotary Club of Ely`,
@@ -41,40 +41,40 @@ export async function generateMetadata({
       description: cause.summary,
       images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : [],
     },
-  }
+  };
 }
 
 export default async function CauseDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params
-  const cause = await getCauseBySlug(slug)
+  const { slug } = await params;
+  const cause = await getCauseBySlug(slug);
 
-  if (!cause) notFound()
+  if (!cause) notFound();
 
   const heroSrc = cause.image
     ? urlForImage(cause.image)?.width(1600).height(900).url()
-    : null
+    : null;
 
   const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
+    "@context": "https://schema.org",
+    "@type": "Article",
     headline: cause.name,
     description: cause.summary,
     author: {
-      '@type': 'Organization',
-      name: 'Rotary Club of Ely',
-      url: 'https://rotaryclubofely.co.uk',
+      "@type": "Organization",
+      name: "Rotary Club of Ely",
+      url: "https://rotaryclubofely.co.uk",
     },
     publisher: {
-      '@type': 'Organization',
-      name: 'Rotary Club of Ely',
-      url: 'https://rotaryclubofely.co.uk',
+      "@type": "Organization",
+      name: "Rotary Club of Ely",
+      url: "https://rotaryclubofely.co.uk",
     },
     image: heroSrc || undefined,
-  }
+  };
 
   return (
     <>
@@ -103,8 +103,8 @@ export default async function CauseDetailPage({
               className="absolute inset-0 opacity-5"
               style={{
                 backgroundImage:
-                  'radial-gradient(circle, white 1px, transparent 1px)',
-                backgroundSize: '40px 40px',
+                  "radial-gradient(circle, white 1px, transparent 1px)",
+                backgroundSize: "40px 40px",
               }}
             />
           </div>
@@ -125,18 +125,23 @@ export default async function CauseDetailPage({
       <main id="main-content">
         <section className="bg-off-white py-12 md:py-16">
           <Container>
-
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="mb-8">
-              <ol className="flex items-center gap-2 text-sm text-grey-500">
+              <ol className="flex items-center gap-2 text-sm text-grey-700">
                 <li>
-                  <Link href="/" className="hover:text-rotary-blue transition-colors">
+                  <Link
+                    href="/"
+                    className="hover:text-rotary-blue transition-colors"
+                  >
                     Home
                   </Link>
                 </li>
                 <li aria-hidden="true">/</li>
                 <li>
-                  <Link href="/causes" className="hover:text-rotary-blue transition-colors">
+                  <Link
+                    href="/causes"
+                    className="hover:text-rotary-blue transition-colors"
+                  >
                     Our Causes
                   </Link>
                 </li>
@@ -148,10 +153,8 @@ export default async function CauseDetailPage({
             </nav>
 
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
-
               {/* Main content */}
               <div className="lg:col-span-2">
-
                 {/* Summary lead */}
                 <FadeInOnScroll>
                   <p className="mb-8 text-xl font-medium text-grey-700 leading-relaxed border-l-4 border-rotary-gold pl-5">
@@ -178,7 +181,7 @@ export default async function CauseDetailPage({
                       <p className="mb-1 text-sm font-medium text-grey-700">
                         Want to find out more about this cause?
                       </p>
-                      <p className="mb-4 text-sm text-grey-500">
+                      <p className="mb-4 text-sm text-grey-700">
                         Visit the official website for more information,
                         resources, and ways to get involved.
                       </p>
@@ -213,7 +216,6 @@ export default async function CauseDetailPage({
               <aside className="lg:col-span-1">
                 <FadeInOnScroll delay={0.2}>
                   <div className="sticky top-28 space-y-6">
-
                     {/* Get involved */}
                     <div className="rounded-xl bg-rotary-blue p-6 text-white">
                       <p className="text-xs font-medium uppercase tracking-wider text-rotary-gold mb-2">
@@ -233,7 +235,7 @@ export default async function CauseDetailPage({
 
                     {/* Our impact link */}
                     <div className="rounded-xl bg-white p-6 shadow-sm border border-grey-200">
-                      <p className="text-xs font-medium uppercase tracking-wider text-grey-500 mb-2">
+                      <p className="text-xs font-medium uppercase tracking-wider text-grey-700 mb-2">
                         See Our Work in Action
                       </p>
                       <p className="text-sm text-grey-600 leading-relaxed mb-4">
@@ -286,7 +288,6 @@ export default async function CauseDetailPage({
                   </div>
                 </FadeInOnScroll>
               </aside>
-
             </div>
           </Container>
         </section>
@@ -300,11 +301,7 @@ export default async function CauseDetailPage({
               </h2>
               <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {cause.related.map((related: Cause, index: number) => (
-                  <CauseCard
-                    key={related._id}
-                    cause={related}
-                    index={index}
-                  />
+                  <CauseCard key={related._id} cause={related} index={index} />
                 ))}
               </div>
             </Container>
@@ -312,5 +309,5 @@ export default async function CauseDetailPage({
         )}
       </main>
     </>
-  )
+  );
 }

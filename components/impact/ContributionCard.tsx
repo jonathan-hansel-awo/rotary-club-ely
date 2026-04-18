@@ -81,7 +81,7 @@ export default function ContributionCard({
 
         {/* Content */}
         <div className="p-6">
-          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-grey-500">
+          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-grey-700">
             {formatDate(contribution.date)}
           </p>
           <h3 className="font-heading text-lg font-semibold text-grey-900 leading-snug mb-2 group-hover:text-rotary-blue transition-colors">

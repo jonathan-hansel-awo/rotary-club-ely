@@ -373,7 +373,7 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
                 <p className="font-heading font-bold text-[#1A1918] text-sm leading-tight">
                   80+ Years
                 </p>
-                <p className="font-body text-[#8A8681] text-xs leading-tight mt-0.5">
+                <p className="font-body text-[#4A4845] text-xs leading-tight mt-0.5">
                   Serving the community
                 </p>
               </div>

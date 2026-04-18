@@ -103,7 +103,7 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
           </h3>
 
           {/* Date */}
-          <div className="flex items-center gap-1.5 text-sm text-grey-500 mb-1">
+          <div className="flex items-center gap-1.5 text-sm text-grey-700 mb-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 shrink-0 text-grey-400"
@@ -128,7 +128,7 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
 
           {/* Location */}
           {event.location && (
-            <div className="flex items-center gap-1.5 text-sm text-grey-500">
+            <div className="flex items-center gap-1.5 text-sm text-grey-700">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 shrink-0 text-grey-400"

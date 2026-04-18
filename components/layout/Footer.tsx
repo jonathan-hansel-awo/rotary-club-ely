@@ -250,7 +250,7 @@ export default async function Footer() {
         <hr className="border-white/10 mt-10 mb-6" />
 
         {/* Copyright row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#B8C4D8]/60">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#B8C4D8]">
           <p>
             © {currentYear} Rotary Club of Ely.{" "}
             {settings?.footerText || "Part of Rotary International."}
@@ -259,7 +259,7 @@ export default async function Footer() {
             Registered in England.{" "}
             <a
               href="/privacy"
-              className="hover:text-[#B8C4D8] transition-colors duration-150"
+              className="hover:text-white transition-colors duration-150"
             >
               Privacy Policy
             </a>

@@ -22,7 +22,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default async function NewsPage() {
   const posts = await getAllNews();
 
@@ -45,7 +44,7 @@ export default async function NewsPage() {
                 <p className="text-lg font-semibold text-grey-700">
                   No posts yet
                 </p>
-                <p className="mt-2 text-grey-500">Check back soon.</p>
+                <p className="mt-2 text-grey-700">Check back soon.</p>
               </div>
             )}
 
@@ -54,7 +53,7 @@ export default async function NewsPage() {
               <div className="mb-14">
                 <div className="mb-6 flex items-center gap-3">
                   <span className="h-px flex-1 bg-grey-200" />
-                  <p className="text-xs font-medium uppercase tracking-widest text-grey-500">
+                  <p className="text-xs font-medium uppercase tracking-widest text-grey-700">
                     Pinned
                   </p>
                   <span className="h-px flex-1 bg-grey-200" />
@@ -76,7 +75,7 @@ export default async function NewsPage() {
                 {pinned.length > 0 && (
                   <div className="mb-8 flex items-center gap-3">
                     <span className="h-px flex-1 bg-grey-200" />
-                    <p className="text-xs font-medium uppercase tracking-widest text-grey-500">
+                    <p className="text-xs font-medium uppercase tracking-widest text-grey-700">
                       All Posts
                     </p>
                     <span className="h-px flex-1 bg-grey-200" />
@@ -127,7 +126,7 @@ function PinnedPostCard({ post }: { post: NewsPost }) {
           <span className="inline-block rounded-full bg-rotary-gold/15 px-2.5 py-0.5 text-xs font-semibold text-rotary-gold-dark">
             Pinned
           </span>
-          <span className="text-xs text-grey-500">
+          <span className="text-xs text-grey-700">
             {new Date(post.date).toLocaleDateString("en-GB", {
               day: "numeric",
               month: "long",
@@ -196,7 +195,7 @@ function NewsListItem({ post }: { post: NewsPost }) {
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <p className="mb-1 text-xs text-grey-500">
+        <p className="mb-1 text-xs text-grey-700">
           {new Date(post.date).toLocaleDateString("en-GB", {
             day: "numeric",
             month: "long",

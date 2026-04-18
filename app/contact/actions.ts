@@ -86,7 +86,7 @@ export async function submitContactForm(
             <p style="font-weight: 600; color: #4a4845; margin: 0 0 8px;">Message</p>
             <p style="color: #1a1918; line-height: 1.6; margin: 0; white-space: pre-wrap;">${message}</p>
             <hr style="border: none; border-top: 1px solid #e2e0db; margin: 16px 0;">
-            <p style="font-size: 12px; color: #8a8681; margin: 0;">
+            <p style="font-size: 12px; color: #4A4845; margin: 0;">
               Reply directly to this email to respond to ${name}.
             </p>
           </div>

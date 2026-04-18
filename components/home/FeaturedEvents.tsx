@@ -5,12 +5,11 @@ import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
 import Card from "@/components/ui/Card";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Badge from "../ui/Badge";
-import type { Event } from '@/lib/types'
+import type { Event } from "@/lib/types";
 
 interface FeaturedEventsProps {
-  events: Event[]
+  events: Event[];
 }
-
 
 export default function FeaturedEvents({ events }: FeaturedEventsProps) {
   return (
@@ -46,7 +45,7 @@ export default function FeaturedEvents({ events }: FeaturedEventsProps) {
               <p className="font-heading font-semibold text-[#4A4845] text-lg mb-2">
                 No upcoming events right now
               </p>
-              <p className="font-body text-[#8A8681] text-sm mb-6">
+              <p className="font-body text-[#4A4845] text-sm mb-6">
                 Check back soon — we're always planning something new.
               </p>
               <Link
@@ -76,7 +75,7 @@ export default function FeaturedEvents({ events }: FeaturedEventsProps) {
                 key={event._id}
                 title={event.title}
                 href={`/events/${event.slug.current}`}
-                image={event.heroImage} 
+                image={event.heroImage}
                 imageAlt={event.heroImage?.alt ?? event.title}
                 meta={formatEventMeta(event.dateStart, event.location)}
                 badge={<Badge variant="category">{event.category}</Badge>}
