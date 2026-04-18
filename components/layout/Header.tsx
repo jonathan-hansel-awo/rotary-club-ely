@@ -109,7 +109,7 @@ export default function Header() {
           {/* Right side actions */}
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href="https://rotary-ribi.org/clubs/homepage.php?ClubID=467"
+              href="https://id.rotary.org/login/login.htm"
               target="_blank"
               rel="noopener noreferrer"
               className={`
@@ -122,7 +122,7 @@ export default function Header() {
             </a>
             <Button
               as="a"
-              href="https://rotary-ribi.org/clubs/homepage.php?ClubID=467"
+              href="https://www.rotarygbi.org/join/"
               variant={scrolled ? "primary" : "ghost"}
               size="sm"
             >
