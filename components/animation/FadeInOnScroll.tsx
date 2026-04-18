@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, ReactNode } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import type { ReactNode } from "react";
 
 interface FadeInOnScrollProps {
   children: ReactNode;
@@ -20,13 +21,23 @@ export default function FadeInOnScroll({
 }: FadeInOnScrollProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const prefersReduced = useReducedMotion();
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: distance }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: distance }}
-      transition={{ duration, delay, ease: "easeOut" }}
+      initial={{
+        opacity: prefersReduced ? 1 : 0,
+        y: prefersReduced ? 0 : distance,
+      }}
+      animate={
+        isInView || prefersReduced
+          ? { opacity: 1, y: 0 }
+          : { opacity: 0, y: distance }
+      }
+      transition={
+        prefersReduced ? { duration: 0 } : { duration, delay, ease: "easeOut" }
+      }
       className={className}
     >
       {children}
