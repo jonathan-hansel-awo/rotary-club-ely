@@ -15,5 +15,3 @@ export default withBundleAnalyzer({
   },
 }
 );
-
-// export default nextConfig;
