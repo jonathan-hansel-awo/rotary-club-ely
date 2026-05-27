@@ -27,6 +27,7 @@ export default function FeaturedEvents({ events }: FeaturedEventsProps) {
         {/* Section heading */}
         <FadeInOnScroll>
           <SectionHeading
+          className="pb-6"
             eyebrow="Upcoming Events"
             title="What's Happening in Ely"
             subtitle="Join us for our upcoming community events — from summer festivals to winter fireworks, there's something for everyone."

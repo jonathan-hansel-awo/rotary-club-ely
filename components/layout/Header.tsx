@@ -109,7 +109,7 @@ export default function Header() {
           {/* Right side actions */}
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href="https://id.rotary.org/login/login.htm"
+              href="https://rotary-ribi.org/clubs/homepage.php?ClubID=467"
               target="_blank"
               rel="noopener noreferrer"
               className={`
@@ -122,11 +122,11 @@ export default function Header() {
             </a>
             <Button
               as="a"
-              href="https://www.rotarygbi.org/join/"
+              href="/contact"
               variant={scrolled ? "primary" : "ghost"}
               size="sm"
             >
-              Join Us
+              Contact Us
             </Button>
           </div>
 
@@ -207,15 +207,11 @@ export default function Header() {
               transitionDelay: menuOpen ? `${navLinks.length * 60}ms` : "0ms",
             }}
           >
-            <Button
-              as="a"
-              href="https://www.rotarygbi.org/join/"
-              variant="primary"
-            >
-              Join Us
+            <Button as="a" href="/contact" variant="primary">
+              Contact Us
             </Button>
             <a
-              href="https://id.rotary.org/login/login.htm"
+              href="https://rotary-ribi.org/clubs/homepage.php?ClubID=467"
               target="_blank"
               rel="noopener noreferrer"
               className="font-body text-sm text-white/60 hover:text-white transition-colors"

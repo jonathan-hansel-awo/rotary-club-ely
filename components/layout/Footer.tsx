@@ -115,7 +115,7 @@ export default async function Footer() {
             <p className="text-[#B8C4D8] text-sm leading-relaxed mb-6">
               Serving the Ely community through events, volunteering, and
               charitable giving. Part of Rotary International's global network
-              of 1.2 million members.
+              of 45000+ clubs.
             </p>
 
             {/* Social links */}

@@ -1,8 +1,8 @@
-import bundleAnalyzer from '@next/bundle-analyzer'
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-})
+  enabled: process.env.ANALYZE === "true",
+});
 
 export default withBundleAnalyzer({
   images: {
@@ -13,5 +13,12 @@ export default withBundleAnalyzer({
       },
     ],
   },
-}
-);
+  experimental: {
+    optimizePackageImports: [
+      "framer-motion",
+      "@sanity/ui",
+      "@sanity/icons",
+      "sanity",
+    ],
+  },
+});

@@ -5,17 +5,18 @@ import ContributionCard from "@/components/impact/ContributionCard";
 import { getAllContributions, getImpactStats } from "@/lib/sanity.fetch";
 import Container from "../../components/layout/Container";
 import { Contribution } from "@/lib/types";
+import { clubAge } from "@/lib/utilities";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Our Impact",
   description:
-    "For over 80 years the Rotary Club of Ely has supported local causes, charities, and community initiatives across East Cambridgeshire.",
+    `For ${clubAge} years the Rotary Club of Ely has supported local causes, charities, and community initiatives across East Cambridgeshire.`,
   openGraph: {
     title: "Our Impact | Rotary Club of Ely",
     description:
-      "Over 80 years of fundraising, volunteering and charitable support in Ely and East Cambridgeshire.",
+      `${clubAge} years of fundraising, volunteering and charitable support in Ely and East Cambridgeshire.`,
     images: [{ url: "/og-default.png", width: 1200, height: 630 }],
   },
 };
@@ -30,20 +31,20 @@ export default async function ImpactPage() {
     <>
       <InteriorHero
         eyebrow="Our Impact"
-        title="Making a Difference in Ely"
-        subtitle="For over 80 years our volunteers have raised funds, given time, and supported causes that matter to the people of East Cambridgeshire."
+        title="Making a Difference in the Ely area"
+        subtitle={`For ${clubAge} years our volunteers have raised funds, given time, and supported causes that matter to the people of East Cambridgeshire.`}
       />
 
       <main id="main-content">
         {/* Stats overview */}
-        <section className="bg-off-white py-12 md:py-16">
+        {/* <section className="bg-off-white py-12 md:py-16">
           <Container>
             <ImpactOverview
               totalContributions={stats.totalContributions}
-              yearsActive={80}
+              yearsActive={stats.yearsActive}
             />
           </Container>
-        </section>
+        </section> */}
 
         {/* Contributions listing */}
         <section className="bg-white py-12 md:py-20">
@@ -64,7 +65,7 @@ export default async function ImpactPage() {
             {contributions.length === 0 ? (
               <div className="py-20 text-center">
                 <p className="text-lg font-semibold text-grey-700">
-                  No contributions found
+                  Coming Soon
                 </p>
                 <p className="mt-2 text-grey-700">Check back soon.</p>
               </div>

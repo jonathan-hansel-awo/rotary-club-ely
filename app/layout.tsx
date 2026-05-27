@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     default: "Rotary Club of Ely — People of Action",
   },
   description:
-    "People of Action, Right Here in Ely. The Rotary Club of Ely organises community events, raises funds for local causes, and welcomes new members.",
+    "People of Action, Right Here in Ely. The Rotary Club of Ely organises community events, raises funds for local and international causes, and welcomes new members.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://rotaryclubofely.co.uk",
   ),

@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import Button from "@/components/ui/Button";
+import { clubAge } from "@/lib/utilities";
 
 interface HeroProps {
   imageSrc: string;
@@ -215,7 +216,7 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
               "
             >
               We organise events that bring the community together, raise funds
-              for local causes, and create lasting positive change in East
+              for local and international causes, and create lasting positive change in East
               Cambridgeshire.
             </motion.p>
 
@@ -371,7 +372,7 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
               </div>
               <div>
                 <p className="font-heading font-bold text-[#1A1918] text-sm leading-tight">
-                  80+ Years
+                  {clubAge} Years
                 </p>
                 <p className="font-body text-[#4A4845] text-xs leading-tight mt-0.5">
                   Serving the community

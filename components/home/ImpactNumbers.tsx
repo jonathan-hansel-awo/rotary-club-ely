@@ -5,6 +5,7 @@ import { useInView } from "framer-motion";
 import CountUp from "@/components/animation/CountUp";
 import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { clubAge } from "@/lib/utilities";
 
 interface ImpactStat {
   prefix?: string;
@@ -23,18 +24,18 @@ export default function ImpactNumbers({
   const stats: ImpactStat[] = [
     {
       prefix: "£",
-      value: 45000,
+      value: 70000,
       suffix: "+",
-      label: "Raised for Local Causes",
+      label: "Raised for Local Causes in the last 5 years",
     },
     {
       suffix: "+",
-      value: 10000,
-      label: "Donations & Contributions Made",
+      value: 50,
+      label: "Local Charites Supported in the last 5 years",
     },
     {
-      value: 80,
-      suffix: "+",
+      value: clubAge,
+      suffix: "",
       label: "Years Serving the Community",
     },
   ];

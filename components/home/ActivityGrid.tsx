@@ -4,6 +4,7 @@ import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { urlForImage } from "@/sanity/lib/image";
 import type { ActivityTile } from "@/lib/types";
+import { clubAge } from "@/lib/utilities";
 
 interface ActivityGridProps {
   tiles?: ActivityTile[];
@@ -54,7 +55,7 @@ const fallbackTiles: ActivityTile[] = [
     description:
       "Over £45,000 raised for local causes, charities, and community initiatives.",
     href: "/impact",
-    badge: "80+ Years",
+    badge: `${clubAge} Years`,
   },
   {
     label: "Community Events",
@@ -86,7 +87,7 @@ function TileCard({ tile, index, className = "" }: TileCardProps) {
 
   return (
     <Link
-      href={tile.href}
+      href="/events"
       className={`
         group relative overflow-hidden rounded-[1rem]
         flex flex-col justify-end
@@ -170,8 +171,8 @@ function TileCard({ tile, index, className = "" }: TileCardProps) {
         </h3>
         <p
           className="
-          font-body text-sm text-white/80 leading-relaxed
-          max-h-0 overflow-hidden opacity-0
+          font-body text-sm text-white leading-relaxed
+          max-h-0 overflow-y-scroll opacity-0
           group-hover:max-h-24 group-hover:opacity-100
           transition-all duration-300 ease-out
           mb-0 group-hover:mb-3

@@ -118,7 +118,7 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
                 <div className="w-px h-10 bg-white/20" aria-hidden="true" />
                 <div>
                   <p className="font-heading font-bold text-2xl text-white tabular-nums">
-                    46,000+
+                    45,000+
                   </p>
                   <p className="font-body text-xs text-white/60 leading-snug mt-0.5">
                     Clubs globally
@@ -172,9 +172,9 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
 
               {/* CTA buttons */}
               <div className="flex flex-wrap gap-4 mb-10">
-                <Link href="https://www.rotarygbi.org/join/">
+                {/* <Link href="/contact">
                   <Button variant="primary">Join Us</Button>
-                </Link>
+                </Link> */}
                 <Link href="/contact">
                   <Button variant="secondary">Contact Us</Button>
                 </Link>
