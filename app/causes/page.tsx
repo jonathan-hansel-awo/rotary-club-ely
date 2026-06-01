@@ -83,7 +83,7 @@ export default async function CausesPage() {
                   </p>
                 </div>
                 <a
-                  href="https://www.rotary.org/en/about-rotary/rotary-causes"
+                  href="https://www.rotary.org/en/our-causes"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex shrink-0 items-center gap-2 rounded-lg border-2 border-rotary-blue px-6 py-3 text-sm font-semibold text-rotary-blue transition-all hover:bg-rotary-blue hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rotary-gold"
