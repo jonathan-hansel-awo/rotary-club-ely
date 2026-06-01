@@ -211,3 +211,4 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
 export async function getAboutPage() {
   return client.fetch(aboutPageQuery);
 }
+

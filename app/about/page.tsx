@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getAboutPage, getClubMembers } from "@/lib/sanity.fetch";
 import { urlForImage } from "@/sanity/lib/image";
 import { ClubMember } from "@/lib/types";
+import { portableTextComponents } from "@/sanity/lib/portable-text";
 
 export const revalidate = 3600;
 
@@ -48,7 +49,10 @@ export default async function AboutPage() {
               prose-a:text-rotary-azure prose-a:no-underline hover:prose-a:underline
               prose-strong:text-grey-900"
             >
-              <PortableText value={page.body} />
+              <PortableText
+                value={page.body}
+                components={portableTextComponents}
+              />{" "}
             </div>
           ) : (
             <p className="text-grey-700">About page content coming soon.</p>
