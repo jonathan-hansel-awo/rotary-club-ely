@@ -305,7 +305,7 @@ meeting details, contact information, and social media links.
    | Field | What it controls |
    |---|---|
    | Club Name | Appears in the site header and footer |
-   | Meeting Day | e.g. "Every Thursday" |
+   | Meeting Day | e.g. "Most Thursdays" |
    | Meeting Time | e.g. "8:00 PM" |
    | Meeting Location | e.g. "The City of Ely Bowls Club" |
    | Contact Email | The email address shown on the Contact page |

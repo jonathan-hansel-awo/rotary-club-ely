@@ -222,7 +222,7 @@ export default async function NewsPostDetailPage({
                         Come and Meet Us
                       </p>
                       <p className="text-sm leading-relaxed text-white/80 mb-4">
-                        We meet every Thursday at 8:00 PM at The City of Ely
+                        We meet most Thursdays at 8:00 PM at The City of Ely
                         Bowls Club. Visitors are always welcome.
                       </p>
                       <Link

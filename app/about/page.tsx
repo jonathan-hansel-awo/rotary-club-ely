@@ -84,7 +84,7 @@ export default async function AboutPage() {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-semibold text-grey-900">Every Thursday</p>
+                  <p className="font-semibold text-grey-900">Most Thursdays</p>
                   <p className="text-grey-700">8:00 PM</p>
                 </div>
               </div>

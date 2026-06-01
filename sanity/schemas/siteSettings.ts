@@ -16,7 +16,7 @@ export const siteSettingsSchema = defineType({
       name: "meetingDay",
       title: "Meeting Day",
       type: "string",
-      description: "e.g. 'Every Thursday'",
+      description: "e.g. 'Most Thursdays'",
     }),
     defineField({
       name: "meetingTime",
