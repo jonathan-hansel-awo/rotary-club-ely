@@ -9,9 +9,9 @@ import {
   allNewsQuery,
   newsBySlugQuery,
   newsSlugsQuery,
-  allContributionsQuery,
-  contributionBySlugQuery,
-  contributionSlugsQuery,
+  allImpactsQuery,
+  impactBySlugQuery,
+  impactSlugsQuery,
   impactStatsQuery,
   activeCausesQuery,
   causeBySlugQuery,
@@ -27,12 +27,13 @@ import type {
   HomepageData,
   Event,
   NewsPost,
-  Contribution,
+  Impact,
   Cause,
   Sponsor,
   ClubMember,
   SiteSettings,
   Page,
+  ImpactStats,
 } from "@/lib/types";
 
 const DEFAULT_REVALIDATE = 3600;
@@ -112,34 +113,32 @@ export async function getNewsSlugs(): Promise<{ slug: string }[]> {
   );
 }
 
-// ─── Contributions ────────────────────────────────────────────
-export async function getAllContributions(): Promise<Contribution[]> {
+// ─── Impact Stories ────────────────────────────────────────────
+export async function getAllImpacts(): Promise<Impact[]> {
   return client.fetch(
-    allContributionsQuery,
+    allImpactsQuery,
     {},
     { next: { revalidate: DEFAULT_REVALIDATE } },
   );
 }
 
-export async function getContributionBySlug(
-  slug: string,
-): Promise<Contribution | null> {
+export async function getImpactBySlug(slug: string): Promise<Impact | null> {
   return client.fetch(
-    contributionBySlugQuery,
+    impactBySlugQuery,
     { slug },
     { next: { revalidate: DEFAULT_REVALIDATE } },
   );
 }
 
-export async function getContributionSlugs(): Promise<{ slug: string }[]> {
+export async function getImpactSlugs(): Promise<{ slug: string }[]> {
   return client.fetch(
-    contributionSlugsQuery,
+    impactSlugsQuery,
     {},
     { next: { revalidate: DEFAULT_REVALIDATE } },
   );
 }
 
-export async function getImpactStats() {
+export async function getImpactStats(): Promise<ImpactStats> {
   return client.fetch(
     impactStatsQuery,
     {},

@@ -1,29 +1,23 @@
+// app/impact/page.tsx
+
 import type { Metadata } from "next";
 import InteriorHero from "@/components/ui/InteriorHero";
-import ImpactOverview from "@/components/impact/ImpactOverview";
-import ContributionCard from "@/components/impact/ContributionCard";
-import { getAllContributions, getImpactStats } from "@/lib/sanity.fetch";
-import Container from "../../components/layout/Container";
-import { Contribution } from "@/lib/types";
+import Container from "@/components/layout/Container";
+import ImpactCard from "@/components/impact/ImpactCard";
+import { getAllImpacts, getImpactStats } from "@/lib/sanity.fetch";
+import { Impact } from "@/lib/types";
 import { clubAge } from "@/lib/utilities";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Our Impact",
-  description:
-    `For ${clubAge} years the Rotary Club of Ely has supported local causes, charities, and community initiatives across East Cambridgeshire.`,
-  openGraph: {
-    title: "Our Impact | Rotary Club of Ely",
-    description:
-      `${clubAge} years of fundraising, volunteering and charitable support in Ely and East Cambridgeshire.`,
-    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
-  },
+  description: `For ${clubAge} years the Rotary Club of Ely has supported local causes, charities, and community initiatives across East Cambridgeshire.`,
 };
 
 export default async function ImpactPage() {
-  const [contributions, stats] = await Promise.all([
-    getAllContributions(),
+  const [impacts, stats] = await Promise.all([
+    getAllImpacts(),
     getImpactStats(),
   ]);
 
@@ -31,60 +25,47 @@ export default async function ImpactPage() {
     <>
       <InteriorHero
         eyebrow="Our Impact"
-        title="Making a Difference in the Ely area"
-        subtitle={`For ${clubAge} years our volunteers have raised funds, given time, and supported causes that matter to the people of East Cambridgeshire.`}
+        title="Stories of service, support and community impact"
+        subtitle={`For ${clubAge} years, the Rotary Club of Ely has brought people together to support local causes, international projects and communities in need.`}
       />
 
-      <main id="main-content">
-        {/* Stats overview */}
-        {/* <section className="bg-off-white py-12 md:py-16">
-          <Container>
-            <ImpactOverview
-              totalContributions={stats.totalContributions}
-              yearsActive={stats.yearsActive}
-            />
-          </Container>
-        </section> */}
+      <section className="bg-off-white py-16 md:py-24">
+        <Container>
+          <div className="mb-12 max-w-3xl">
+            <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-rotary-gold-dark">
+              Impact Stories
+            </p>
 
-        {/* Contributions listing */}
-        <section className="bg-white py-12 md:py-20">
-          <Container>
-            <div className="mb-10">
-              <p className="mb-2 text-sm font-medium uppercase tracking-wider text-rotary-gold-dark">
-                Our Contributions
-              </p>
-              <h2 className="font-heading text-3xl font-bold text-grey-900">
-                Stories of Impact
-              </h2>
-              <p className="mt-3 max-w-xl text-grey-600">
-                Every entry below represents real support given to real people
-                and organisations in and around Ely.
+            <h2 className="font-heading text-3xl font-bold text-grey-900 md:text-4xl">
+              The difference our members help make
+            </h2>
+
+            <p className="mt-4 text-lg leading-relaxed text-grey-700">
+              These stories highlight the people, charities and projects
+              supported by the Rotary Club of Ely — from local community work to
+              international disaster relief.
+            </p>
+          </div>
+
+          {impacts.length === 0 ? (
+            <div className="rounded-3xl border border-grey-200 bg-white p-10 text-center shadow-sm">
+              <h3 className="font-heading text-2xl font-bold text-grey-900">
+                Impact stories coming soon
+              </h3>
+              <p className="mt-3 text-grey-600">
+                We’re preparing stories that show how Rotary service supports
+                communities locally and around the world.
               </p>
             </div>
-
-            {contributions.length === 0 ? (
-              <div className="py-20 text-center">
-                <p className="text-lg font-semibold text-grey-700">
-                  Coming Soon
-                </p>
-                <p className="mt-2 text-grey-700">Check back soon.</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {contributions.map(
-                  (contribution: Contribution, index: number) => (
-                    <ContributionCard
-                      key={contribution._id}
-                      contribution={contribution}
-                      index={index}
-                    />
-                  ),
-                )}
-              </div>
-            )}
-          </Container>
-        </section>
-      </main>
+          ) : (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {impacts.map((impact: Impact, index: number) => (
+                <ImpactCard key={impact._id} impact={impact} index={index} />
+              ))}
+            </div>
+          )}
+        </Container>
+      </section>
     </>
   );
 }

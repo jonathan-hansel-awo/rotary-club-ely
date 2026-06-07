@@ -54,17 +54,19 @@ export interface NewsPost {
   related?: Omit<NewsPost, "body" | "related">[];
 }
 
-export interface Contribution {
+export interface Impact {
   _id: string;
-  title?: string;
+  title: string;
   slug: Slug;
   date: string;
-  amount?: string;
   summary: string;
   recipient: string;
   description?: TypedObject[];
   image?: SanityImage;
-  related?: Omit<Contribution, "description" | "related">[];
+}
+
+export interface ImpactStats {
+  totalImpacts: number;
 }
 
 export interface Cause {
@@ -123,7 +125,7 @@ export interface SiteSettings {
 }
 
 export interface ImpactStats {
-  totalContributions: number;
+  totalImpacts: number;
 }
 
 export interface HomepageData {

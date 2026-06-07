@@ -126,42 +126,41 @@ export const newsSlugsQuery = `
   *[_type == "newsPost"] { "slug": slug.current }
 `;
 
-// ─── Contributions ────────────────────────────────────────────
-export const allContributionsQuery = `
-  *[_type == "contribution"] | order(date desc) {
+// ─── Impact Stories ────────────────────────────────────────────
+export const allImpactsQuery = `
+  *[_type == "impact"] | order(date desc) {
     _id,
+    title,
     recipient,
     slug,
     date,
-    amount,
     summary,
     image
   }
 `;
 
-export const contributionBySlugQuery = `
-  *[_type == "contribution" && slug.current == $slug][0] {
+export const impactBySlugQuery = `
+  *[_type == "impact" && slug.current == $slug][0] {
     _id,
+    title,
     recipient,
     slug,
     date,
-    amount,
     summary,
     description,
     image
   }
 `;
 
-export const contributionSlugsQuery = `
-  *[_type == "contribution"] { "slug": slug.current }
+export const impactSlugsQuery = `
+  *[_type == "impact"] {
+    "slug": slug.current
+  }
 `;
 
 export const impactStatsQuery = `
   {
-    "totalContributions": count(*[_type == "contribution"]),
-    "contributions": *[_type == "contribution"] {
-      amount
-    }
+    "totalImpacts": count(*[_type == "impact"])
   }
 `;
 
@@ -249,7 +248,7 @@ export const homepageQuery = `
       _id, name, logo, websiteUrl
     },
     "impactStats": {
-      "totalContributions": count(*[_type == "contribution"])
+      "totalImpacts": count(*[_type == "impact"])
     },
     "members": *[_type == "clubMember"] | order(order asc) [0...8] {
   _id, name, role, photo, bio
