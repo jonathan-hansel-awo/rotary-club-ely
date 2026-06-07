@@ -89,10 +89,10 @@ export default function FeaturedEvents({ events }: FeaturedEventsProps) {
 
                   <div className="absolute left-5 top-5 rounded-2xl bg-white px-4 py-3 text-center shadow-lg">
                     <div className="text-2xl font-black text-[#17458F]">
-                      {17}
+                      {0}
                     </div>
                     <div className="text-xs font-bold uppercase text-slate-500">
-                      {7}
+                      {0}
                     </div>
                   </div>
                 </div>
