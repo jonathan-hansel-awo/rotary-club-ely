@@ -5,13 +5,19 @@ import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
 import Card from "@/components/ui/Card";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Badge from "../ui/Badge";
-import type { Event } from "@/lib/types";
+import type { Event, SanityImage } from "@/lib/types";
+import Image from "next/image";
+import { urlForImage } from "@/sanity/lib/image";
+import { buildImageUrl } from "@/lib/utilities";
 
 interface FeaturedEventsProps {
   events: Event[];
 }
 
 export default function FeaturedEvents({ events }: FeaturedEventsProps) {
+
+
+
   return (
     <section
       aria-labelledby="featured-events-heading"
@@ -27,7 +33,7 @@ export default function FeaturedEvents({ events }: FeaturedEventsProps) {
         {/* Section heading */}
         <FadeInOnScroll>
           <SectionHeading
-          className="pb-6"
+            className="pb-6"
             eyebrow="Upcoming Events"
             title="What's Happening in Ely"
             subtitle="Join us for our upcoming community events — from summer festivals to winter fireworks, there's something for everyone."
@@ -71,16 +77,37 @@ export default function FeaturedEvents({ events }: FeaturedEventsProps) {
             gap-6 mb-10
           "
           >
-            {events.map((event) => (
-              <Card
-                key={event._id}
-                title={event.title}
-                href={`/events/${event.slug.current}`}
-                image={event.heroImage}
-                imageAlt={event.heroImage?.alt ?? event.title}
-                meta={formatEventMeta(event.dateStart, event.location)}
-                badge={<Badge variant="category">{event.category}</Badge>}
-              />
+            {events.map((event, index) => (
+              <article key={index} className="group overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
+                <div className="relative h-64">
+                  <Image
+                    src={buildImageUrl(event.heroImage) || "/placeholder-event.jpg"}
+                    alt={event.title}
+                    fill
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+
+                  <div className="absolute left-5 top-5 rounded-2xl bg-white px-4 py-3 text-center shadow-lg">
+                    <div className="text-2xl font-black text-[#17458F]">
+                      {17}
+                    </div>
+                    <div className="text-xs font-bold uppercase text-slate-500">
+                      {7}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  <h3 className="text-2xl font-black text-[#061D3A]">
+                    {event.title}
+                  </h3>
+                  <p className="mt-3 text-slate-600">{event.location}</p>
+
+                  <a className="mt-6 inline-flex font-bold text-[#17458F]">
+                    Read more →
+                  </a>
+                </div>
+              </article>
             ))}
           </StaggerChildren>
         )}
