@@ -128,7 +128,7 @@ export const newsSlugsQuery = `
 
 // ─── Impact Stories ────────────────────────────────────────────
 export const allImpactsQuery = `
-  *[_type == "impact"] | order(date desc) {
+  *[_type == "impactStory"] | order(date desc) {
     _id,
     title,
     recipient,
@@ -140,27 +140,28 @@ export const allImpactsQuery = `
 `;
 
 export const impactBySlugQuery = `
-  *[_type == "impact" && slug.current == $slug][0] {
+  *[_type == "impactStory" && slug.current == $slug][0] {
     _id,
     title,
     recipient,
     slug,
     date,
     summary,
-    description,
+    story,
+    quote,
     image
   }
 `;
 
 export const impactSlugsQuery = `
-  *[_type == "impact"] {
+  *[_type == "impactStory"] {
     "slug": slug.current
   }
 `;
 
 export const impactStatsQuery = `
   {
-    "totalImpacts": count(*[_type == "impact"])
+    "totalImpacts": count(*[_type == "impactStory"])
   }
 `;
 

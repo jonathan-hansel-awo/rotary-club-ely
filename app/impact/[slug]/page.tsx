@@ -113,12 +113,26 @@ export default async function ImpactSlugPage({ params }: ImpactPageProps) {
         </section>
       )}
 
+      {impact.quote && (
+        <div className="mx-auto my-12 max-w-4xl">
+          <blockquote className="relative overflow-hidden rounded-3xl bg-rotary-blue px-8 py-10 text-white shadow-xl md:px-12">
+            <div className="absolute left-6 top-4 text-7xl font-serif text-white/10">
+              &quot;
+            </div>
+
+            <p className="relative text-xl leading-relaxed md:text-2xl">
+              {impact.quote}
+            </p>
+          </blockquote>
+        </div>
+      )}
+
       <section className="py-16 md:py-24">
         <Container>
           <article className="mx-auto max-w-3xl rounded-3xl bg-white p-8 shadow-sm md:p-12">
-            {impact.description && (
+            {impact.story && (
               <div className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-grey-900 prose-p:leading-relaxed prose-p:text-grey-700 prose-a:font-semibold prose-a:text-rotary-blue prose-strong:text-grey-900">
-                <PortableText value={impact.description} />
+                <PortableText value={impact.story} />
               </div>
             )}
 

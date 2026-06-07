@@ -26,7 +26,7 @@ export default async function Home() {
 
       <FeaturedEvents events={data.upcomingEvents} />
 
-      <ImpactNumbers totalContributions={data.impactStats.totalContributions} />
+      <ImpactNumbers />
 
       <LatestNews posts={data.latestNews} />
 

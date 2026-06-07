@@ -23,8 +23,8 @@ const heroStats = [
     icon: "👥",
   },
   {
-    value: "£70,000+",
-    label: "Raised for Local Causes",
+    value: "£70k+",
+    label: "Raised for Local Causes within the last 5 years",
     icon: "♡",
   },
   {
@@ -33,7 +33,7 @@ const heroStats = [
     icon: "🌍",
   },
   {
-    value: "Year-Round",
+    value: "Annual",
     label: "Events & Activities",
     icon: "📅",
   },
@@ -189,7 +189,7 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
             <Link href="/contact">
               <Button variant="secondary" className="text-white">
                 Get Involved
-                </Button>
+              </Button>
             </Link>
           </motion.div>
 
@@ -199,17 +199,17 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
             className="
-              mt-10 grid max-w-4xl grid-cols-2 overflow-hidden
-              rounded-3xl border border-white/15 bg-[#061D3A]/55
-              shadow-2xl backdrop-blur-md
-              sm:grid-cols-4
-            "
+  mt-10 grid max-w-5xl grid-cols-2 overflow-hidden
+  rounded-3xl border border-white/15 bg-[#061D3A]/55
+  shadow-2xl backdrop-blur-md
+  sm:grid-cols-4
+"
           >
             {heroStats.map((stat, index) => (
               <div
                 key={stat.label}
                 className={`
-                  p-5 sm:p-6
+                  min-w-0 p-5 sm:p-6 over
                   ${index !== 0 ? "sm:border-l sm:border-white/15" : ""}
                   ${index > 1 ? "border-t border-white/15 sm:border-t-0" : ""}
                 `}
@@ -218,7 +218,7 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
                   {stat.icon}
                 </div>
 
-                <p className="font-heading text-2xl font-extrabold leading-tight text-white sm:text-3xl">
+                <p className="font-heading text-[clamp(1.65rem,2.8vw,3rem)] font-extrabold leading-tight tracking-[-0.04em] text-white whitespace-nowrap">
                   {stat.value}
                 </p>
 

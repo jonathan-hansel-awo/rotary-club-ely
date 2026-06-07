@@ -61,7 +61,8 @@ export interface Impact {
   date: string;
   summary: string;
   recipient: string;
-  description?: TypedObject[];
+  story?: TypedObject[];
+  quote?: string;
   image?: SanityImage;
 }
 
