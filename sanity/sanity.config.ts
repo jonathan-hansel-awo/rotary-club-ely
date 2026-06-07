@@ -22,7 +22,7 @@ export default defineConfig({
               .child(S.documentTypeList("newsPost").title("News Posts")),
             S.listItem()
               .title("Our Impact")
-              .child(S.documentTypeList("contribution").title("Contributions")),
+              .child(S.documentTypeList("impactStory").title("Impact Stories")),
             S.listItem()
               .title("Our Causes")
               .child(S.documentTypeList("cause").title("Causes")),
