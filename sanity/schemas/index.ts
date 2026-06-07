@@ -1,5 +1,5 @@
 import { eventSchema } from "./event";
-import { newsPostSchema } from "./newsPost";
+import { newsPostSchema } from "./newsPost_old";
 import { contributionSchema } from "./contribution";
 import { pageSchema } from "./page";
 import { clubMemberSchema } from "./clubMember";
