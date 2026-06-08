@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
+
+import Image from "next/image";
 import Link from "next/link";
 import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
-import Button from "@/components/ui/Button";
 import type { SiteSettings } from "@/lib/types";
-import Image from "next/image";
 
 interface JoinCTAProps {
   settings: SiteSettings;
@@ -19,257 +19,201 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
   return (
     <section
       aria-labelledby="join-cta-heading"
-      className="bg-[#F8F7F4] py-[clamp(3rem,6vw,6rem)]"
+      className="relative overflow-hidden bg-white py-20 md:py-28"
     >
-      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)]">
+      <div className="absolute -right-40 top-20 h-96 w-96 rounded-full bg-rotary-blue/10 blur-3xl" />
+      <div className="absolute -left-40 bottom-10 h-96 w-96 rounded-full bg-rotary-gold/15 blur-3xl" />
+
+      <div className="mx-auto max-w-[1280px] px-[clamp(1rem,2vw,2rem)]">
         <FadeInOnScroll>
-          <div
-            className="
-            relative overflow-hidden
-            rounded-[1.5rem]
-            grid grid-cols-1 lg:grid-cols-2
-            min-h-[420px]
-          "
-          >
-            {/* ── Left panel: decorative ── */}
-            <div
-              className="
-              relative
-              bg-gradient-to-br from-[#17458F] to-[#0C2340]
-              p-10 lg:p-14
-              flex flex-col justify-between
-              min-h-[260px] lg:min-h-0
-            "
-            >
-              {/* Background pattern */}
-              <div
-                aria-hidden="true"
-                className="
-                  absolute inset-0 opacity-[0.04]
-                  pointer-events-none
-                "
-                style={{
-                  backgroundImage: `
-                    radial-gradient(circle at 25% 25%, white 1px, transparent 1px),
-                    radial-gradient(circle at 75% 75%, white 1px, transparent 1px)
-                  `,
-                  backgroundSize: "48px 48px",
-                }}
-              />
+          <div className="relative overflow-hidden rounded-[2rem] bg-slate-950 shadow-card-hover">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(247,168,27,0.22),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(0,103,200,0.34),transparent_38%)]" />
 
-              {/* Decorative circles */}
-              <div
-                aria-hidden="true"
-                className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/[0.03] pointer-events-none"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute -bottom-8 -left-8 w-48 h-48 rounded-full bg-[#F7A81B]/[0.06] pointer-events-none"
-              />
+            <div className="relative grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
+              <div className="relative min-h-[420px] overflow-hidden p-8 sm:p-10 lg:p-14">
+                <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full border-[28px] border-white/5" />
+                <div className="absolute -bottom-28 right-8 h-80 w-80 rounded-full bg-rotary-gold/10 blur-3xl" />
 
-              {/* Rotary wheel mark */}
-              <div className="relative">
-                <div className="relative h-10 w-10">
-                  <Image
-                    src="/rotary-logo.svg"
-                    alt="Rotary Club of Ely"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-contain object-left"
-                    priority
-                  />
-                </div>
+                <div className="relative flex h-full flex-col justify-between">
+                  <div>
+                    <div className="relative mb-5 h-12 w-12">
+                      <Image
+                        src="/rotary-logo.svg"
+                        alt="Rotary Club of Ely"
+                        fill
+                        sizes="48px"
+                        className="object-contain object-left"
+                      />
+                    </div>
 
-                <p
-                  className="
-                  font-body font-medium text-xs uppercase
-                  tracking-[0.08em] text-[#F7A81B]
-                  mb-3
-                "
-                >
-                  Rotary Club of Ely
-                </p>
-
-                <blockquote
-                  className="
-                  font-heading font-bold
-                  text-[clamp(1.25rem,2.5vw,1.75rem)]
-                  text-white leading-snug
-                "
-                >
-                  "Service Above Self"
-                </blockquote>
-
-                <p className="font-body text-sm text-white/60 mt-2">
-                  Rotary International Motto
-                </p>
-              </div>
-
-              {/* Stats row at bottom of left panel */}
-              <div className="relative flex items-center gap-8 mt-8 lg:mt-0">
-                <div>
-                  <p className="font-heading font-bold text-2xl text-white tabular-nums">
-                    1.2M+
-                  </p>
-                  <p className="font-body text-xs text-white/60 leading-snug mt-0.5">
-                    Members worldwide
-                  </p>
-                </div>
-                <div className="w-px h-10 bg-white/20" aria-hidden="true" />
-                <div>
-                  <p className="font-heading font-bold text-2xl text-white tabular-nums">
-                    45,000+
-                  </p>
-                  <p className="font-body text-xs text-white/60 leading-snug mt-0.5">
-                    Clubs globally
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* ── Right panel: text + CTA ── */}
-            <div
-              className="
-              bg-white
-              p-10 lg:p-14
-              flex flex-col justify-center
-            "
-            >
-              <h2
-                id="join-cta-heading"
-                className="
-                  font-heading font-extrabold
-                  text-[clamp(1.75rem,3vw,2.5rem)]
-                  text-[#1A1918] leading-tight
-                  tracking-[-0.02em]
-                  mb-4
-                "
-              >
-                Be Part of Something Bigger
-              </h2>
-
-              <p
-                className="
-                font-body text-[clamp(0.95rem,1.2vw,1.05rem)]
-                text-[#4A4845] leading-relaxed
-                max-w-[420px] mb-6
-              "
-              >
-                Whether you want to make new connections, give back to your
-                community, or simply be part of a passionate local group —
-                there's a place for you at Ely Rotary.
-              </p>
-
-              <p
-                className="
-                font-body text-sm text-[#4A4845] leading-relaxed
-                max-w-[400px] mb-8
-              "
-              >
-                No experience necessary. We welcome people from all walks of
-                life who share a desire to make a positive difference.
-              </p>
-
-              {/* CTA buttons */}
-              <div className="flex flex-wrap gap-4 mb-10">
-                {/* <Link href="/contact">
-                  <Button variant="primary">Join Us</Button>
-                </Link> */}
-                <Link href="/contact">
-                  <Button variant="secondary">Contact Us</Button>
-                </Link>
-              </div>
-
-              {/* Meeting info card */}
-              <div
-                className="
-                border-t-4 border-t-[#F7A81B]
-                bg-[#F8F7F4] rounded-[0.75rem]
-                p-5
-                flex items-start gap-4
-              "
-              >
-                {/* Calendar icon */}
-                <div
-                  className="
-                    w-10 h-10 rounded-full
-                    bg-[#17458F]/10
-                    flex items-center justify-center
-                    flex-shrink-0 mt-0.5
-                  "
-                  aria-hidden="true"
-                >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#17458F"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect x="3" y="4" width="18" height="18" rx="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                  </svg>
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <p
-                    className="
-                    font-body font-medium text-xs uppercase
-                    tracking-[0.06em] text-[#4A4845]
-                    mb-1
-                  "
-                  >
-                    Come and Meet Us
-                  </p>
-
-                  {meetingLine1 && (
-                    <p className="font-heading font-semibold text-[#1A1918] text-sm leading-snug">
-                      {meetingLine1}
+                    <p className="text-sm font-black uppercase tracking-[0.24em] text-rotary-gold">
+                      Rotary Club of Ely
                     </p>
-                  )}
 
-                  {meetingLine2 && (
-                    <p className="font-body text-sm text-[#4A4845] mt-0.5">
-                      {meetingLine2}
+                    <blockquote className="mt-5 max-w-md font-heading text-4xl font-black leading-tight text-white md:text-5xl">
+                      "Service Above Self"
+                    </blockquote>
+
+                    <p className="mt-4 max-w-sm text-base leading-relaxed text-white/65">
+                      A local club connected to a worldwide movement of people
+                      taking action.
                     </p>
-                  )}
+                  </div>
 
-                  {settings.contactEmail && (
-                    <a
-                      href={`mailto:${settings.contactEmail}`}
-                      className="
-    inline-block mt-2
-    font-body text-xs text-[#0067C8]
-    hover:text-[#17458F] transition-colors duration-150
-    underline underline-offset-2
-    break-all
-  "
+                  <div className="mt-12 grid max-w-md grid-cols-2 gap-4">
+                    <div className="rounded-3xl border border-white/10 bg-white/10 p-5 backdrop-blur">
+                      <p className="font-heading text-3xl font-black text-white">
+                        1.2M+
+                      </p>
+                      <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-white/55">
+                        Members worldwide
+                      </p>
+                    </div>
+
+                    <div className="rounded-3xl border border-white/10 bg-white/10 p-5 backdrop-blur">
+                      <p className="font-heading text-3xl font-black text-white">
+                        45,000+
+                      </p>
+                      <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-white/55">
+                        Clubs globally
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative bg-white p-8 sm:p-10 lg:p-14">
+                <div className="absolute right-0 top-0 h-48 w-48 rounded-bl-full bg-rotary-gold/10" />
+
+                <div className="relative">
+                  <p className="mb-4 text-sm font-black uppercase tracking-[0.22em] text-rotary-gold">
+                    Get involved
+                  </p>
+
+                  <h2
+                    id="join-cta-heading"
+                    className="font-heading text-4xl font-black leading-tight text-grey-900 md:text-5xl"
+                  >
+                    Be Part of Something
+                    <span className="block text-rotary-blue">Bigger</span>
+                  </h2>
+
+                  <p className="mt-6 max-w-xl text-lg leading-relaxed text-grey-700">
+                    Whether you want to give back, meet new people, volunteer at
+                    community events, or support good causes, there's a place
+                    for you at Ely Rotary.
+                  </p>
+
+                  <div className="mt-8 flex flex-wrap gap-4">
+                    <Link
+                      href="/contact"
+                      className="inline-flex rounded-full bg-rotary-blue px-7 py-3 text-sm font-black uppercase tracking-wide text-white transition hover:bg-rotary-blue-dark"
                     >
-                      {settings.contactEmail}
-                    </a>
+                      Contact us
+                    </Link>
+
+                    <Link
+                      href="/about"
+                      className="inline-flex rounded-full border border-rotary-blue px-7 py-3 text-sm font-black uppercase tracking-wide text-rotary-blue transition hover:bg-rotary-blue hover:text-white"
+                    >
+                      Learn about the club
+                    </Link>
+                  </div>
+
+                  <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                    <div className="rounded-2xl bg-off-white p-5">
+                      <p className="text-sm font-black text-rotary-blue">
+                        Volunteer
+                      </p>
+                      <p className="mt-2 text-sm leading-relaxed text-grey-700">
+                        Help at events and community activities.
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl bg-off-white p-5">
+                      <p className="text-sm font-black text-rotary-blue">
+                        Connect
+                      </p>
+                      <p className="mt-2 text-sm leading-relaxed text-grey-700">
+                        Meet people who care about Ely.
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl bg-off-white p-5">
+                      <p className="text-sm font-black text-rotary-blue">
+                        Serve
+                      </p>
+                      <p className="mt-2 text-sm leading-relaxed text-grey-700">
+                        Support local and international causes.
+                      </p>
+                    </div>
+                  </div>
+
+                  {(meetingLine1 || meetingLine2 || settings.contactEmail) && (
+                    <div className="mt-8 rounded-3xl border border-grey-200 bg-off-white p-5">
+                      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                        <div className="flex gap-4">
+                          <div
+                            className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-rotary-blue/10"
+                            aria-hidden="true"
+                          >
+                            <svg
+                              width="19"
+                              height="19"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#17458F"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <rect x="3" y="4" width="18" height="18" rx="2" />
+                              <line x1="16" y1="2" x2="16" y2="6" />
+                              <line x1="8" y1="2" x2="8" y2="6" />
+                              <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                          </div>
+
+                          <div>
+                            <p className="text-xs font-black uppercase tracking-[0.16em] text-rotary-gold-dark">
+                              Come and meet us
+                            </p>
+
+                            {meetingLine1 && (
+                              <p className="mt-1 font-heading text-base font-bold text-grey-900">
+                                {meetingLine1}
+                              </p>
+                            )}
+
+                            {meetingLine2 && (
+                              <p className="mt-1 text-sm text-grey-700">
+                                {meetingLine2}
+                              </p>
+                            )}
+
+                            {settings.contactEmail && (
+                              <a
+                                href={`mailto:${settings.contactEmail}`}
+                                className="mt-2 inline-block break-all text-sm font-bold text-rotary-azure underline underline-offset-4 transition hover:text-rotary-blue"
+                              >
+                                {settings.contactEmail}
+                              </a>
+                            )}
+                          </div>
+                        </div>
+
+                        <a
+                          href="https://rotary-ribi.org/clubs/homepage.php?ClubID=467g"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shrink-0 text-sm font-bold text-grey-700 transition hover:text-rotary-blue"
+                        >
+                          Members ↗
+                        </a>
+                      </div>
+                    </div>
                   )}
                 </div>
-
-                {/* Members link */}
-                <a
-                  href="https://rotary-ribi.org/clubs/homepage.php?ClubID=467g"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                    flex-shrink-0 self-start
-                    font-body font-medium text-xs
-                    text-[#4A4845] hover:text-[#17458F]
-                    transition-colors duration-150
-                    whitespace-nowrap
-                  "
-                >
-                  Members ↗
-                </a>
               </div>
             </div>
           </div>
