@@ -4,7 +4,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import type { HeroImage } from "@/lib/types";
 import { urlForImage } from "@/sanity/lib/image";
 import Button from "@/components/ui/Button";
@@ -25,7 +31,7 @@ const heroStats = [
   },
   {
     value: "£70k+",
-    label: "Raised for local causes",
+    label: "Raised Locally",
     eyebrow: "Last 5 years",
     icon: "heart",
   },
@@ -97,6 +103,12 @@ function StatIcon({ type }: { type: string }) {
 
 export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
+  const { scrollY } = useScroll();
+
+  const imageY = useTransform(scrollY, [0, 700], [0, 120]);
+  const imageScale = useTransform(scrollY, [0, 700], [1.04, 1.12]);
+  const contentY = useTransform(scrollY, [0, 700], [0, -40]);
+  const contentOpacity = useTransform(scrollY, [0, 500], [1, 0.72]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images =
@@ -147,21 +159,26 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
             key={currentUrl}
             initial={{
               opacity: 0,
-              scale: 1.04,
             }}
             animate={{
               opacity: 1,
-              scale: 1,
             }}
             exit={{
               opacity: 0,
-              scale: 1.02,
             }}
             transition={{
               duration: 1.4,
               ease: "easeInOut",
             }}
-            className="absolute inset-0"
+            style={
+              shouldReduceMotion
+                ? undefined
+                : {
+                    y: imageY,
+                    scale: imageScale,
+                  }
+            }
+            className="absolute inset-[-8%]"
           >
             <Image
               src={currentUrl}
@@ -175,13 +192,11 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
           </motion.div>
         )}
       </AnimatePresence>
-
       {/* Dark gradient overlay */}
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-gradient-to-r from-[#061D3A] via-[#061D3A]/78 to-[#061D3A]/12"
       />
-
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-gradient-to-t from-[#061D3A]/90 via-transparent to-[#061D3A]/20"
@@ -196,9 +211,19 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
     blur-3xl
   "
       />
-
       {/* Content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-80px)] max-w-[1280px] items-center px-4 py-24 sm:px-6 lg:px-8">
+      <motion.div
+        style={
+          shouldReduceMotion
+            ? undefined
+            : {
+                y: contentY,
+                opacity: contentOpacity,
+              }
+        }
+        className="relative z-10 mx-auto flex min-h-[calc(100vh-80px)] max-w-[1280px] items-center px-4 py-24 sm:px-6 lg:px-8"
+      >
+        {" "}
         <div className="max-w-3xl">
           <motion.p
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
@@ -313,7 +338,7 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
             </div>
           )}
         </div>
-      </div>
+      </motion.div>{" "}
     </section>
   );
 }

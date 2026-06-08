@@ -72,7 +72,7 @@ export default function JoinCTA({ settings }: JoinCTAProps) {
 
                     <div className="rounded-3xl border border-white/10 bg-white/10 p-5 backdrop-blur">
                       <p className="font-heading text-3xl font-black text-white">
-                        45,000+
+                        45k+
                       </p>
                       <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-white/55">
                         Clubs globally
