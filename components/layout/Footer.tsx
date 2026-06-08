@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
+
+import Image from "next/image";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { siteSettingsQuery } from "@/sanity/lib/queries";
-import Image from "next/image";
 
-// Social icon SVGs — inline to avoid extra dependencies
 function FacebookIcon() {
   return (
     <svg
@@ -25,7 +25,7 @@ function TwitterIcon() {
       width="20"
       height="20"
       viewBox="0 0 24 24"
-      fill="currentColor"
+      fill="none"
       aria-hidden="true"
     >
       <path
@@ -33,7 +33,6 @@ function TwitterIcon() {
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
-        fill="none"
       />
     </svg>
   );
@@ -62,6 +61,7 @@ function InstagramIcon() {
 const socialIconMap: Record<string, React.ComponentType> = {
   facebook: FacebookIcon,
   twitter: TwitterIcon,
+  x: TwitterIcon,
   instagram: InstagramIcon,
 };
 
@@ -69,7 +69,7 @@ const quickLinks = [
   { label: "Events", href: "/events" },
   { label: "Our Impact", href: "/impact" },
   { label: "Our Causes", href: "/causes" },
-  { label: "Latest", href: "/news" },
+  { label: "Latest Updates", href: "/news" },
   { label: "About", href: "/about" },
 ];
 
@@ -77,54 +77,120 @@ const getInvolvedLinks = [
   { label: "Join the Club", href: "/contact#join" },
   { label: "Volunteer", href: "/contact#volunteer" },
   { label: "Contact Us", href: "/contact" },
-  { label: "Members ↗", href: "https://rotary.org", external: true },
+  {
+    label: "Members Area ↗",
+    href: "https://rotary-ribi.org/clubs/homepage.php?ClubID=467",
+    external: true,
+  },
 ];
+
+function FooterLink({
+  href,
+  children,
+  external,
+}: {
+  href: string;
+  children: React.ReactNode;
+  external?: boolean;
+}) {
+  const className =
+    "group inline-flex w-fit items-center gap-2 text-sm font-medium text-white/68 transition hover:text-white";
+
+  const content = (
+    <>
+      <span className="h-1.5 w-1.5 rounded-full bg-rotary-gold opacity-0 transition group-hover:opacity-100" />
+      <span>{children}</span>
+    </>
+  );
+
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className}>
+      {content}
+    </Link>
+  );
+}
 
 export default async function Footer() {
   const settings = await client.fetch(siteSettingsQuery);
-
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0C2340]">
-      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)] pt-[clamp(3rem,5vw,5rem)] pb-10">
-        {/* 4-column grid */}
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Column 1: Club info + social */}
-          <div className="lg:col-span-1">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 flex-shrink-0">
-              <div className="relative h-10 w-10">
+    <footer className="relative overflow-hidden bg-[#071D36] text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(247,168,27,0.16),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(0,103,200,0.28),transparent_38%)]" />
+      <div className="absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full border-[42px] border-white/[0.035]" />
+      <div className="absolute -left-36 bottom-10 h-80 w-80 rounded-full bg-rotary-gold/10 blur-3xl" />
+
+      <div className="relative mx-auto max-w-[1280px] px-[clamp(1rem,2vw,2rem)] py-16 md:py-20">
+        <div className="mb-12 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-2xl backdrop-blur-md sm:p-8 lg:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.24em] text-rotary-gold">
+                Rotary Club of Ely
+              </p>
+
+              <h2 className="mt-4 max-w-3xl font-heading text-3xl font-black leading-tight md:text-5xl">
+                Service, friendship and community action in Ely.
+              </h2>
+
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/68">
+                Serving the Ely community through events, volunteering and
+                charitable giving — as part of Rotary International's worldwide
+                network.
+              </p>
+            </div>
+
+            <Link
+              href="/contact"
+              className="inline-flex w-fit rounded-full bg-rotary-gold px-7 py-3 text-sm font-black uppercase tracking-wide text-slate-950 transition hover:bg-white"
+            >
+              Get in touch
+            </Link>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
+          <div>
+            <Link href="/" className="flex w-fit items-center gap-3">
+              <div className="relative h-12 w-12">
                 <Image
                   src="/rotary-logo.svg"
                   alt="Rotary Club of Ely"
                   fill
-                  sizes="40px"
+                  sizes="48px"
                   className="object-contain object-left"
-                  priority
                 />
               </div>
-              <span
-                className="
-                font-heading font-bold text-white"
-              >
+
+              <span className="font-heading text-lg font-black text-white">
                 Rotary Club of Ely
               </span>
             </Link>
 
-            <p className="text-[#B8C4D8] text-sm leading-relaxed mb-6">
-              Serving the Ely community through events, volunteering, and
-              charitable giving. Part of Rotary International's global network
-              of 45000+ clubs.
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/62">
+              Local people working together to support good causes, create
+              memorable community events and make a positive difference.
             </p>
 
-            {/* Social links */}
             {settings?.socialLinks && settings.socialLinks.length > 0 && (
-              <div className="flex items-center gap-3">
+              <div className="mt-6 flex items-center gap-3">
                 {settings.socialLinks.map(
                   (social: { platform: string; url: string }) => {
                     const Icon = socialIconMap[social.platform.toLowerCase()];
                     if (!Icon) return null;
+
                     return (
                       <a
                         key={social.platform}
@@ -132,11 +198,7 @@ export default async function Footer() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Rotary Club of Ely on ${social.platform}`}
-                        className="
-                        text-[#B8C4D8] hover:text-white
-                        transition-all duration-200 ease-out
-                        hover:scale-110
-                      "
+                        className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-white/68 transition hover:-translate-y-0.5 hover:border-rotary-gold hover:bg-rotary-gold hover:text-slate-950"
                       >
                         <Icon />
                       </a>
@@ -147,123 +209,92 @@ export default async function Footer() {
             )}
           </div>
 
-          {/* Column 2: Quick links */}
           <div>
-            <h3 className="font-heading font-semibold text-white text-[0.95rem] mb-4">
+            <h3 className="mb-5 font-heading text-base font-black text-white">
               Explore
             </h3>
-            <ul className="space-y-2">
+
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="
-                      text-[#B8C4D8] hover:text-white
-                      text-sm transition-colors duration-150
-                    "
-                  >
-                    {link.label}
-                  </Link>
+                  <FooterLink href={link.href}>{link.label}</FooterLink>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Get involved */}
           <div>
-            <h3 className="font-heading font-semibold text-white text-[0.95rem] mb-4">
+            <h3 className="mb-5 font-heading text-base font-black text-white">
               Get Involved
             </h3>
-            <ul className="space-y-2">
+
+            <ul className="space-y-3">
               {getInvolvedLinks.map((link) => (
                 <li key={link.href}>
-                  {link.external ? (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="
-                        text-[#B8C4D8] hover:text-white
-                        text-sm transition-colors duration-150
-                      "
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className="
-                        text-[#B8C4D8] hover:text-white
-                        text-sm transition-colors duration-150
-                      "
-                    >
-                      {link.label}
-                    </Link>
-                  )}
+                  <FooterLink href={link.href} external={link.external}>
+                    {link.label}
+                  </FooterLink>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 4: Meeting details */}
           <div>
-            <h3 className="font-heading font-semibold text-white text-[0.95rem] mb-4">
+            <h3 className="mb-5 font-heading text-base font-black text-white">
               Meet With Us
             </h3>
-            <address className="not-italic text-[#B8C4D8] text-sm leading-relaxed space-y-1">
-              {settings?.meetingDay && settings?.meetingTime && (
-                <p>
-                  {settings.meetingDay} at {settings.meetingTime}
-                </p>
+
+            <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-5">
+              <address className="not-italic text-sm leading-relaxed text-white/68">
+                {settings?.meetingDay && settings?.meetingTime && (
+                  <p className="font-bold text-white">
+                    {settings.meetingDay} at {settings.meetingTime}
+                  </p>
+                )}
+
+                {settings?.meetingLocation && (
+                  <p className="mt-2">{settings.meetingLocation}</p>
+                )}
+              </address>
+
+              {settings?.contactEmail && (
+                <a
+                  href={`mailto:${settings.contactEmail}`}
+                  className="mt-4 inline-block break-all text-sm font-bold text-rotary-gold underline underline-offset-4 transition hover:text-white"
+                >
+                  {settings.contactEmail}
+                </a>
               )}
-              {settings?.meetingLocation && <p>{settings.meetingLocation}</p>}
-            </address>
 
-            {settings?.contactEmail && (
-              <a
-                href={`mailto:${settings.contactEmail}`}
-                className="
-                  inline-block mt-4 text-sm text-[#B8C4D8]
-                  hover:text-white transition-colors duration-150
-                  underline underline-offset-2
-                "
-              >
-                {settings.contactEmail}
-              </a>
-            )}
-
-            {settings?.phone && (
-              <a
-                href={`tel:${settings.phone}`}
-                className="
-                  block mt-2 text-sm text-[#B8C4D8]
-                  hover:text-white transition-colors duration-150
-                "
-              >
-                {settings.phone}
-              </a>
-            )}
+              {settings?.phone && (
+                <a
+                  href={`tel:${settings.phone}`}
+                  className="mt-2 block text-sm font-bold text-white/70 transition hover:text-white"
+                >
+                  {settings.phone}
+                </a>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Divider */}
-        <hr className="border-white/10 mt-10 mb-6" />
+        <div className="mt-12 border-t border-white/10 pt-6">
+          <div className="flex flex-col gap-3 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              © {currentYear} Rotary Club of Ely.{" "}
+              {settings?.footerText || "Part of Rotary International."}
+            </p>
 
-        {/* Copyright row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#B8C4D8]">
-          <p>
-            © {currentYear} Rotary Club of Ely.{" "}
-            {settings?.footerText || "Part of Rotary International."}
-          </p>
-          <p>
-            Registered in England.{" "}
-            <a
-              href="/privacy"
-              className="hover:text-white transition-colors duration-150"
-            >
-              Privacy Policy
-            </a>
-          </p>
+            <p>
+              Registered in England.{" "}
+              <Link
+                href="/privacy"
+                className="font-semibold text-white/70 underline underline-offset-4 transition hover:text-rotary-gold"
+              >
+                Privacy Policy
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

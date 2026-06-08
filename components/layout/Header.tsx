@@ -83,24 +83,26 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   className={`
-                    relative font-body font-medium text-sm
-                    transition-colors duration-150
-                    ${
-                      scrolled
-                        ? isActive
-                          ? "text-rotary-blue"
-                          : "text-text-secondary hover:text-rotary-blue"
-                        : isActive
-                          ? "text-rotary-gold"
-                          : "text-white/90 hover:text-white"
-                    }
-                  `}
+    relative font-body text-sm font-semibold
+    transition-colors duration-200
+    after:absolute after:bottom-0.5 after:left-0 after:h-0.5 after:w-full
+    after:origin-left after:rounded-full after:bg-rotary-gold
+    after:transition-transform after:duration-300
+    ${
+      isActive ? "after:scale-x-100" : "after:scale-x-0 hover:after:scale-x-100"
+    }
+    ${
+      scrolled
+        ? isActive
+          ? "text-rotary-blue"
+          : "text-text-secondary hover:text-rotary-blue"
+        : isActive
+          ? "text-rotary-gold"
+          : "text-white/90 hover:text-white"
+    }
+  `}
                 >
                   {link.label}
-                  {/* Active underline */}
-                  {isActive && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-rotary-gold rounded-full" />
-                  )}
                 </Link>
               );
             })}

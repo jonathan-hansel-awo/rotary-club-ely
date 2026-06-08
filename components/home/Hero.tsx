@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import type { HeroImage } from "@/lib/types";
 import { urlForImage } from "@/sanity/lib/image";
 import Button from "@/components/ui/Button";
@@ -19,25 +19,81 @@ interface HeroProps {
 const heroStats = [
   {
     value: `${clubAge}`,
-    label: "Years Serving Ely",
-    icon: "👥",
+    label: "Years serving Ely",
+    eyebrow: "Since 1938",
+    icon: "people",
   },
   {
     value: "£70k+",
-    label: "Raised for Local Causes within the last 5 years",
-    icon: "♡",
+    label: "Raised for local causes",
+    eyebrow: "Last 5 years",
+    icon: "heart",
   },
   {
     value: "50+",
-    label: "Charities Supported",
-    icon: "🌍",
+    label: "Charities supported",
+    eyebrow: "Local & global",
+    icon: "globe",
   },
   {
     value: "Annual",
-    label: "Events & Activities",
-    icon: "📅",
+    label: "Events & activities",
+    eyebrow: "Community calendar",
+    icon: "calendar",
   },
 ];
+
+function StatIcon({ type }: { type: string }) {
+  const commonProps = {
+    width: 18,
+    height: 18,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2.2,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+
+  if (type === "heart") {
+    return (
+      <svg {...commonProps}>
+        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
+      </svg>
+    );
+  }
+
+  if (type === "globe") {
+    return (
+      <svg {...commonProps}>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20" />
+        <path d="M12 2a15.3 15.3 0 0 1 0 20" />
+        <path d="M12 2a15.3 15.3 0 0 0 0 20" />
+      </svg>
+    );
+  }
+
+  if (type === "calendar") {
+    return (
+      <svg {...commonProps}>
+        <rect x="3" y="4" width="18" height="18" rx="2" />
+        <path d="M16 2v4" />
+        <path d="M8 2v4" />
+        <path d="M3 10h18" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg {...commonProps}>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
 
 export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -84,27 +140,61 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
       className="relative min-h-[calc(100vh-80px)] overflow-hidden bg-[#061D3A] text-white"
     >
       {/* Background image */}
-      {currentUrl && (
-        <Image
-          src={currentUrl}
-          alt={currentAlt}
-          fill
-          priority
-          fetchPriority="high"
-          sizes="100vw"
-          className="image-polish object-cover object-center"
-        />
-      )}
+      {/* Background image with crossfade */}
+      <AnimatePresence mode="wait">
+        {currentUrl && (
+          <motion.div
+            key={currentUrl}
+            initial={{
+              opacity: 0,
+              scale: 1.04,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+            }}
+            exit={{
+              opacity: 0,
+              scale: 1.02,
+            }}
+            transition={{
+              duration: 1.4,
+              ease: "easeInOut",
+            }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={currentUrl}
+              alt={currentAlt}
+              fill
+              priority
+              fetchPriority="high"
+              sizes="100vw"
+              className="image-polish object-cover object-center"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Dark gradient overlay */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-r from-[#061D3A] via-[#061D3A]/85 to-[#061D3A]/20"
+        className="absolute inset-0 bg-gradient-to-r from-[#061D3A] via-[#061D3A]/78 to-[#061D3A]/12"
       />
 
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-[#061D3A]/80 via-transparent to-[#061D3A]/30"
+        className="absolute inset-0 bg-gradient-to-t from-[#061D3A]/90 via-transparent to-[#061D3A]/20"
+      />
+      <div
+        aria-hidden="true"
+        className="
+    absolute left-[10%] top-[25%]
+    h-[500px] w-[500px]
+    rounded-full
+    bg-rotary-gold/10
+    blur-3xl
+  "
       />
 
       {/* Content */}
@@ -166,34 +256,44 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
             className="
-  mt-10 grid max-w-5xl grid-cols-2 overflow-hidden
-  rounded-3xl border border-white/15 bg-[#061D3A]/55
-  shadow-2xl backdrop-blur-md
-  sm:grid-cols-4
-"
+    mt-10 max-w-5xl overflow-hidden rounded-[2rem]
+    border border-white/15 bg-white/[0.08]
+    shadow-[0_24px_80px_rgba(0,0,0,0.32)]
+    backdrop-blur-xl
+  "
           >
-            {heroStats.map((stat, index) => (
-              <div
-                key={stat.label}
-                className={`
-                  min-w-0 p-5 sm:p-6 over
-                  ${index !== 0 ? "sm:border-l sm:border-white/15" : ""}
-                  ${index > 1 ? "border-t border-white/15 sm:border-t-0" : ""}
-                `}
-              >
-                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-xl text-[#F7A81B]">
-                  {stat.icon}
+            <div className="grid grid-cols-2 sm:grid-cols-4">
+              {heroStats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className={`
+          group relative min-w-0 p-5 transition duration-300 hover:bg-white/[0.06] sm:p-6
+          ${index !== 0 ? "sm:border-l sm:border-white/10" : ""}
+          ${index > 1 ? "border-t border-white/10 sm:border-t-0" : ""}
+        `}
+                >
+                  <div className="mb-5 flex items-center justify-between gap-3">
+                    <div className="grid h-10 w-10 place-items-center rounded-2xl border border-white/10 bg-white/10 text-rotary-gold shadow-inner">
+                      <StatIcon type={stat.icon} />
+                    </div>
+
+                    <span className="hidden rounded-full bg-white/10 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white/55 xl:inline-flex">
+                      {stat.eyebrow}
+                    </span>
+                  </div>
+
+                  <p className="font-heading text-[clamp(1.75rem,2.8vw,3.25rem)] font-black leading-none tracking-[-0.05em] text-white">
+                    {stat.value}
+                  </p>
+
+                  <p className="mt-2 max-w-[11rem] text-sm font-medium leading-snug text-white/72">
+                    {stat.label}
+                  </p>
+
+                  <div className="absolute inset-x-5 bottom-0 h-px origin-left scale-x-0 bg-rotary-gold transition duration-300 group-hover:scale-x-100" />
                 </div>
-
-                <p className="font-heading text-[clamp(1.65rem,2.8vw,3rem)] font-extrabold leading-tight tracking-[-0.04em] text-white whitespace-nowrap">
-                  {stat.value}
-                </p>
-
-                <p className="mt-1 text-sm leading-5 text-white/78">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </motion.div>
 
           {/* Carousel dots */}

@@ -5,6 +5,7 @@ import PageTransition from "@/components/animation/PageTransition";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SkipToContent from "@/components/layout/SkipToContent";
+import SmoothScroll from "@/components/providers/SmoothScroll";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -111,7 +112,10 @@ export default function RootLayout({
         <SkipToContent />
         <Header />
         <PageTransition>
-          <main id="main-content">{children}</main>
+          <main id="main-content">
+        <SmoothScroll />
+            {children}
+            </main>
         </PageTransition>
         <Footer />
       </body>
