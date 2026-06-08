@@ -1,156 +1,77 @@
-/* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
-import StaggerChildren from "@/components/animation/StaggerChildren";
-import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
-import Card from "@/components/ui/Card";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Badge from "../ui/Badge";
-import type { Event, SanityImage } from "@/lib/types";
-import Image from "next/image";
-import { urlForImage } from "@/sanity/lib/image";
-import { buildImageUrl } from "@/lib/utilities";
+import EventCard from "@/components/events/EventCard";
+import type { Event } from "@/lib/types";
 
 interface FeaturedEventsProps {
   events: Event[];
 }
 
 export default function FeaturedEvents({ events }: FeaturedEventsProps) {
-
-
-
   return (
-    <section
-      aria-labelledby="featured-events-heading"
-      className="
-        bg-white
-        py-[clamp(3rem,6vw,6rem)]
-      "
-    >
-      <div
-        className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)]"
-        id="featured-events-heading"
-      >
-        {/* Section heading */}
-        <FadeInOnScroll>
-          <SectionHeading
-            className="pb-6"
-            eyebrow="Upcoming Events"
-            title="What's Happening in Ely"
-            subtitle="Join us for our upcoming community events — from summer festivals to winter fireworks, there's something for everyone."
-          />
-        </FadeInOnScroll>
+    <section className="relative overflow-hidden bg-slate-950 py-24 text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(247,168,0,0.22),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(1,104,183,0.35),transparent_36%)]" />
 
-        {/* Empty state */}
-        {events.length === 0 && (
-          <FadeInOnScroll>
-            <div
-              className="
-              rounded-[0.75rem] border-2 border-dashed border-[#E2E0DB]
-              py-16 px-8 text-center
-            "
-            >
-              <p className="font-heading font-semibold text-[#4A4845] text-lg mb-2">
-                No upcoming events right now
-              </p>
-              <p className="font-body text-[#4A4845] text-sm mb-6">
-                Check back soon — we're always planning something new.
-              </p>
-              <Link
-                href="/events"
-                className="
-                  font-body font-medium text-sm text-[#0067C8]
-                  hover:text-[#17458F] transition-colors duration-150
-                  underline underline-offset-2
-                "
-              >
-                Browse past events →
-              </Link>
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.3em] text-rotary-gold">
+              What&apos;s on
+            </p>
+
+            <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">
+              Events that bring Ely together.
+            </h2>
+
+            <p className="mt-5 max-w-xl text-lg leading-8 text-white/75">
+              From Aquafest to the Fireworks display, our events raise funds,
+              create memories, and support good causes across Ely and beyond.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 backdrop-blur">
+            <p className="text-sm font-semibold uppercase tracking-wide text-rotary-gold">
+              Planning ahead?
+            </p>
+            <p className="mt-2 text-balance text-2xl font-bold">
+              Some annual events are announced by month first, then updated with
+              the exact day closer to the time.
+            </p>
+          </div>
+        </div>
+
+        {events.length > 0 ? (
+          <>
+            <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {events.map((event, index) => (
+                <EventCard key={event._id} event={event} index={index} />
+              ))}
             </div>
-          </FadeInOnScroll>
-        )}
 
-        {/* Card grid */}
-        {events.length > 0 && (
-          <StaggerChildren
-            className="
-            grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
-            gap-6 mb-10
-          "
-          >
-            {events.map((event, index) => (
-              <article key={index} className="group overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-2xl">
-                <div className="relative h-64">
-                  <Image
-                    src={buildImageUrl(event.heroImage) || "/placeholder-event.jpg"}
-                    alt={event.title}
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-105"
-                  />
-
-                  <div className="absolute left-5 top-5 rounded-2xl bg-white px-4 py-3 text-center shadow-lg">
-                    <div className="text-2xl font-black text-[#17458F]">
-                      {0}
-                    </div>
-                    <div className="text-xs font-bold uppercase text-slate-500">
-                      {0}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-2xl font-black text-[#061D3A]">
-                    {event.title}
-                  </h3>
-                  <p className="mt-3 text-slate-600">{event.location}</p>
-
-                  <a className="mt-6 inline-flex font-bold text-[#17458F]">
-                    Read more →
-                  </a>
-                </div>
-              </article>
-            ))}
-          </StaggerChildren>
-        )}
-
-        {/* View all link */}
-        {events.length > 0 && (
-          <FadeInOnScroll>
-            <div className="text-center">
+            <div className="mt-10 flex justify-center">
               <Link
                 href="/events"
-                className="
-                  inline-flex items-center gap-2
-                  font-body font-medium text-[0.95rem]
-                  text-[#0067C8] hover:text-[#17458F]
-                  transition-colors duration-150
-                  group
-                "
+                className="rounded-full bg-rotary-gold px-7 py-3 text-sm font-black uppercase tracking-wide text-slate-950 transition hover:bg-white"
               >
                 View all events
-                <span
-                  className="
-                    inline-block transition-transform duration-200
-                    group-hover:translate-x-1
-                  "
-                  aria-hidden="true"
-                >
-                  →
-                </span>
               </Link>
             </div>
-          </FadeInOnScroll>
+          </>
+        ) : (
+          <div className="mt-12 rounded-3xl border border-white/10 bg-white/10 p-10 text-center">
+            <h3 className="text-2xl font-black">No upcoming events yet</h3>
+            <p className="mt-3 text-white/70">
+              Check back soon — the club is always planning something for the
+              community.
+            </p>
+            <Link
+              href="/events?status=Past"
+              className="mt-6 inline-flex rounded-full bg-rotary-gold px-6 py-3 text-sm font-bold text-slate-950"
+            >
+              Browse past events
+            </Link>
+          </div>
         )}
       </div>
     </section>
   );
-}
-
-function formatEventMeta(dateStart: string, location?: string): string {
-  const formatted = new Date(dateStart).toLocaleDateString("en-GB", {
-    weekday: "short",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-  return location ? `${formatted} · ${location}` : formatted;
 }

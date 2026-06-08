@@ -4,7 +4,6 @@ import {
   upcomingEventsQuery,
   allEventsQuery,
   eventBySlugQuery,
-  eventSlugsQuery,
   latestNewsQuery,
   allNewsQuery,
   newsBySlugQuery,
@@ -49,34 +48,18 @@ export async function getHomepageData(): Promise<HomepageData> {
 
 // ─── Events ──────────────────────────────────────────────────
 export async function getUpcomingEvents(): Promise<Event[]> {
-  return client.fetch(
-    upcomingEventsQuery,
-    {},
-    { next: { revalidate: DEFAULT_REVALIDATE } },
-  );
+  return client.fetch(upcomingEventsQuery, {}, { next: { revalidate: 3600 } });
 }
 
 export async function getAllEvents(): Promise<Event[]> {
-  return client.fetch(
-    allEventsQuery,
-    {},
-    { next: { revalidate: DEFAULT_REVALIDATE } },
-  );
+  return client.fetch(allEventsQuery, {}, { next: { revalidate: 3600 } });
 }
 
 export async function getEventBySlug(slug: string): Promise<Event | null> {
   return client.fetch(
     eventBySlugQuery,
     { slug },
-    { next: { revalidate: DEFAULT_REVALIDATE } },
-  );
-}
-
-export async function getEventSlugs(): Promise<{ slug: string }[]> {
-  return client.fetch(
-    eventSlugsQuery,
-    {},
-    { next: { revalidate: DEFAULT_REVALIDATE } },
+    { next: { revalidate: 3600 } },
   );
 }
 

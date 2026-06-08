@@ -31,8 +31,11 @@ export interface Event {
   _id: string;
   title: string;
   slug: Slug;
-  dateStart: string;
+  dateStart?: string;
   dateEnd?: string;
+  dateLabel?: string;
+  eventStatus?: "upcoming" | "past";
+  status?: "upcoming" | "past";
   location?: string;
   category: string;
   description?: TypedObject[];

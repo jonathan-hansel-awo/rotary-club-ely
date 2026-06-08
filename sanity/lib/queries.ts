@@ -32,31 +32,52 @@ export const siteSettingsQuery = `
 
 // ─── Events ──────────────────────────────────────────────────
 export const upcomingEventsQuery = `
-  *[_type == "event" && dateStart > now()] | order(dateStart asc) [0...3] {
+  *[
+    _type == "event" &&
+    (
+      (defined(dateStart) && dateStart > now()) ||
+      (!defined(dateStart) && eventStatus == "upcoming")
+    )
+  ]
+  | order(featured desc, dateStart asc) [0...3] {
     _id,
     title,
     slug,
     dateStart,
     dateEnd,
-    category,
-    location,
-    heroImage,
-    featured
-  }
-`;
-
-export const allEventsQuery = `
-  *[_type == "event"] | order(dateStart desc) {
-    _id,
-    title,
-    slug,
-    dateStart,
-    dateEnd,
+    dateLabel,
+    eventStatus,
     category,
     location,
     heroImage,
     featured,
-    "status": select(dateStart > now() => "upcoming", "past")
+    "status": select(
+      defined(dateStart) && dateStart > now() => "upcoming",
+      defined(dateStart) && dateStart <= now() => "past",
+      eventStatus
+    )
+  }
+`;
+
+export const allEventsQuery = `
+  *[_type == "event"]
+  | order(featured desc, dateStart asc) {
+    _id,
+    title,
+    slug,
+    dateStart,
+    dateEnd,
+    dateLabel,
+    eventStatus,
+    category,
+    location,
+    heroImage,
+    featured,
+    "status": select(
+      defined(dateStart) && dateStart > now() => "upcoming",
+      defined(dateStart) && dateStart <= now() => "past",
+      eventStatus
+    )
   }
 `;
 
@@ -67,6 +88,8 @@ export const eventBySlugQuery = `
     slug,
     dateStart,
     dateEnd,
+    dateLabel,
+    eventStatus,
     category,
     location,
     description,
@@ -74,6 +97,11 @@ export const eventBySlugQuery = `
     gallery,
     featured,
     externalUrl,
+    "status": select(
+      defined(dateStart) && dateStart > now() => "upcoming",
+      defined(dateStart) && dateStart <= now() => "past",
+      eventStatus
+    ),
     sponsors[]-> {
       _id,
       name,
@@ -81,10 +109,6 @@ export const eventBySlugQuery = `
       websiteUrl
     }
   }
-`;
-
-export const eventSlugsQuery = `
-  *[_type == "event"] { "slug": slug.current }
 `;
 
 // ─── News Posts ───────────────────────────────────────────────
@@ -236,9 +260,30 @@ export const aboutPageQuery = `
 // ─── Homepage (parallel fetch) ────────────────────────────────
 export const homepageQuery = `
   {
-    "upcomingEvents": *[_type == "event" && dateStart > now()] | order(dateStart asc) [0...3] {
-      _id, title, slug, dateStart, category, location, heroImage
-    },
+    "upcomingEvents": *[
+  _type == "event" &&
+  (
+    (defined(dateStart) && dateStart > now()) ||
+    (!defined(dateStart) && eventStatus == "upcoming")
+  )
+] | order(featured desc, dateStart asc) [0...3] {
+  _id,
+  title,
+  slug,
+  dateStart,
+  dateEnd,
+  dateLabel,
+  eventStatus,
+  category,
+  location,
+  heroImage,
+  featured,
+  "status": select(
+    defined(dateStart) && dateStart > now() => "upcoming",
+    defined(dateStart) && dateStart <= now() => "past",
+    eventStatus
+  )
+},
     "latestNews": *[_type == "newsPost"] | order(pinned desc, date desc) [0...4] {
       _id, title, slug, date, pinned, image
     },

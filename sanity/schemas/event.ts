@@ -9,41 +9,68 @@ export const eventSchema = defineType({
       name: "title",
       title: "Event Title",
       type: "string",
-      description: "The name of the event e.g. 'Ely Aquafest 2026'",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
-      description: "Auto-generated URL path. Click Generate.",
       options: { source: "title", maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "dateStart",
-      title: "Start Date & Time",
+      title: "Exact Start Date & Time",
       type: "datetime",
-      description: "When the event begins",
-      validation: (Rule) => Rule.required(),
+      description:
+        "Use this only when the exact day/time is known. Leave blank for events advertised by month/season, e.g. December 2026.",
     }),
     defineField({
       name: "dateEnd",
-      title: "End Date & Time",
+      title: "Exact End Date & Time",
       type: "datetime",
-      description: "When the event ends (optional for single-day events)",
+      description: "Optional.",
+    }),
+    defineField({
+      name: "dateLabel",
+      title: "Public Date Label",
+      type: "string",
+      description:
+        "Shown on the website. Examples: 'Sunday 6 July 2026', 'December 2026', 'Date to be confirmed'. Required if exact date is blank.",
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const parent = context.parent as { dateStart?: string };
+          if (!parent?.dateStart && !value) {
+            return "Add a public date label when no exact start date is set.";
+          }
+          return true;
+        }),
+    }),
+    defineField({
+      name: "eventStatus",
+      title: "Event Status",
+      type: "string",
+      description:
+        "Use this to keep approximate-date events visible as upcoming or past.",
+      options: {
+        list: [
+          { title: "Upcoming", value: "upcoming" },
+          { title: "Past", value: "past" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "upcoming",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "location",
       title: "Location",
       type: "string",
-      description: "Venue or area name e.g. 'Riverside, Ely'",
     }),
     defineField({
       name: "category",
       title: "Category",
       type: "string",
-      description: "The type of event",
       options: {
         list: [
           { title: "Aquafest", value: "aquafest" },
@@ -61,7 +88,6 @@ export const eventSchema = defineType({
       name: "description",
       title: "Description",
       type: "array",
-      description: "Full event description with formatting",
       of: [{ type: "block" }],
       validation: (Rule) => Rule.required(),
     }),
@@ -69,24 +95,20 @@ export const eventSchema = defineType({
       name: "heroImage",
       title: "Hero Image",
       type: "image",
-      description: "Main event image. Recommended size: 1600x900px",
       options: { hotspot: true },
       fields: [
         defineField({
           name: "alt",
           title: "Alt Text",
           type: "string",
-          description: "Describe the image for screen readers",
           validation: (Rule) => Rule.required(),
         }),
       ],
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "gallery",
       title: "Photo Gallery",
       type: "array",
-      description: "Additional event photos",
       of: [
         {
           type: "image",
@@ -106,28 +128,25 @@ export const eventSchema = defineType({
       name: "featured",
       title: "Featured",
       type: "boolean",
-      description: "Pin this event to the homepage",
       initialValue: false,
     }),
     defineField({
       name: "externalUrl",
       title: "External URL",
       type: "url",
-      description: "Link to an external event website e.g. Aquafest website",
     }),
     defineField({
       name: "sponsors",
       title: "Sponsors",
       type: "array",
-      description: "Sponsors associated with this event",
       of: [{ type: "reference", to: [{ type: "sponsor" }] }],
     }),
   ],
   orderings: [
     {
-      title: "Date (Newest First)",
-      name: "dateDesc",
-      by: [{ field: "dateStart", direction: "desc" }],
+      title: "Exact Date",
+      name: "dateAsc",
+      by: [{ field: "dateStart", direction: "asc" }],
     },
   ],
 });

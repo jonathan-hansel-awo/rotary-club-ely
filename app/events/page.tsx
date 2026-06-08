@@ -1,10 +1,9 @@
-import { Suspense } from "react";
-import InteriorHero from "@/components/ui/InteriorHero";
-import EventFilter from "@/components/events/EventFilter";
 import type { Metadata } from "next";
-import { getAllEvents } from "@/lib/sanity.fetch";
-import EventCard from "@/components/events/EventCard";
 import Container from "@/components/layout/Container";
+import EventCard from "@/components/events/EventCard";
+import EventFilter from "@/components/events/EventFilter";
+import InteriorHero from "@/components/ui/InteriorHero";
+import { getAllEvents } from "@/lib/sanity.fetch";
 
 export const revalidate = 3600;
 
@@ -12,90 +11,69 @@ export const metadata: Metadata = {
   title: "Events",
   description:
     "Upcoming and past events organised by the Rotary Club of Ely — from Aquafest to Fireworks and community activities.",
-  openGraph: {
-    title: "Events | Rotary Club of Ely",
-    description:
-      "From Aquafest to Fireworks — find upcoming and past events organised by the Rotary Club of Ely.",
-    images: [{ url: "/og-default.png", width: 1200, height: 630 }],
-  },
 };
 
 interface EventsPageProps {
-  searchParams: Promise<{ category?: string; status?: string }>;
+  searchParams: Promise<{
+    category?: string;
+    status?: string;
+  }>;
 }
 
-async function EventsList({ searchParams }: EventsPageProps) {
+export default async function EventsPage({ searchParams }: EventsPageProps) {
   const { category, status } = await searchParams;
   const allEvents = await getAllEvents();
 
   const filtered = allEvents.filter((event) => {
-    const now = new Date();
-    const eventDate = new Date(event.dateStart);
-    const isUpcoming = eventDate >= now;
-    const eventStatus = isUpcoming ? "Upcoming" : "Past";
+    const resolvedStatus =
+      event.status ??
+      (event.dateStart && new Date(event.dateStart) < new Date()
+        ? "past"
+        : (event.eventStatus ?? "upcoming"));
 
     const categoryMatch =
       !category || category === "All" || event.category === category;
-    const statusMatch = !status || status === "All" || eventStatus === status;
+
+    const statusMatch =
+      !status ||
+      status === "All" ||
+      resolvedStatus.toLowerCase() === status.toLowerCase();
 
     return categoryMatch && statusMatch;
   });
 
-  if (filtered.length === 0) {
-    return (
-      <div className="py-24 text-center">
-        <p className="text-xl font-heading font-semibold text-grey-700">
-          No events found
-        </p>
-        <p className="mt-2 text-grey-700">Try adjusting the filters above.</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {filtered.map((event, index) => (
-        <EventCard key={event._id} event={event} index={index} />
-      ))}
-    </div>
-  );
-}
-
-export default function EventsPage(props: EventsPageProps) {
   return (
     <>
       <InteriorHero
-        eyebrow="What's On"
-        title="Events in Ely"
-        subtitle="From our flagship Aquafest to community clean-ups and the annual Fireworks display — there's always something happening."
+        eyebrow="Events"
+        title="Join us at our next community event"
+        subtitle="Explore upcoming fundraisers, family days, social events and annual Ely traditions organised or supported by the Rotary Club of Ely."
       />
 
-      <Suspense
-        fallback={<div className="h-16 bg-white border-b border-grey-200" />}
-      >
-        <EventFilter />
-      </Suspense>
+      <section className="bg-slate-50 py-16">
+        <Container>
+          <div className="mb-10 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+            <EventFilter />
+          </div>
 
-      <main id="main-content">
-        <section className="bg-off-white py-16 md:py-20">
-          <Container>
-            <Suspense
-              fallback={
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                  {[...Array(6)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="h-80 rounded-xl bg-grey-200 animate-pulse"
-                    />
-                  ))}
-                </div>
-              }
-            >
-              <EventsList searchParams={props.searchParams} />
-            </Suspense>
-          </Container>
-        </section>
-      </main>
+          {filtered.length > 0 ? (
+            <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+              {filtered.map((event, index) => (
+                <EventCard key={event._id} event={event} index={index} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
+              <h2 className="text-2xl font-black text-slate-950">
+                No events found
+              </h2>
+              <p className="mt-3 text-slate-600">
+                Try changing the category or status filter.
+              </p>
+            </div>
+          )}
+        </Container>
+      </section>
     </>
   );
 }
