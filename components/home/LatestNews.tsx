@@ -1,8 +1,8 @@
-import Link from "next/link";
 import Image from "next/image";
-import { urlForImage } from "@/sanity/lib/image";
+import Link from "next/link";
 import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
-import SectionHeading from "@/components/ui/SectionHeading";
+import Container from "@/components/layout/Container";
+import { urlForImage } from "@/sanity/lib/image";
 import type { NewsPost } from "@/lib/types";
 
 interface LatestNewsProps {
@@ -17,7 +17,7 @@ type EnhancedNewsPost = NewsPost & {
   publishedAt?: string;
   date?: string;
   featured?: boolean;
-  ctaLabel?: string;
+  pinned?: boolean;
 };
 
 const CATEGORY_LABELS: Record<NewsCategory, string> = {
@@ -48,6 +48,7 @@ function buildImageUrl(
 
 function formatDate(post: EnhancedNewsPost): string {
   const value = post.publishedAt ?? post.date;
+
   if (!value) return "Latest update";
 
   return new Intl.DateTimeFormat("en-GB", {
@@ -61,14 +62,19 @@ function getCategoryLabel(category?: NewsCategory): string {
   return CATEGORY_LABELS[category ?? "news"];
 }
 
-function BrandedImageFallback({ title }: { title: string }) {
+function getPostHref(post: EnhancedNewsPost) {
+  return `/news/${post.slug.current}`;
+}
+
+function ImageFallback({ title }: { title: string }) {
   const initial = title?.charAt(0)?.toUpperCase() ?? "E";
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-[#17458F]">
-      <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full border border-white/15" />
-      <div className="absolute -bottom-16 -left-12 h-48 w-48 rounded-full bg-[#F7A81B]/20 blur-2xl" />
-      <div className="absolute inset-x-0 bottom-0 h-1 bg-[#F7A81B]" />
+    <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-rotary-blue">
+      <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full border-[18px] border-white/10" />
+      <div className="absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-rotary-gold/20 blur-3xl" />
+      <div className="absolute inset-x-0 bottom-0 h-1 bg-rotary-gold" />
+
       <div className="relative grid h-20 w-20 place-items-center rounded-full border border-white/20 bg-white/10 text-white shadow-2xl backdrop-blur-sm">
         <span className="font-heading text-3xl font-bold">{initial}</span>
       </div>
@@ -76,120 +82,129 @@ function BrandedImageFallback({ title }: { title: string }) {
   );
 }
 
-function MetaRow({ post }: { post: EnhancedNewsPost }) {
-  return (
-    <div className="mb-3 flex flex-wrap items-center gap-2 text-xs font-medium">
-      <span className="rounded-full bg-[#17458F]/10 px-3 py-1 text-[#17458F]">
-        {getCategoryLabel(post.category)}
-      </span>
-      {post.pinned && (
-        <span className="rounded-full bg-[#F7A81B]/20 px-3 py-1 text-[#6f4700]">
-          Pinned
-        </span>
-      )}
-      <span className="text-grey-700">{formatDate(post)}</span>
-    </div>
-  );
-}
-
-function FeaturedPost({ post }: { post: EnhancedNewsPost }) {
-  const imageUrl = buildImageUrl(post.image, 1100, 760);
+function FeaturedArticle({ post }: { post: EnhancedNewsPost }) {
+  const imageUrl = buildImageUrl(post.image, 1200, 850);
 
   return (
     <Link
-      href={`/news/${post.slug.current}`}
-      className="group relative grid overflow-hidden rounded-[1.75rem] bg-[#0f2f65] text-white shadow-xl shadow-[#17458F]/10 outline-none transition duration-300 hover:-translate-y-1 hover:shadow-2xl focus-visible:ring-2 focus-visible:ring-[#F7A81B] lg:min-h-[540px]"
+      href={getPostHref(post)}
+      className="group relative grid min-h-[560px] overflow-hidden rounded-[2rem] bg-slate-950 shadow-lg lg:min-h-[620px]"
     >
-      <div className="absolute inset-0">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={post.image?.alt ?? post.title}
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 58vw"
-            className="object-cover opacity-75 transition duration-700 group-hover:scale-105 group-hover:opacity-85"
-          />
-        ) : (
-          <BrandedImageFallback title={post.title} />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#07172f] via-[#07172f]/55 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#07172f]/55 via-transparent to-transparent" />
-      </div>
+      {imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt={post.image?.alt || post.title}
+          fill
+          className="object-cover opacity-80 transition duration-700 group-hover:scale-105"
+          sizes="(max-width: 1024px) 100vw, 58vw"
+        />
+      ) : (
+        <ImageFallback title={post.title} />
+      )}
 
-      <div className="relative flex min-h-[440px] flex-col justify-end p-6 sm:p-8 lg:p-10">
-        <div className="mb-4 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em]">
-          <span className="rounded-full bg-[#F7A81B] px-3 py-1 text-[#1A1918]">
-            {post.featured ? "Featured" : getCategoryLabel(post.category)}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-950/55 via-transparent to-transparent" />
+
+      <div className="relative mt-auto p-7 sm:p-10">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="rounded-full bg-rotary-gold px-4 py-2 text-xs font-black uppercase tracking-wide text-slate-950">
+            Featured update
           </span>
+
           {post.pinned && (
-            <span className="rounded-full bg-white/15 px-3 py-1 text-white backdrop-blur-sm">
+            <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-wide text-white backdrop-blur">
               Pinned
             </span>
           )}
-          <span className="text-white/75">{formatDate(post)}</span>
+
+          <span className="text-sm font-semibold text-white/75">
+            {formatDate(post)}
+          </span>
         </div>
 
-        <h3 className="max-w-2xl font-heading text-[clamp(2rem,5vw,4.5rem)] font-bold leading-[0.95] tracking-tight">
+        <h3 className="mt-5 max-w-3xl font-heading text-4xl font-black leading-tight text-white sm:text-5xl">
           {post.title}
         </h3>
 
         {post.excerpt && (
-          <p className="mt-5 max-w-xl font-body text-base leading-7 text-white/85 sm:text-lg">
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/80">
             {post.excerpt}
           </p>
         )}
 
-        <div className="mt-7 inline-flex w-fit items-center gap-3 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#17458F] transition duration-200 group-hover:bg-[#F7A81B] group-hover:text-[#1A1918]">
-          Read the story
-          <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
+        <span className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-black uppercase tracking-wide text-rotary-blue transition group-hover:bg-rotary-gold group-hover:text-slate-950">
+          Read story
+          <span
+            aria-hidden="true"
+            className="transition group-hover:translate-x-1"
+          >
             →
           </span>
-        </div>
+        </span>
       </div>
     </Link>
   );
 }
 
-function CompactPost({ post }: { post: EnhancedNewsPost }) {
-  const imageUrl = buildImageUrl(post.image, 360, 300);
+function CompactArticle({
+  post,
+  index,
+}: {
+  post: EnhancedNewsPost;
+  index: number;
+}) {
+  const imageUrl = buildImageUrl(post.image, 500, 380);
 
   return (
-    <Link
-      href={`/news/${post.slug.current}`}
-      className="group grid grid-cols-[6rem_1fr] gap-4 rounded-[1.25rem] border border-grey-200/70 bg-white p-3 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#F7A81B]/70 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A81B] sm:grid-cols-[8rem_1fr]"
-    >
-      <div className="relative min-h-28 overflow-hidden rounded-[1rem] bg-[#17458F]/10">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={post.image?.alt ?? post.title}
-            fill
-            sizes="128px"
-            className="object-cover transition duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <BrandedImageFallback title={post.title} />
-        )}
-      </div>
+    <FadeInOnScroll delay={index * 0.08}>
+      <Link
+        href={getPostHref(post)}
+        className="group grid gap-4 rounded-3xl border border-grey-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg sm:grid-cols-[160px_1fr]"
+      >
+        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-grey-100 sm:aspect-auto">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={post.image?.alt || post.title}
+              fill
+              className="object-cover transition duration-500 group-hover:scale-105"
+              sizes="160px"
+            />
+          ) : (
+            <ImageFallback title={post.title} />
+          )}
+        </div>
 
-      <div className="min-w-0 py-1 pr-1">
-        <MetaRow post={post} />
-        <h4 className="font-heading text-lg font-bold leading-snug text-grey-900 transition-colors duration-200 group-hover:text-[#17458F]">
-          {post.title}
-        </h4>
-        {post.excerpt && (
-          <p className="mt-2 line-clamp-2 text-sm leading-6 text-grey-700">
-            {post.excerpt}
-          </p>
-        )}
-      </div>
-    </Link>
+        <div className="flex flex-col py-1">
+          <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
+            <span className="rounded-full bg-rotary-blue/10 px-3 py-1 text-rotary-blue">
+              {getCategoryLabel(post.category)}
+            </span>
+            <span className="text-grey-700">{formatDate(post)}</span>
+          </div>
+
+          <h4 className="mt-3 font-heading text-xl font-black leading-snug text-grey-900 transition group-hover:text-rotary-blue">
+            {post.title}
+          </h4>
+
+          {post.excerpt && (
+            <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-grey-700">
+              {post.excerpt}
+            </p>
+          )}
+
+          <span className="mt-auto pt-4 text-sm font-bold text-rotary-blue">
+            Read more →
+          </span>
+        </div>
+      </Link>
+    </FadeInOnScroll>
   );
 }
 
 export default function LatestNews({ posts }: LatestNewsProps) {
   const enhancedPosts = (posts ?? []) as EnhancedNewsPost[];
+
   if (enhancedPosts.length === 0) return null;
 
   const featured =
@@ -197,58 +212,61 @@ export default function LatestNews({ posts }: LatestNewsProps) {
     enhancedPosts.find((post) => post.pinned) ??
     enhancedPosts[0];
 
-  const rest = enhancedPosts.filter((post) => post._id !== featured._id).slice(0, 4);
+  const rest = enhancedPosts
+    .filter((post) => post._id !== featured._id)
+    .slice(0, 4);
 
   return (
-    <section
-      aria-labelledby="latest-news-heading"
-      className="relative overflow-hidden bg-white py-[clamp(4rem,8vw,7rem)]"
-    >
-      <div className="absolute left-1/2 top-0 h-72 w-[44rem] -translate-x-1/2 rounded-full bg-[#17458F]/5 blur-3xl" />
-      <div className="absolute bottom-10 right-0 h-64 w-64 rounded-full bg-[#F7A81B]/10 blur-3xl" />
+    <section className="relative overflow-hidden bg-white py-20 md:py-28">
+      <div className="absolute right-0 top-0 h-72 w-72 rounded-full bg-rotary-gold/10 blur-3xl" />
+      <div className="absolute -left-32 bottom-20 h-96 w-96 rounded-full bg-rotary-blue/5 blur-3xl" />
 
-      <div className="relative mx-auto max-w-[1280px] px-[clamp(1rem,2vw,2rem)]" id="news">
-        <FadeInOnScroll>
-          <SectionHeading
-            eyebrow="Latest in Ely Rotary"
-            title="News & Announcements"
-            subtitle="Club updates, community stories and opportunities to get involved in Ely."
-          />
-        </FadeInOnScroll>
+      <Container>
+        <div className="relative">
+          <div className="mb-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div>
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.22em] text-rotary-gold">
+                Latest News
+              </p>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-stretch">
-          <div className="lg:col-span-7">
-            <FadeInOnScroll>
-              <FeaturedPost post={featured} />
-            </FadeInOnScroll>
-          </div>
-
-          {rest.length > 0 && (
-            <div className="flex flex-col gap-4 lg:col-span-5">
-              {rest.map((post, index) => (
-                <FadeInOnScroll key={post._id} delay={index * 0.08}>
-                  <CompactPost post={post} />
-                </FadeInOnScroll>
-              ))}
+              <h2 className="font-heading text-4xl font-black leading-tight text-grey-900 md:text-6xl">
+                Ely Rotary News
+                <span className="block text-rotary-blue">& Announcements</span>
+              </h2>
             </div>
-          )}
-        </div>
 
-        <FadeInOnScroll>
-          <div className="mt-10 flex flex-col items-center justify-between gap-4 rounded-[1.25rem] border border-[#17458F]/10 bg-[#f8fbff] px-5 py-5 text-center sm:flex-row sm:text-left">
-            <p className="max-w-2xl text-sm leading-6 text-grey-700">
-              Want to see what Ely Rotary has been doing recently? Browse every update, announcement and community story.
-            </p>
-            <Link
-              href="/news"
-              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#17458F] px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-[#123873] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A81B]"
-            >
-              View all news
-              <span aria-hidden="true">→</span>
-            </Link>
+            <div className="max-w-2xl lg:justify-self-end">
+              <p className="text-lg leading-relaxed text-grey-700">
+                Club updates, announcements and stories from Rotary Club of Ely
+                — from upcoming activities and fundraising milestones to the
+                people and projects behind our service.
+              </p>
+
+              <Link
+                href="/news"
+                className="mt-6 inline-flex items-center gap-2 rounded-full border border-rotary-blue px-6 py-3 text-sm font-black uppercase tracking-wide text-rotary-blue transition hover:bg-rotary-blue hover:text-white"
+              >
+                View all news
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
           </div>
-        </FadeInOnScroll>
-      </div>
+
+          <div className="grid gap-6 lg:grid-cols-[1.35fr_0.95fr]">
+            <FadeInOnScroll>
+              <FeaturedArticle post={featured} />
+            </FadeInOnScroll>
+
+            {rest.length > 0 && (
+              <div className="grid content-start gap-4">
+                {rest.map((post, index) => (
+                  <CompactArticle key={post._id} post={post} index={index} />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </Container>
     </section>
   );
 }

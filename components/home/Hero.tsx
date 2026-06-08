@@ -107,38 +107,6 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
         className="absolute inset-0 bg-gradient-to-t from-[#061D3A]/80 via-transparent to-[#061D3A]/30"
       />
 
-      {/* Giant spinning Rotary wheel */}
-      <motion.div
-        aria-hidden="true"
-        className="
-          absolute
-          left-[30%] top-[47%]
-          h-[520px] w-[520px]
-          -translate-x-1/2 -translate-y-1/2
-          opacity-[0.13]
-          pointer-events-none
-          mix-blend-screen
-          md:h-[680px] md:w-[680px]
-        "
-        animate={shouldReduceMotion ? { rotate: 0 } : { rotate: 360 }}
-        transition={
-          shouldReduceMotion
-            ? { duration: 0 }
-            : {
-                duration: 95,
-                repeat: Infinity,
-                ease: "linear",
-              }
-        }
-      >
-        <Image
-          src="/rotary-logo.svg"
-          alt=""
-          fill
-          sizes="680px"
-          className="object-contain"
-        />
-      </motion.div>
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-80px)] max-w-[1280px] items-center px-4 py-24 sm:px-6 lg:px-8">

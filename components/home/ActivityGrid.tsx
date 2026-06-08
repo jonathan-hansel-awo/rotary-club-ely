@@ -214,7 +214,7 @@ export default function ActivityGrid({ tiles }: ActivityGridProps) {
         <FadeInOnScroll>
           <SectionHeading
             eyebrow="What We Do"
-            title="Events & Activities"
+            title="Activities"
             subtitle="From flagship festivals to quiet acts of community service — here's what keeps us busy."
            
           />

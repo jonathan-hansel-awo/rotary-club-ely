@@ -5,10 +5,9 @@ import FeaturedEvents from "@/components/home/FeaturedEvents";
 import MeetTheTeam from "@/components/home/MeetTheTeam";
 
 // Dynamically import below-fold sections
-const ImpactNumbers = dynamic(() => import("@/components/home/ImpactNumbers"));
+const Impact = dynamic(() => import("@/components/home/Impact"));
 const LatestNews = dynamic(() => import("@/components/home/LatestNews"));
 const OurCauses = dynamic(() => import("@/components/home/OurCauses"));
-// const MeetTheTeam = dynamic(() => import("@/components/home/MeetTheTeam"));
 const ActivityGrid = dynamic(() => import("@/components/home/ActivityGrid"));
 const SponsorsStrip = dynamic(() => import("@/components/home/SponsorsStrip"));
 const JoinCTA = dynamic(() => import("@/components/home/JoinCTA"));
@@ -24,9 +23,9 @@ export default async function Home() {
         heroImages={data.settings.heroImages}
       />
 
-      <FeaturedEvents events={data.upcomingEvents} />
+      <Impact stats={data.impactStats} />
 
-      <ImpactNumbers />
+      <FeaturedEvents events={data.upcomingEvents} />
 
       <LatestNews posts={data.latestNews} />
 
