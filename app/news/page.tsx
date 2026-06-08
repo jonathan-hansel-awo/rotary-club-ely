@@ -40,21 +40,22 @@ const CATEGORY_LABELS: Record<NewsCategory, string> = {
   "community-story": "Community Stories",
 };
 
-const FILTERS: Array<{ label: string; href: string; category?: NewsCategory }> = [
-  { label: "All", href: "/news" },
-  { label: "News", href: "/news?category=news", category: "news" },
-  {
-    label: "Announcements",
-    href: "/news?category=announcement",
-    category: "announcement",
-  },
-  { label: "Events", href: "/news?category=event", category: "event" },
-  {
-    label: "Community Stories",
-    href: "/news?category=community-story",
-    category: "community-story",
-  },
-];
+const FILTERS: Array<{ label: string; href: string; category?: NewsCategory }> =
+  [
+    { label: "All", href: "/news" },
+    { label: "News", href: "/news?category=news", category: "news" },
+    {
+      label: "Announcements",
+      href: "/news?category=announcement",
+      category: "announcement",
+    },
+    { label: "Events", href: "/news?category=event", category: "event" },
+    {
+      label: "Community Stories",
+      href: "/news?category=community-story",
+      category: "community-story",
+    },
+  ];
 
 interface NewsPageProps {
   searchParams?: Promise<{ category?: string }>;
@@ -62,7 +63,9 @@ interface NewsPageProps {
 
 export default async function NewsPage({ searchParams }: NewsPageProps) {
   const params = await searchParams;
-  const selectedCategory = isNewsCategory(params?.category) ? params?.category : undefined;
+  const selectedCategory = isNewsCategory(params?.category)
+    ? params?.category
+    : undefined;
   const posts = ((await getAllNews()) ?? []) as EnhancedNewsPost[];
   const visiblePosts = selectedCategory
     ? posts.filter((post) => post.category === selectedCategory)
@@ -108,8 +111,14 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
                   )}
 
                   {pinned.length > 0 && (
-                    <section className="mt-12" aria-labelledby="pinned-news-heading">
-                      <SectionDivider id="pinned-news-heading" label="Pinned updates" />
+                    <section
+                      className="mt-12"
+                      aria-labelledby="pinned-news-heading"
+                    >
+                      <SectionDivider
+                        id="pinned-news-heading"
+                        label="Pinned updates"
+                      />
                       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
                         {pinned.map((post, index) => (
                           <FadeInOnScroll key={post._id} delay={index * 0.06}>
@@ -121,10 +130,17 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
                   )}
 
                   {regular.length > 0 && (
-                    <section className="mt-12" aria-labelledby="all-news-heading">
+                    <section
+                      className="mt-12"
+                      aria-labelledby="all-news-heading"
+                    >
                       <SectionDivider
                         id="all-news-heading"
-                        label={selectedCategory ? CATEGORY_LABELS[selectedCategory] : "More updates"}
+                        label={
+                          selectedCategory
+                            ? CATEGORY_LABELS[selectedCategory]
+                            : "More updates"
+                        }
                       />
                       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
                         {regular.map((post, index) => (
@@ -146,7 +162,12 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
 }
 
 function isNewsCategory(value?: string): value is NewsCategory {
-  return value === "news" || value === "announcement" || value === "event" || value === "community-story";
+  return (
+    value === "news" ||
+    value === "announcement" ||
+    value === "event" ||
+    value === "community-story"
+  );
 }
 
 function FilterBar({ selectedCategory }: { selectedCategory?: NewsCategory }) {
@@ -154,7 +175,9 @@ function FilterBar({ selectedCategory }: { selectedCategory?: NewsCategory }) {
     <nav aria-label="News categories" className="mb-8 overflow-x-auto pb-2">
       <div className="flex min-w-max gap-2 rounded-full border border-[#17458F]/10 bg-white/80 p-2 shadow-sm backdrop-blur-sm">
         {FILTERS.map((filter) => {
-          const active = filter.category === selectedCategory || (!filter.category && !selectedCategory);
+          const active =
+            filter.category === selectedCategory ||
+            (!filter.category && !selectedCategory);
 
           return (
             <Link
@@ -178,7 +201,10 @@ function FilterBar({ selectedCategory }: { selectedCategory?: NewsCategory }) {
 function SectionDivider({ id, label }: { id: string; label: string }) {
   return (
     <div className="mb-6 flex items-center gap-4">
-      <h2 id={id} className="shrink-0 text-xs font-bold uppercase tracking-[0.2em] text-grey-700">
+      <h2
+        id={id}
+        className="shrink-0 text-xs font-bold uppercase tracking-[0.2em] text-grey-700"
+      >
         {label}
       </h2>
       <span className="h-px flex-1 bg-grey-200" />
@@ -202,7 +228,7 @@ function LeadStory({ post }: { post: EnhancedNewsPost }) {
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover transition duration-700 group-hover:scale-105"
+            className="image-polish object-cover transition duration-700 group-hover:scale-105"
           />
         ) : (
           <BrandedImageFallback title={post.title} />
@@ -216,7 +242,9 @@ function LeadStory({ post }: { post: EnhancedNewsPost }) {
             {post.featured ? "Featured" : getCategoryLabel(post.category)}
           </span>
           {post.pinned && (
-            <span className="rounded-full bg-white/10 px-3 py-1 text-white">Pinned</span>
+            <span className="rounded-full bg-white/10 px-3 py-1 text-white">
+              Pinned
+            </span>
           )}
           <span className="text-white/70">{formatDate(post)}</span>
         </div>
@@ -233,7 +261,10 @@ function LeadStory({ post }: { post: EnhancedNewsPost }) {
 
         <span className="mt-8 inline-flex w-fit items-center gap-3 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#17458F] transition duration-200 group-hover:bg-[#F7A81B] group-hover:text-[#1A1918]">
           Read the update
-          <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">
+          <span
+            className="transition-transform duration-200 group-hover:translate-x-1"
+            aria-hidden="true"
+          >
             →
           </span>
         </span>
@@ -249,7 +280,9 @@ function PinnedPostCard({ post }: { post: EnhancedNewsPost }) {
       className="group block rounded-[1.5rem] border border-[#F7A81B]/30 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A81B]"
     >
       <div className="mb-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
-        <span className="rounded-full bg-[#F7A81B]/20 px-3 py-1 text-[#6f4700]">Pinned</span>
+        <span className="rounded-full bg-[#F7A81B]/20 px-3 py-1 text-[#6f4700]">
+          Pinned
+        </span>
         <span className="rounded-full bg-[#17458F]/10 px-3 py-1 text-[#17458F]">
           {getCategoryLabel(post.category)}
         </span>
@@ -258,9 +291,16 @@ function PinnedPostCard({ post }: { post: EnhancedNewsPost }) {
       <h3 className="font-heading text-2xl font-bold leading-tight text-grey-900 transition-colors group-hover:text-[#17458F]">
         {post.title}
       </h3>
-      {post.excerpt && <p className="mt-3 line-clamp-3 leading-7 text-grey-700">{post.excerpt}</p>}
+      {post.excerpt && (
+        <p className="mt-3 line-clamp-3 leading-7 text-grey-700">
+          {post.excerpt}
+        </p>
+      )}
       <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#17458F]">
-        Read more <span className="transition-transform group-hover:translate-x-1">→</span>
+        Read more{" "}
+        <span className="transition-transform group-hover:translate-x-1">
+          →
+        </span>
       </span>
     </Link>
   );
@@ -281,7 +321,7 @@ function NewsCard({ post }: { post: EnhancedNewsPost }) {
             alt={post.image?.alt ?? post.title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition duration-500 group-hover:scale-105"
+            className="image-polish object-cover transition duration-500 group-hover:scale-105"
           />
         ) : (
           <BrandedImageFallback title={post.title} />
@@ -297,9 +337,16 @@ function NewsCard({ post }: { post: EnhancedNewsPost }) {
         <h3 className="font-heading text-xl font-bold leading-tight text-grey-900 transition-colors group-hover:text-[#17458F]">
           {post.title}
         </h3>
-        {post.excerpt && <p className="mt-3 line-clamp-3 leading-7 text-grey-700">{post.excerpt}</p>}
+        {post.excerpt && (
+          <p className="mt-3 line-clamp-3 leading-7 text-grey-700">
+            {post.excerpt}
+          </p>
+        )}
         <span className="mt-auto pt-5 text-sm font-semibold text-[#17458F]">
-          Read more <span className="transition-transform group-hover:translate-x-1">→</span>
+          Read more{" "}
+          <span className="transition-transform group-hover:translate-x-1">
+            →
+          </span>
         </span>
       </div>
     </Link>
@@ -309,7 +356,9 @@ function NewsCard({ post }: { post: EnhancedNewsPost }) {
 function EmptyState({ selectedCategory }: { selectedCategory?: NewsCategory }) {
   return (
     <div className="rounded-[2rem] border border-grey-200 bg-white px-6 py-20 text-center shadow-sm">
-      <p className="font-heading text-2xl font-bold text-grey-900">No posts found</p>
+      <p className="font-heading text-2xl font-bold text-grey-900">
+        No posts found
+      </p>
       <p className="mx-auto mt-3 max-w-xl leading-7 text-grey-700">
         {selectedCategory
           ? `There are no ${CATEGORY_LABELS[selectedCategory].toLowerCase()} to show yet.`
@@ -327,7 +376,11 @@ function EmptyState({ selectedCategory }: { selectedCategory?: NewsCategory }) {
   );
 }
 
-function buildImageUrl(post: EnhancedNewsPost, width: number, height: number): string | null {
+function buildImageUrl(
+  post: EnhancedNewsPost,
+  width: number,
+  height: number,
+): string | null {
   if (!post.image?.asset?._ref) return null;
 
   try {

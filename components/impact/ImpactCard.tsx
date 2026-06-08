@@ -43,7 +43,7 @@ export default function ImpactCard({ impact, index = 0 }: ImpactCardProps) {
               src={imageSrc}
               alt={impact.image?.alt || impact.title}
               fill
-              className="object-cover transition duration-500 group-hover:scale-105"
+              className="image-polish object-cover transition duration-500 group-hover:scale-105"
               sizes="(min-width: 1024px) 33vw, 100vw"
             />
           ) : (

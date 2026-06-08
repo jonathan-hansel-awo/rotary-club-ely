@@ -1,55 +1,56 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Link from 'next/link'
-import Image from 'next/image'
-import { urlForImage } from '@/sanity/lib/image'
-import FadeInOnScroll from '@/components/animation/FadeInOnScroll'
+import Link from "next/link";
+import Image from "next/image";
+import { urlForImage } from "@/sanity/lib/image";
+import FadeInOnScroll from "@/components/animation/FadeInOnScroll";
 
 interface CauseCardProps {
   cause: {
-    _id: string
-    name: string
-    slug: { current: string }
-    summary: string
-    image?: any
-    externalUrl?: string
-  }
-  index?: number
+    _id: string;
+    name: string;
+    slug: { current: string };
+    summary: string;
+    image?: any;
+    externalUrl?: string;
+  };
+  index?: number;
 }
 
 // Accent colours cycling through brand palette
 const ACCENT_COLOURS = [
-  'from-rotary-blue/10 to-rotary-blue/5',
-  'from-rotary-gold/15 to-rotary-gold/5',
-  'from-cranberry/10 to-cranberry/5',
-  'from-rotary-blue-dark/10 to-rotary-blue-dark/5',
-]
+  "from-rotary-blue/10 to-rotary-blue/5",
+  "from-rotary-gold/15 to-rotary-gold/5",
+  "from-cranberry/10 to-cranberry/5",
+  "from-rotary-blue-dark/10 to-rotary-blue-dark/5",
+];
 
 const ICON_COLOURS = [
-  'bg-rotary-blue/15 text-rotary-blue',
-  'bg-rotary-gold/20 text-rotary-gold-dark',
-  'bg-cranberry/10 text-cranberry',
-  'bg-rotary-blue-dark/10 text-rotary-blue-dark',
-]
+  "bg-rotary-blue/15 text-rotary-blue",
+  "bg-rotary-gold/20 text-rotary-gold-dark",
+  "bg-cranberry/10 text-cranberry",
+  "bg-rotary-blue-dark/10 text-rotary-blue-dark",
+];
 
 export default function CauseCard({ cause, index = 0 }: CauseCardProps) {
   const imageSrc = cause.image
     ? urlForImage(cause.image)?.width(800).height(500).url()
-    : null
+    : null;
 
-  const accentIndex = index % ACCENT_COLOURS.length
-  const isExternal = !!cause.externalUrl
+  const accentIndex = index % ACCENT_COLOURS.length;
+  const isExternal = !!cause.externalUrl;
 
   const CardContent = (
     <div className="group block h-full rounded-xl bg-white shadow-sm border border-grey-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover">
-
       {/* Image or illustrated fallback */}
-      <div className={`relative h-44 w-full overflow-hidden bg-gradient-to-br ${ACCENT_COLOURS[accentIndex]}`}>
+      <div
+        className={`relative h-44 w-full overflow-hidden bg-gradient-to-br ${ACCENT_COLOURS[accentIndex]}`}
+      >
         {imageSrc ? (
           <Image
             src={imageSrc}
             alt={cause.name}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="image-polish object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
@@ -103,7 +104,7 @@ export default function CauseCard({ cause, index = 0 }: CauseCardProps) {
           {cause.summary}
         </p>
         <div className="mt-4 flex items-center gap-1 text-sm font-medium text-rotary-blue">
-          {isExternal ? 'Visit website' : 'Learn more'}
+          {isExternal ? "Visit website" : "Learn more"}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
@@ -112,12 +113,16 @@ export default function CauseCard({ cause, index = 0 }: CauseCardProps) {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </div>
       </div>
     </div>
-  )
+  );
 
   return (
     <FadeInOnScroll delay={index * 0.08}>
@@ -140,5 +145,5 @@ export default function CauseCard({ cause, index = 0 }: CauseCardProps) {
         </Link>
       )}
     </FadeInOnScroll>
-  )
+  );
 }

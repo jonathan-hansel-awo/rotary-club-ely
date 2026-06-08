@@ -170,7 +170,7 @@ export default async function AboutPage() {
                         alt={member.name}
                         width={96}
                         height={96}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full image-polish object-cover"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-rotary-blue text-white font-heading font-bold text-2xl">

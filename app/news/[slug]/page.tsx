@@ -152,7 +152,7 @@ export default async function NewsPostDetailPage({
               src={heroSrc}
               alt={post.title}
               fill
-              className="object-cover"
+              className="image-polish object-cover"
               priority
               sizes="100vw"
             />
@@ -317,7 +317,7 @@ function NewsListItem({ post }: { post: NewsPost }) {
             src={imageSrc}
             alt={post.title}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="image-polish object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="64px"
           />
         ) : (

@@ -2,6 +2,7 @@ import { getHomepageData } from "@/lib/sanity.fetch";
 import dynamic from "next/dynamic";
 import Hero from "@/components/home/Hero";
 import FeaturedEvents from "@/components/home/FeaturedEvents";
+import SectionDivider from "@/components/ui/SectionDivider";
 
 // Dynamically import below-fold sections
 const Impact = dynamic(() => import("@/components/home/Impact"));
@@ -20,17 +21,17 @@ export default async function Home() {
         imageAlt="Members of the Rotary Club of Ely at a community event"
         heroImages={data.settings.heroImages}
       />
-
+      <SectionDivider />
       <Impact stats={data.impactStats} />
-
+      <SectionDivider />
       <FeaturedEvents events={data.upcomingEvents} />
-
+      <SectionDivider />
       <LatestNews posts={data.latestNews} />
-
+      <SectionDivider />
       <OurCauses causes={data.causes} />
-
+      <SectionDivider />
       <JoinCTA settings={data.settings} />
-
+      <SectionDivider />
       <MeetTheTeam members={data.members} />
     </>
   );

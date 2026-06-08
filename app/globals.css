@@ -117,3 +117,48 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f8f7f4;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: #f7a81b;
+  color: #0c2340;
+}
+
+:focus-visible {
+  outline: 3px solid #f7a81b;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+.image-polish {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

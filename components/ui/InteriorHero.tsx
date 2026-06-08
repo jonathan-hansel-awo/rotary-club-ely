@@ -2,7 +2,6 @@ import { SanityImageSource } from "@sanity/image-url";
 import Container from "../layout/Container";
 import ImageWithHotspot, { SanityImageRef } from "./ImageWithHotspot";
 
-
 interface InteriorHeroProps {
   eyebrow?: string;
   title: string;
@@ -21,7 +20,11 @@ export default function InteriorHero({
       {/* Background image */}
       {image && (
         <div className="absolute inset-0 opacity-20">
-          <ImageWithHotspot image={image} alt="" className="object-cover" />
+          <ImageWithHotspot
+            image={image}
+            alt=""
+            className="image-polish object-cover"
+          />
         </div>
       )}
 

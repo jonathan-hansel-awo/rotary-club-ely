@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { urlForImage } from "@/sanity/lib/image";
 import { SanityImageSource } from "@sanity/image-url";
 
-
 interface GalleryImage {
   _key: string;
   asset: SanityImageSource;
@@ -96,7 +95,7 @@ export default function EventGallery({ images }: EventGalleryProps) {
                   src={src}
                   alt={image.alt || `Gallery image ${index + 1}`}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="image-polish object-cover transition-transform duration-300 group-hover:scale-105"
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
                 {/* Hover overlay */}

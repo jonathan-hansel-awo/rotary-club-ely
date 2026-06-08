@@ -20,8 +20,6 @@ interface CardProps {
   image?: SanityImage;
   imageAlt?: string;
   className?: string;
-
-  
 }
 
 export default function Card({
@@ -36,7 +34,6 @@ export default function Card({
   imageAlt,
   className = "",
 }: CardProps) {
-
   function buildImageUrl(image: SanityImage | undefined): string | null {
     if (!image?.asset?._ref) return null;
     try {
@@ -46,13 +43,13 @@ export default function Card({
     }
   }
 
-  const imageUrl = buildImageUrl(image)
+  const imageUrl = buildImageUrl(image);
 
   const hotspotStyle = image?.hotspot
     ? {
         objectPosition: `${image.hotspot.x * 100}% ${image.hotspot.y * 100}%`,
       }
-    : undefined
+    : undefined;
 
   return (
     <div
@@ -72,7 +69,7 @@ export default function Card({
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="
-              object-cover
+              image-polish object-cover
               transition-transform duration-300 ease-out
               group-hover:scale-105
             "
@@ -88,11 +85,7 @@ export default function Card({
           />
         )}
 
-        {badge && (
-          <div className="absolute top-3 left-3">
-            {badge}
-          </div>
-        )}
+        {badge && <div className="absolute top-3 left-3">{badge}</div>}
       </div>
 
       {/* Card body */}
@@ -124,5 +117,5 @@ export default function Card({
         </a>
       </div>
     </div>
-  )
+  );
 }

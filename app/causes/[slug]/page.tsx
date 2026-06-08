@@ -91,7 +91,7 @@ export default async function CauseDetailPage({
               src={heroSrc}
               alt={cause.name}
               fill
-              className="object-cover"
+              className="image-polish object-cover"
               priority
               sizes="100vw"
             />

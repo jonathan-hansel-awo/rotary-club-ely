@@ -105,7 +105,7 @@ function CauseBadge({
             src={imageUrl}
             alt={cause.image?.alt ?? cause.name}
             fill
-            className="object-cover transition duration-500 group-hover:scale-110"
+            className="image-polish object-cover transition duration-500 group-hover:scale-110"
             sizes="56px"
           />
         </div>
@@ -151,7 +151,7 @@ function FeaturedCause({ cause }: { cause: Cause }) {
               src={imageUrl}
               alt={cause.image?.alt ?? cause.name}
               fill
-              className="object-cover transition duration-700 group-hover:scale-105"
+              className="image-polish object-cover transition duration-700 group-hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           ) : (

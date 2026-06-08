@@ -95,7 +95,7 @@ function FeaturedArticle({ post }: { post: EnhancedNewsPost }) {
           src={imageUrl}
           alt={post.image?.alt || post.title}
           fill
-          className="object-cover opacity-80 transition duration-700 group-hover:scale-105"
+          className="image-polish object-cover opacity-80 transition duration-700 group-hover:scale-105"
           sizes="(max-width: 1024px) 100vw, 58vw"
         />
       ) : (
@@ -167,7 +167,7 @@ function CompactArticle({
               src={imageUrl}
               alt={post.image?.alt || post.title}
               fill
-              className="object-cover transition duration-500 group-hover:scale-105"
+              className="image-polish object-cover transition duration-500 group-hover:scale-105"
               sizes="160px"
             />
           ) : (

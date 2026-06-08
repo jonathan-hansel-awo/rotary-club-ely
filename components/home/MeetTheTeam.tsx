@@ -62,7 +62,7 @@ function MemberCard({ member, index }: { member: ClubMember; index: number }) {
             alt={member.name}
             fill
             sizes="220px"
-            className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+            className="image-polish object-cover transition-transform duration-300 ease-out group-hover:scale-105"
             style={
               member.photo?.hotspot
                 ? {
@@ -125,7 +125,7 @@ function FeaturedMember({ member }: { member: ClubMember }) {
                 src={photoUrl}
                 alt={member.name}
                 fill
-                className="object-cover"
+                className="image-polish object-cover"
                 sizes="(max-width: 1024px) 100vw, 390px"
                 style={
                   member.photo?.hotspot

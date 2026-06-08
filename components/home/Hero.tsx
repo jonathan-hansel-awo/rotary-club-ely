@@ -92,7 +92,7 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
           priority
           fetchPriority="high"
           sizes="100vw"
-          className="object-cover object-center"
+          className="image-polish object-cover object-center"
         />
       )}
 
@@ -106,7 +106,6 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
         aria-hidden="true"
         className="absolute inset-0 bg-gradient-to-t from-[#061D3A]/80 via-transparent to-[#061D3A]/30"
       />
-
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-80px)] max-w-[1280px] items-center px-4 py-24 sm:px-6 lg:px-8">

@@ -105,7 +105,7 @@ export default async function ImpactSlugPage({ params }: ImpactPageProps) {
                 alt={impact.image?.alt || impact.title}
                 fill
                 priority
-                className="object-cover"
+                className="image-polish object-cover"
                 sizes="(min-width: 1024px) 1100px, 100vw"
               />
             </div>

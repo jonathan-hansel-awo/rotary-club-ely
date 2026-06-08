@@ -107,7 +107,7 @@ function TileCard({ tile, index, className = "" }: TileCardProps) {
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="
-            object-cover
+            image-polish object-cover
             transition-transform duration-300 ease-out
             group-hover:scale-105
           "
@@ -208,15 +208,15 @@ export default function ActivityGrid({ tiles }: ActivityGridProps) {
       aria-labelledby="activity-grid-heading"
       className="bg-white py-[clamp(3rem,6vw,6rem)]"
     >
-      <div className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)]" 
-      id="activity-grid-heading"
+      <div
+        className="max-w-[1280px] mx-auto px-[clamp(1rem,2vw,2rem)]"
+        id="activity-grid-heading"
       >
         <FadeInOnScroll>
           <SectionHeading
             eyebrow="What We Do"
             title="Activities"
             subtitle="From flagship festivals to quiet acts of community service — here's what keeps us busy."
-           
           />
         </FadeInOnScroll>
 

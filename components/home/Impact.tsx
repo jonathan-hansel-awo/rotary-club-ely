@@ -6,7 +6,12 @@ import { clubAge } from "@/lib/utilities";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function Impact(stats: { totalImpacts?: number }) {
+
+interface ImpactProps {
+  stats: { totalImpacts?: number };
+}
+
+export default function Impact({ stats }: ImpactProps) {
 
   const items = [
     {

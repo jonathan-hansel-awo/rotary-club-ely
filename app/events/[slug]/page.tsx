@@ -90,7 +90,7 @@ export default async function EventPage({ params }: EventPageProps) {
               alt={event.heroImage?.alt || event.title}
               fill
               priority
-              className="object-cover opacity-35"
+              className="image-polish object-cover opacity-35"
               sizes="100vw"
             />
           ) : (
@@ -234,7 +234,7 @@ export default async function EventPage({ params }: EventPageProps) {
                         src={src}
                         alt={image.alt || event.title}
                         fill
-                        className="object-cover"
+                        className="image-polish object-cover"
                         sizes="(max-width: 768px) 100vw, 33vw"
                       />
                     </div>
