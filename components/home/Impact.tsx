@@ -23,7 +23,7 @@ export default function Impact({ stats }: ImpactProps) {
       label: "Impact stories",
     },
     {
-      value: "Local & global",
+      value: "Local & Global",
       label: "Causes supported",
     },
   ];
