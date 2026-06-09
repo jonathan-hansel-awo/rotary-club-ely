@@ -307,7 +307,7 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
                     </span>
                   </div>
 
-                  <p className="font-heading text-[clamp(1.75rem,2.8vw,3.25rem)] font-black leading-none tracking-[-0.05em] text-white">
+                  <p className="font-heading text-2xl font-black leading-none tracking-[-0.05em] text-white sm:text-3xl md:text-[clamp(1.75rem,2.8vw,3.25rem)]">
                     {stat.value}
                   </p>
 
