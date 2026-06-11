@@ -152,29 +152,33 @@ function CauseCard({ cause }: { cause: Cause }) {
       rel={isExternal ? "noopener noreferrer" : undefined}
       className="group overflow-hidden rounded-3xl border border-grey-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-rotary-blue/20 hover:shadow-lg"
     >
-      <div className="relative h-48 overflow-hidden bg-rotary-blue/10">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={image?.alt ?? cause.name}
-            fill
-            className="image-polish object-cover transition duration-700 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center bg-gradient-to-br from-rotary-blue/90 to-rotary-blue-dark">
-            <span className="font-heading text-5xl font-black text-white">
-              {cause.name.charAt(0).toUpperCase()}
-            </span>
-          </div>
-        )}
-
-        <div className="absolute -bottom-7 left-5">
-          <CauseLogo cause={cause} />
+      {/* Image section */}
+      <div className="overflow-hidden rounded-t-3xl">
+        <div className="relative h-48 bg-rotary-blue/10">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={image?.alt ?? cause.name}
+              fill
+              className="image-polish object-cover transition duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center bg-gradient-to-br from-rotary-blue/90 to-rotary-blue-dark">
+              <span className="font-heading text-5xl font-black text-white">
+                {cause.name.charAt(0).toUpperCase()}
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="p-5 pt-10">
+      {/* Content section */}
+      <div className="relative p-5 pt-10">
+        <div className="absolute -top-7 left-5 z-20">
+          <CauseLogo cause={cause} />
+        </div>
+
         <h3 className="font-heading text-xl font-black leading-snug text-grey-900 transition group-hover:text-rotary-blue">
           {cause.name}
           {isExternal && (
