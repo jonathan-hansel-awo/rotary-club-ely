@@ -79,7 +79,9 @@ export interface Cause {
   slug: Slug;
   summary: string;
   description?: TypedObject[];
-  image?: SanityImage;
+  image?: SanityImage; // legacy fallback
+  featuredImage?: SanityImage;
+  logo?: SanityImage;
   externalUrl?: string;
   order?: number;
   active?: boolean;

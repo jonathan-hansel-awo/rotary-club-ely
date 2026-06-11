@@ -197,6 +197,8 @@ export const activeCausesQuery = `
     slug,
     summary,
     image,
+    featuredImage,
+    logo,
     externalUrl
   }
 `;
@@ -209,6 +211,8 @@ export const causeBySlugQuery = `
     summary,
     description,
     image,
+    featuredImage,
+    logo,
     externalUrl
   }
 `;
@@ -287,9 +291,16 @@ export const homepageQuery = `
     "latestNews": *[_type == "newsPost"] | order(pinned desc, date desc) [0...4] {
       _id, title, slug, date, pinned, image
     },
-    "causes": *[_type == "cause" && active == true] | order(order asc) [0...6] {
-      _id, name, slug, summary, image, externalUrl
-    },
+"causes": *[_type == "cause" && active == true] | order(order asc) [0...6] {
+  _id,
+  name,
+  slug,
+  summary,
+  image,
+  featuredImage,
+  logo,
+  externalUrl
+},
     "sponsors": *[_type == "sponsor"] | order(order asc) {
       _id, name, logo, websiteUrl
     },

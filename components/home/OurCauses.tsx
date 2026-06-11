@@ -10,34 +10,6 @@ interface OurCausesProps {
   causes: Cause[];
 }
 
-const accentColours = [
-  {
-    bg: "bg-rotary-blue/10",
-    text: "text-rotary-blue",
-    border: "border-rotary-blue/20",
-  },
-  {
-    bg: "bg-rotary-gold/15",
-    text: "text-rotary-gold-dark",
-    border: "border-rotary-gold/25",
-  },
-  {
-    bg: "bg-cranberry/10",
-    text: "text-cranberry",
-    border: "border-cranberry/20",
-  },
-  {
-    bg: "bg-rotary-azure/10",
-    text: "text-rotary-azure",
-    border: "border-rotary-azure/20",
-  },
-  {
-    bg: "bg-success/10",
-    text: "text-success",
-    border: "border-success/20",
-  },
-];
-
 function buildImageUrl(
   image: Cause["image"],
   width: number,
@@ -57,118 +29,84 @@ function buildImageUrl(
   }
 }
 
-function causeHref(cause: Cause) {
-  return cause.externalUrl || `/causes/${cause.slug.current}`;
+function getCauseHref(cause: Cause) {
+  if (cause.externalUrl) return cause.externalUrl;
+  if (cause.slug?.current) return `/causes/${cause.slug.current}`;
+  return "/causes";
 }
 
-function CauseInitial({
-  name,
-  accent,
+function CauseLogo({
+  cause,
+  size = "md",
 }: {
-  name: string;
-  accent: (typeof accentColours)[number];
+  cause: Cause;
+  size?: "md" | "lg";
 }) {
+  const logoUrl = buildImageUrl(cause.logo, 180, 180);
+  const sizeClasses =
+    size === "lg" ? "h-20 w-20 rounded-3xl" : "h-14 w-14 rounded-2xl";
+
   return (
     <div
-      className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl border ${accent.bg} ${accent.border}`}
+      className={`${sizeClasses} grid shrink-0 place-items-center overflow-hidden border border-white/80 bg-white shadow-lg`}
     >
-      <span className={`font-heading text-xl font-black ${accent.text}`}>
-        {name.charAt(0).toUpperCase()}
-      </span>
+      {logoUrl ? (
+        <Image
+          src={logoUrl}
+          alt={cause.logo?.alt ?? `${cause.name} logo`}
+          width={size === "lg" ? 80 : 56}
+          height={size === "lg" ? 80 : 56}
+          className="h-full w-full object-contain p-2"
+        />
+      ) : (
+        <span className="font-heading text-xl font-black text-rotary-blue">
+          {cause.name.charAt(0).toUpperCase()}
+        </span>
+      )}
     </div>
   );
 }
 
-function CauseBadge({
-  cause,
-  accentIndex,
-}: {
-  cause: Cause;
-  accentIndex: number;
-}) {
-  const accent = accentColours[accentIndex % accentColours.length];
-  const imageUrl = buildImageUrl(cause.image, 140, 140);
-  const isExternal = !!cause.externalUrl;
-
-  return (
-    <a
-      href={causeHref(cause)}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
-      className="group flex items-start gap-4 rounded-3xl border border-grey-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-rotary-blue/20 hover:shadow-lg"
-    >
-      {imageUrl ? (
-        <div
-          className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border ${accent.border}`}
-        >
-          <Image
-            src={imageUrl}
-            alt={cause.image?.alt ?? cause.name}
-            fill
-            className="image-polish object-cover transition duration-500 group-hover:scale-110"
-            sizes="56px"
-          />
-        </div>
-      ) : (
-        <CauseInitial name={cause.name} accent={accent} />
-      )}
-
-      <div>
-        <h3 className="font-heading text-lg font-black leading-snug text-grey-900 transition group-hover:text-rotary-blue">
-          {cause.name}
-          {isExternal && (
-            <span className="ml-1 text-sm text-grey-700" aria-hidden="true">
-              ↗
-            </span>
-          )}
-        </h3>
-
-        {cause.summary && (
-          <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-grey-700">
-            {cause.summary}
-          </p>
-        )}
-      </div>
-    </a>
-  );
-}
-
 function FeaturedCause({ cause }: { cause: Cause }) {
-  const imageUrl = buildImageUrl(cause.image, 1100, 780);
+  const image = cause.featuredImage || cause.image;
+  const imageUrl = buildImageUrl(image, 1200, 800);
   const isExternal = !!cause.externalUrl;
+  const href = getCauseHref(cause);
 
   return (
     <FadeInOnScroll>
       <a
-        href={causeHref(cause)}
+        href={href}
         target={isExternal ? "_blank" : undefined}
         rel={isExternal ? "noopener noreferrer" : undefined}
-        className="group grid overflow-hidden rounded-[2rem] bg-white shadow-lg transition hover:-translate-y-1 hover:shadow-card-hover lg:grid-cols-[1.05fr_0.95fr]"
+        className="group grid overflow-hidden rounded-[2rem] bg-white shadow-xl ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-card-hover lg:grid-cols-[1.05fr_0.95fr]"
       >
         <div className="relative min-h-[340px] overflow-hidden bg-rotary-blue lg:min-h-[520px]">
           {imageUrl ? (
             <Image
               src={imageUrl}
-              alt={cause.image?.alt ?? cause.name}
+              alt={image?.alt ?? cause.name}
               fill
               className="image-polish object-cover transition duration-700 group-hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-rotary-blue to-rotary-blue-dark">
-              <div className="grid h-28 w-28 place-items-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm">
-                <span className="font-heading text-5xl font-black">
-                  {cause.name.charAt(0).toUpperCase()}
-                </span>
-              </div>
+              <span className="font-heading text-7xl font-black text-white/90">
+                {cause.name.charAt(0).toUpperCase()}
+              </span>
             </div>
           )}
 
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent" />
 
           <span className="absolute left-6 top-6 rounded-full bg-rotary-gold px-4 py-2 text-xs font-black uppercase tracking-wide text-slate-950">
             Featured cause
           </span>
+
+          <div className="absolute bottom-6 left-6">
+            <CauseLogo cause={cause} size="lg" />
+          </div>
         </div>
 
         <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-12">
@@ -201,12 +139,76 @@ function FeaturedCause({ cause }: { cause: Cause }) {
   );
 }
 
+function CauseCard({ cause }: { cause: Cause }) {
+  const image = cause.featuredImage || cause.image;
+  const imageUrl = buildImageUrl(image, 720, 460);
+  const isExternal = !!cause.externalUrl;
+  const href = getCauseHref(cause);
+
+  return (
+    <a
+      href={href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
+      className="group overflow-hidden rounded-3xl border border-grey-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-rotary-blue/20 hover:shadow-lg"
+    >
+      <div className="relative h-48 overflow-hidden bg-rotary-blue/10">
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={image?.alt ?? cause.name}
+            fill
+            className="image-polish object-cover transition duration-700 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center bg-gradient-to-br from-rotary-blue/90 to-rotary-blue-dark">
+            <span className="font-heading text-5xl font-black text-white">
+              {cause.name.charAt(0).toUpperCase()}
+            </span>
+          </div>
+        )}
+
+        <div className="absolute -bottom-7 left-5">
+          <CauseLogo cause={cause} />
+        </div>
+      </div>
+
+      <div className="p-5 pt-10">
+        <h3 className="font-heading text-xl font-black leading-snug text-grey-900 transition group-hover:text-rotary-blue">
+          {cause.name}
+          {isExternal && (
+            <span className="ml-1 text-sm text-grey-700" aria-hidden="true">
+              ↗
+            </span>
+          )}
+        </h3>
+
+        {cause.summary && (
+          <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-grey-700">
+            {cause.summary}
+          </p>
+        )}
+
+        <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-rotary-blue">
+          Read more
+          <span
+            aria-hidden="true"
+            className="transition group-hover:translate-x-1"
+          >
+            →
+          </span>
+        </span>
+      </div>
+    </a>
+  );
+}
+
 export default function OurCauses({ causes }: OurCausesProps) {
   if (!causes || causes.length === 0) return null;
 
   const [featuredCause, ...rest] = causes;
   const supportingCauses = rest.slice(0, 4);
-  const hasMore = causes.length > 5;
 
   return (
     <section
@@ -229,28 +231,27 @@ export default function OurCauses({ causes }: OurCausesProps) {
                   id="our-causes-heading"
                   className="font-heading text-4xl font-black leading-tight text-grey-900 md:text-6xl"
                 >
-                  Making a Difference
+                  Supporting people,
                   <span className="block text-rotary-blue">
-                    Locally & Globally
+                    not just projects
                   </span>
                 </h2>
               </div>
 
               <div className="max-w-2xl lg:justify-self-end">
                 <p className="text-lg leading-relaxed text-grey-700">
-                  From supporting local families to international humanitarian
-                  projects, these are the causes closest to our hearts.
+                  From local families and young people to international
+                  humanitarian work, these are some of the causes the Rotary
+                  Club of Ely proudly supports.
                 </p>
 
-                {hasMore && (
-                  <Link
-                    href="/causes"
-                    className="mt-6 inline-flex items-center gap-2 rounded-full border border-rotary-blue px-6 py-3 text-sm font-black uppercase tracking-wide text-rotary-blue transition hover:bg-rotary-blue hover:text-white"
-                  >
-                    View all causes
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                )}
+                <Link
+                  href="/causes"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full border border-rotary-blue px-6 py-3 text-sm font-black uppercase tracking-wide text-rotary-blue transition hover:bg-rotary-blue hover:text-white"
+                >
+                  See who we support
+                  <span aria-hidden="true">→</span>
+                </Link>
               </div>
             </div>
           </FadeInOnScroll>
@@ -258,24 +259,30 @@ export default function OurCauses({ causes }: OurCausesProps) {
           <FeaturedCause cause={featuredCause} />
 
           {supportingCauses.length > 0 && (
-            <div className="mt-8">
-              <div className="mb-5 flex items-center justify-between gap-4">
+            <div className="mt-10">
+              <div className="mb-6 flex items-center justify-between gap-4">
                 <h3 className="font-heading text-2xl font-black text-grey-900">
-                  More ways we serve
+                  More causes we support
                 </h3>
 
                 <div className="hidden h-px flex-1 bg-grey-200 sm:block" />
               </div>
 
-              <StaggerChildren className="grid gap-5 md:grid-cols-2">
-                {supportingCauses.map((cause, index) => (
-                  <CauseBadge
-                    key={cause._id}
-                    cause={cause}
-                    accentIndex={index}
-                  />
+              <StaggerChildren className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+                {supportingCauses.map((cause) => (
+                  <CauseCard key={cause._id} cause={cause} />
                 ))}
               </StaggerChildren>
+
+              <div className="mt-10 text-center">
+                <Link
+                  href="/causes"
+                  className="inline-flex items-center gap-2 rounded-full bg-rotary-blue px-8 py-4 text-sm font-black uppercase tracking-wide text-white transition hover:bg-rotary-blue-dark"
+                >
+                  Explore all causes
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </div>
             </div>
           )}
         </div>

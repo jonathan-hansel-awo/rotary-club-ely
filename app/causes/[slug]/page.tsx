@@ -29,8 +29,10 @@ export async function generateMetadata({
   const cause = await getCauseBySlug(slug);
   if (!cause) return {};
 
-  const ogImage = cause.image
-    ? urlForImage(cause.image)?.width(1200).height(630).url()
+  const heroImage = cause.featuredImage || cause.image;
+
+  const ogImage = heroImage
+    ? urlForImage(heroImage)?.width(1200).height(630).url()
     : undefined;
 
   return {
@@ -54,9 +56,11 @@ export default async function CauseDetailPage({
 
   if (!cause) notFound();
 
-  const heroSrc = cause.image
-    ? urlForImage(cause.image)?.width(1600).height(900).url()
-    : null;
+const heroImage = cause.featuredImage || cause.image;
+
+const heroSrc = heroImage
+  ? urlForImage(heroImage)?.width(1600).height(900).url()
+  : null;
 
   const jsonLd = {
     "@context": "https://schema.org",
