@@ -287,12 +287,12 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
     backdrop-blur-xl
   "
           >
-            <div className="grid grid-cols-2 sm:grid-cols-4">
+            <div className="grid grid-cols-2 md:grid-cols-4">
               {heroStats.map((stat, index) => (
                 <div
                   key={stat.label}
                   className={`
-          group relative min-w-0 p-5 transition duration-300 hover:bg-white/[0.06] sm:p-6
+  group relative min-w-0 p-4 transition duration-300 hover:bg-white/[0.06] sm:p-5 md:p-6
           ${index !== 0 ? "sm:border-l sm:border-white/10" : ""}
           ${index > 1 ? "border-t border-white/10 sm:border-t-0" : ""}
         `}
@@ -307,7 +307,7 @@ export default function Hero({ imageSrc, imageAlt, heroImages }: HeroProps) {
                     </span>
                   </div>
 
-                  <p className="font-heading text-[clamp(1.75rem,2.8vw,3.25rem)] font-black leading-none tracking-[-0.05em] text-white">
+                  <p className="font-heading text-2xl font-black leading-none tracking-[-0.05em] text-white sm:text-3xl md:text-[clamp(1.75rem,2.8vw,3.25rem)]">
                     {stat.value}
                   </p>
 
