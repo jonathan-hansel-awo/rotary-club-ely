@@ -100,9 +100,11 @@ function FeaturedCause({ cause }: { cause: Cause }) {
 
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent" />
 
+          {/*
           <span className="absolute left-6 top-6 rounded-full bg-rotary-gold px-4 py-2 text-xs font-black uppercase tracking-wide text-slate-950">
             Featured cause
           </span>
+          */}
 
           <div className="absolute bottom-6 left-6">
             <CauseLogo cause={cause} size="lg" />
