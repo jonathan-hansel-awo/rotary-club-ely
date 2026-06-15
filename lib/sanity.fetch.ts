@@ -35,7 +35,7 @@ import type {
   ImpactStats,
 } from "@/lib/types";
 
-const DEFAULT_REVALIDATE = 3600;
+const DEFAULT_REVALIDATE = 1800;
 
 // ─── Homepage ─────────────────────────────────────────────────
 export async function getHomepageData(): Promise<HomepageData> {
@@ -48,18 +48,18 @@ export async function getHomepageData(): Promise<HomepageData> {
 
 // ─── Events ──────────────────────────────────────────────────
 export async function getUpcomingEvents(): Promise<Event[]> {
-  return client.fetch(upcomingEventsQuery, {}, { next: { revalidate: 3600 } });
+  return client.fetch(upcomingEventsQuery, {}, { next: { revalidate: 1800 } });
 }
 
 export async function getAllEvents(): Promise<Event[]> {
-  return client.fetch(allEventsQuery, {}, { next: { revalidate: 3600 } });
+  return client.fetch(allEventsQuery, {}, { next: { revalidate: 1800 } });
 }
 
 export async function getEventBySlug(slug: string): Promise<Event | null> {
   return client.fetch(
     eventBySlugQuery,
     { slug },
-    { next: { revalidate: 3600 } },
+    { next: { revalidate: 1800 } },
   );
 }
 
