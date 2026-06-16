@@ -43,14 +43,28 @@ export async function generateMetadata({
   };
 }
 
-function formatDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString("en-GB", {
+function getPostDate(post: NewsPost) {
+  return post.publishedAt || post.date || null;
+}
+
+function formatDate(dateString?: string | null) {
+  if (!dateString) return "Date coming soon";
+
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) {
+    return "Date coming soon";
+  }
+
+  return date.toLocaleDateString("en-GB", {
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   });
 }
+
+const postDate = getPostDate(post);
 
 export default async function NewsPostDetailPage({
   params,
@@ -137,7 +151,7 @@ export default async function NewsPostDetailPage({
           )}
 
           <p className="mb-3 text-sm font-medium text-white/60">
-            {formatDate(post.date) - post.date}
+            {formatDate(post.date)}
           </p>
 
           <h1 className="font-heading text-3xl font-bold text-white md:text-4xl lg:text-5xl leading-tight max-w-3xl pb-10">
