@@ -14,6 +14,7 @@ export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const posts = await getAllNews();
+
   return posts.map((p: { slug: { current: string } }) => ({
     slug: p.slug.current,
   }));
@@ -26,9 +27,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getNewsBySlug(slug);
+
   if (!post) return {};
 
-  const postDate = post.date || post.publishedAt || null;
+  const postDate = post.date || null;
 
   const ogImage = post.image
     ? urlForImage(post.image)?.width(1200).height(630).url()
@@ -36,17 +38,15 @@ export async function generateMetadata({
 
   return {
     title: `${post.title} | Rotary Club of Ely`,
+    description: post.excerpt,
     openGraph: {
       title: post.title,
+      description: post.excerpt,
       images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : [],
       type: "article",
       publishedTime: postDate ?? undefined,
     },
   };
-}
-
-function getPostDate(post: NewsPost) {
-  return post.date || null;
 }
 
 function formatDate(dateString?: string | null) {
@@ -66,6 +66,35 @@ function formatDate(dateString?: string | null) {
   });
 }
 
+function formatShortDate(dateString?: string | null) {
+  if (!dateString) return "Date coming soon";
+
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) {
+    return "Date coming soon";
+  }
+
+  return date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+function getCategoryLabel(category?: string) {
+  switch (category) {
+    case "announcement":
+      return "Announcement";
+    case "event":
+      return "Event";
+    case "community-story":
+      return "Community Story";
+    case "news":
+    default:
+      return "News";
+  }
+}
 
 export default async function NewsPostDetailPage({
   params,
@@ -74,19 +103,22 @@ export default async function NewsPostDetailPage({
 }) {
   const { slug } = await params;
   const post = await getNewsBySlug(slug);
-  const postDate = post.date || post.publishedAt || null;
-  
+
   if (!post) notFound();
+
+  const postDate = post.date || null;
 
   const heroSrc = post.image
     ? urlForImage(post.image)?.width(1600).height(900).url()
     : null;
 
-  // JSON-LD
+  const heroAlt = post.image?.alt || post.title;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
+    description: post.excerpt,
     datePublished: postDate || undefined,
     author: {
       "@type": "Organization",
@@ -108,9 +140,7 @@ export default async function NewsPostDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Hero */}
-      <div className="relative pt-24 pb-0 bg-rotary-blue-dark">
-        {/* Dot pattern */}
+      <div className="relative bg-rotary-blue-dark pt-24">
         <div
           className="absolute inset-0 opacity-5"
           style={{
@@ -120,12 +150,11 @@ export default async function NewsPostDetailPage({
           }}
         />
 
-        <Container className="relative z-10 pb-0">
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-6">
+        <Container className="relative z-10 pb-10">
+          <nav aria-label="Breadcrumb" className="mb-8">
             <ol className="flex items-center gap-2 text-sm text-white/50">
               <li>
-                <Link href="/" className="hover:text-white transition-colors">
+                <Link href="/" className="transition-colors hover:text-white">
                   Home
                 </Link>
               </li>
@@ -133,40 +162,50 @@ export default async function NewsPostDetailPage({
               <li>
                 <Link
                   href="/news"
-                  className="hover:text-white transition-colors"
+                  className="transition-colors hover:text-white"
                 >
                   News
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
-              <li className="text-white/80 truncate max-w-[200px]">
+              <li className="max-w-[220px] truncate text-white/80">
                 {post.title}
               </li>
             </ol>
           </nav>
 
-          {/* Pinned badge */}
-          {post.pinned && (
-            <span className="mb-4 inline-block rounded-full bg-rotary-gold/20 px-3 py-1 text-xs font-semibold text-rotary-gold">
-              Pinned Announcement
+          <div className="mb-5 flex flex-wrap items-center gap-3">
+            <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white ring-1 ring-white/15">
+              {getCategoryLabel(post.category)}
             </span>
-          )}
+
+            {post.pinned && (
+              <span className="inline-flex rounded-full bg-rotary-gold/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-rotary-gold ring-1 ring-rotary-gold/30">
+                Pinned Announcement
+              </span>
+            )}
+          </div>
 
           <p className="mb-3 text-sm font-medium text-white/60">
-           {formatDate(postDate)}
+            {formatDate(postDate)}
           </p>
 
-          <h1 className="font-heading text-3xl font-bold text-white md:text-4xl lg:text-5xl leading-tight max-w-3xl pb-10">
+          <h1 className="max-w-4xl pb-5 font-heading text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
             {post.title}
           </h1>
+
+          {post.excerpt && (
+            <p className="max-w-2xl text-lg leading-relaxed text-white/75">
+              {post.excerpt}
+            </p>
+          )}
         </Container>
 
-        {/* Hero image — bleeds out of the dark header */}
         {heroSrc && (
-          <div className="relative mt-0 h-72 w-full overflow-hidden sm:h-96 md:h-[480px]">
+          <div className="relative h-72 w-full overflow-hidden sm:h-96 md:h-[480px]">
             <Image
               src={heroSrc}
-              alt={post.title}
+              alt={heroAlt}
               fill
               className="image-polish object-cover"
               priority
@@ -181,30 +220,44 @@ export default async function NewsPostDetailPage({
         <section className="bg-off-white py-12 md:py-16">
           <Container>
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
-              {/* Article body */}
               <div className="lg:col-span-2">
                 <FadeInOnScroll>
-                  <div className="prose prose-lg max-w-none">
-                    {post.body && (
-                      <PortableText
-                        value={post.body}
-                        components={portableTextComponents}
-                      />
+                  <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-grey-200 md:p-10">
+                    <div className="prose prose-lg max-w-none">
+                      {post.body && (
+                        <PortableText
+                          value={post.body}
+                          components={portableTextComponents}
+                        />
+                      )}
+                    </div>
+
+                    {post.ctaLabel && post.ctaUrl && (
+                      <div className="mt-10 rounded-2xl bg-rotary-blue/5 p-6 ring-1 ring-rotary-blue/10">
+                        <p className="mb-4 font-heading text-xl font-bold text-grey-900">
+                          Want to learn more?
+                        </p>
+                        <Link
+                          href={post.ctaUrl}
+                          className="inline-flex items-center rounded-full bg-rotary-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-rotary-blue-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rotary-gold"
+                        >
+                          {post.ctaLabel}
+                        </Link>
+                      </div>
                     )}
-                  </div>
+                  </article>
                 </FadeInOnScroll>
               </div>
 
-              {/* Sidebar */}
               <aside className="lg:col-span-1">
                 <FadeInOnScroll delay={0.15}>
                   <div className="sticky top-28 space-y-6">
-                    {/* Recent posts */}
                     {post.related && post.related.length > 0 && (
-                      <div className="rounded-xl bg-white p-6 shadow-sm border border-grey-200">
-                        <h3 className="font-heading text-base font-semibold text-grey-900 mb-4">
+                      <div className="rounded-2xl border border-grey-200 bg-white p-6 shadow-sm">
+                        <h3 className="mb-4 font-heading text-base font-semibold text-grey-900">
                           More News
                         </h3>
+
                         <ul className="space-y-4">
                           {post.related.map((related: NewsPost) => (
                             <li key={related._id}>
@@ -212,11 +265,11 @@ export default async function NewsPostDetailPage({
                                 href={`/news/${related.slug.current}`}
                                 className="group block"
                               >
-                                <p className="text-sm font-medium text-grey-900 group-hover:text-rotary-blue transition-colors leading-snug">
+                                <p className="text-sm font-medium leading-snug text-grey-900 transition-colors group-hover:text-rotary-blue">
                                   {related.title}
                                 </p>
-                                <p className="mt-0.5 text-xs text-grey-700">
-                                  {formatDate(related.date || related.publishedAt)}
+                                <p className="mt-1 text-xs text-grey-700">
+                                  {formatShortDate(related.date)}
                                 </p>
                               </Link>
                             </li>
@@ -225,18 +278,19 @@ export default async function NewsPostDetailPage({
                       </div>
                     )}
 
-                    {/* Meeting info CTA */}
-                    <div className="rounded-xl bg-rotary-blue p-6 text-white">
-                      <p className="text-xs font-medium uppercase tracking-wider text-rotary-gold mb-2">
+                    <div className="rounded-2xl bg-rotary-blue p-6 text-white shadow-sm">
+                      <p className="mb-2 text-xs font-medium uppercase tracking-wider text-rotary-gold">
                         Come and Meet Us
                       </p>
-                      <p className="text-sm leading-relaxed text-white/80 mb-4">
+
+                      <p className="mb-4 text-sm leading-relaxed text-white/80">
                         We meet most Thursdays at 8:00 PM at The City of Ely
                         Bowls Club. Visitors are always welcome.
                       </p>
+
                       <Link
                         href="/contact"
-                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-rotary-gold hover:text-rotary-gold-light transition-colors"
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-rotary-gold transition-colors hover:text-rotary-gold-light"
                       >
                         Get in touch
                         <svg
@@ -246,6 +300,7 @@ export default async function NewsPostDetailPage({
                           viewBox="0 0 24 24"
                           stroke="currentColor"
                           strokeWidth={2}
+                          aria-hidden="true"
                         >
                           <path
                             strokeLinecap="round"
@@ -256,10 +311,9 @@ export default async function NewsPostDetailPage({
                       </Link>
                     </div>
 
-                    {/* Back link */}
                     <Link
                       href="/news"
-                      className="flex items-center gap-2 text-sm font-medium text-rotary-blue hover:text-rotary-blue-dark transition-colors"
+                      className="flex items-center gap-2 text-sm font-medium text-rotary-blue transition-colors hover:text-rotary-blue-dark"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -268,6 +322,7 @@ export default async function NewsPostDetailPage({
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         strokeWidth={2}
+                        aria-hidden="true"
                       >
                         <path
                           strokeLinecap="round"
@@ -284,13 +339,13 @@ export default async function NewsPostDetailPage({
           </Container>
         </section>
 
-        {/* Related posts strip */}
         {post.related && post.related.length > 0 && (
-          <section className="bg-white py-16 border-t border-grey-200">
+          <section className="border-t border-grey-200 bg-white py-16">
             <Container>
-              <h2 className="font-heading text-2xl font-bold text-grey-900 mb-8">
+              <h2 className="mb-8 font-heading text-2xl font-bold text-grey-900">
                 More from Ely Rotary
               </h2>
+
               <div className="space-y-4">
                 {post.related.map((related: NewsPost, index: number) => (
                   <FadeInOnScroll key={related._id} delay={index * 0.05}>
@@ -306,8 +361,6 @@ export default async function NewsPostDetailPage({
   );
 }
 
-// ─── Shared list item component ────────────────────────────────────────────────
-
 function NewsListItem({ post }: { post: NewsPost }) {
   const imageSrc = post.image
     ? urlForImage(post.image)?.width(200).height(200).url()
@@ -318,13 +371,13 @@ function NewsListItem({ post }: { post: NewsPost }) {
   return (
     <Link
       href={`/news/${post.slug.current}`}
-      className="group flex items-start gap-5 rounded-xl bg-white p-5 shadow-sm border border-grey-200 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rotary-gold"
+      className="group flex items-start gap-5 rounded-xl border border-grey-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rotary-gold"
     >
       <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-grey-100">
         {imageSrc ? (
           <Image
             src={imageSrc}
-            alt={post.title}
+            alt={post.image?.alt || post.title}
             fill
             className="image-polish object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="64px"
@@ -337,28 +390,34 @@ function NewsListItem({ post }: { post: NewsPost }) {
           </div>
         )}
       </div>
-      <div className="flex-1 min-w-0">
+
+      <div className="min-w-0 flex-1">
         <p className="mb-1 text-xs text-grey-700">
-          {new Date(post.date).toLocaleDateString("en-GB", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })}
+          {formatShortDate(post.date)}
         </p>
-        <h2 className="font-heading text-base font-semibold text-grey-900 leading-snug group-hover:text-rotary-blue transition-colors truncate">
+
+        <h2 className="font-heading text-base font-semibold leading-snug text-grey-900 transition-colors group-hover:text-rotary-blue">
           {post.title}
         </h2>
+
+        {post.excerpt && (
+          <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-grey-700">
+            {post.excerpt}
+          </p>
+        )}
       </div>
+
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-4 w-4 shrink-0 text-grey-300 transition-all duration-200 group-hover:text-rotary-blue group-hover:translate-x-0.5 mt-1"
+        className="mt-1 h-4 w-4 shrink-0 text-grey-300 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-rotary-blue"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
         strokeWidth={2}
+        aria-hidden="true"
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
       </svg>
     </Link>
   );
-}
+            }
