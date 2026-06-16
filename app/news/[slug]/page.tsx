@@ -44,7 +44,7 @@ export async function generateMetadata({
 }
 
 function getPostDate(post: NewsPost) {
-  return post.publishedAt || post.date || null;
+  return post.date || null;
 }
 
 function formatDate(dateString?: string | null) {
