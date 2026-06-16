@@ -38,7 +38,7 @@ export async function generateMetadata({
       title: post.title,
       images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : [],
       type: "article",
-      publishedTime: post.date,
+      publishedTime: postDate ?? undefined,
     },
   };
 }
@@ -72,6 +72,7 @@ export default async function NewsPostDetailPage({
 }) {
   const { slug } = await params;
   const post = await getNewsBySlug(slug);
+  const postDate = post.date || post.publishedAt || null;
   
   if (!post) notFound();
 
@@ -84,7 +85,7 @@ export default async function NewsPostDetailPage({
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
-    datePublished: post.date,
+    datePublished: postDate || undefined,
     author: {
       "@type": "Organization",
       name: "Rotary Club of Ely",
@@ -150,7 +151,7 @@ export default async function NewsPostDetailPage({
           )}
 
           <p className="mb-3 text-sm font-medium text-white/60">
-            {formatDate(getPostDate(post))}
+           {formatDate(postDate)}
           </p>
 
           <h1 className="font-heading text-3xl font-bold text-white md:text-4xl lg:text-5xl leading-tight max-w-3xl pb-10">
@@ -213,14 +214,7 @@ export default async function NewsPostDetailPage({
                                   {related.title}
                                 </p>
                                 <p className="mt-0.5 text-xs text-grey-700">
-                                  {new Date(related.date).toLocaleDateString(
-                                    "en-GB",
-                                    {
-                                      day: "numeric",
-                                      month: "long",
-                                      year: "numeric",
-                                    },
-                                  )}
+                                  {formatDate(related.date || related.publishedAt)}
                                 </p>
                               </Link>
                             </li>
