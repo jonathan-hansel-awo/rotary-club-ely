@@ -28,6 +28,8 @@ export async function generateMetadata({
   const post = await getNewsBySlug(slug);
   if (!post) return {};
 
+  const postDate = post.date || post.publishedAt || null;
+
   const ogImage = post.image
     ? urlForImage(post.image)?.width(1200).height(630).url()
     : undefined;
