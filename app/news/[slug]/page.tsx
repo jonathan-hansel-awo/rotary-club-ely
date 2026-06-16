@@ -64,7 +64,6 @@ function formatDate(dateString?: string | null) {
   });
 }
 
-const postDate = getPostDate(post);
 
 export default async function NewsPostDetailPage({
   params,
@@ -73,7 +72,7 @@ export default async function NewsPostDetailPage({
 }) {
   const { slug } = await params;
   const post = await getNewsBySlug(slug);
-
+  const postDate = getPostDate(post);
   if (!post) notFound();
 
   const heroSrc = post.image
