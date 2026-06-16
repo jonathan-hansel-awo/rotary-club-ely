@@ -51,9 +51,18 @@ export interface NewsPost {
   title: string;
   slug: Slug;
   date: string;
+  publishedAt?: string;
+  excerpt?: string;
+  category?: "news" | "announcement" | "event" | "community-story";
   body?: TypedObject[];
   image?: SanityImage;
+  gallery?: (SanityImage & { _key: string })[];
   pinned?: boolean;
+  featured?: boolean;
+  ctaLabel?: string;
+  ctaUrl?: string;
+  seoTitle?: string;
+  seoDescription?: string;
   related?: Omit<NewsPost, "body" | "related">[];
 }
 
