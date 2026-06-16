@@ -113,23 +113,33 @@ export const eventBySlugQuery = `
 
 // ─── News Posts ───────────────────────────────────────────────
 export const latestNewsQuery = `
-  *[_type == "newsPost"] | order(pinned desc, date desc) [0...4] {
+  *[_type == "newsPost"]
+  | order(pinned desc, publishedAt desc) [0...4] {
     _id,
     title,
     slug,
-    date,
+    excerpt,
+    category,
+    "date": publishedAt,
+    publishedAt,
     pinned,
+    featured,
     image
   }
 `;
 
 export const allNewsQuery = `
-  *[_type == "newsPost"] | order(pinned desc, date desc) {
+  *[_type == "newsPost"]
+  | order(pinned desc, publishedAt desc) {
     _id,
     title,
     slug,
-    date,
+    excerpt,
+    category,
+    "date": publishedAt,
+    publishedAt,
     pinned,
+    featured,
     image
   }
 `;
@@ -139,17 +149,35 @@ export const newsBySlugQuery = `
     _id,
     title,
     slug,
-    date,
+    excerpt,
+    category,
+    "date": publishedAt,
+    publishedAt,
     body,
     image,
-    pinned
+    gallery,
+    pinned,
+    featured,
+    ctaLabel,
+    ctaUrl,
+    seoTitle,
+    seoDescription,
+    "related": *[
+      _type == "newsPost" &&
+      slug.current != $slug
+    ] | order(pinned desc, publishedAt desc) [0...3] {
+      _id,
+      title,
+      slug,
+      excerpt,
+      category,
+      "date": publishedAt,
+      publishedAt,
+      image,
+      pinned
+    }
   }
 `;
-
-export const newsSlugsQuery = `
-  *[_type == "newsPost"] { "slug": slug.current }
-`;
-
 // ─── Impact Stories ────────────────────────────────────────────
 export const allImpactsQuery = `
   *[_type == "impactStory"] | order(date desc) {
