@@ -178,6 +178,11 @@ export const newsBySlugQuery = `
     }
   }
 `;
+export const newsSlugsQuery = `
+  *[_type == "newsPost"] {
+    "slug": slug.current
+  }
+`;
 // ─── Impact Stories ────────────────────────────────────────────
 export const allImpactsQuery = `
   *[_type == "impactStory"] | order(date desc) {
