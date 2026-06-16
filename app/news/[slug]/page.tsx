@@ -84,7 +84,7 @@ export default async function NewsPostDetailPage({
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
-    datePublished: postDate || undefined,
+    datePublished: post.date,
     author: {
       "@type": "Organization",
       name: "Rotary Club of Ely",
