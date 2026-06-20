@@ -24,6 +24,10 @@ export default defineConfig({
               .title("Our Impact")
               .child(S.documentTypeList("impactStory").title("Impact Stories")),
             S.listItem()
+              .title("Support Archive")
+              .schemaType("supportRecord")
+              .child(S.documentTypeList("supportRecord").title("Support Archive")),
+            S.listItem()
               .title("Our Causes")
               .child(S.documentTypeList("cause").title("Causes")),
             S.listItem()
