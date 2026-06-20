@@ -82,6 +82,27 @@ export interface ImpactStats {
   totalImpacts: number;
 }
 
+export interface SupportRecord {
+  _id: string;
+  recipientName: string;
+  recipientType?:
+    | "charity"
+    | "community-group"
+    | "education"
+    | "individual"
+    | "health"
+    | "youth"
+    | "international"
+    | "emergency"
+    | "other";
+  month?: number;
+  year: number;
+  note?: string;
+  website?: string;
+  relatedImpactSlug?: string;
+}
+
+
 export interface Cause {
   _id: string;
   name: string;
@@ -139,9 +160,6 @@ export interface SiteSettings {
   activityTiles?: ActivityTile[]; // add this
 }
 
-export interface ImpactStats {
-  totalImpacts: number;
-}
 
 export interface HomepageData {
   upcomingEvents: Event[];
@@ -150,7 +168,8 @@ export interface HomepageData {
   sponsors: Sponsor[];
   impactStats: ImpactStats;
   settings: SiteSettings;
-  members: ClubMember[]; // add this
+  members: ClubMember[]; 
+  supportRecords: SupportRecord[];
 }
 
 export interface Page {

@@ -162,3 +162,21 @@ img {
   transform: translateZ(0);
   backface-visibility: hidden;
 }
+
+.support-scroll {
+  animation: support-scroll 34s linear infinite;
+}
+
+.support-scroll:hover {
+  animation-play-state: paused;
+}
+
+@keyframes support-scroll {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-50%);
+  }
+}

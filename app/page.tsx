@@ -3,11 +3,10 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/home/Hero";
 import FeaturedEvents from "@/components/home/FeaturedEvents";
 import SectionDivider from "@/components/ui/SectionDivider";
-import { supportArchivePreviewQuery } from "@/sanity/lib/queries";
 
 // Dynamically import below-fold sections
 const Impact = dynamic(() => import("@/components/home/Impact"));
-const SupportArchivePreview = dynamic(() => import("@/components/SupportArchivePreview"));
+const SupportArchivePreview = dynamic(() => import("@/components/home/SupportArchivePreview"));
 const LatestNews = dynamic(() => import("@/components/home/LatestNews"));
 const OurCauses = dynamic(() => import("@/components/home/OurCauses"));
 const MeetTheTeam = dynamic(() => import("@/components/home/MeetTheTeam"));

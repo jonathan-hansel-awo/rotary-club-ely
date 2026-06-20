@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { supportArchiveQuery } from "@/sanity/lib/queries";
-import SupportArchiveList from "@/components/SupportArchiveList";
+import SupportArchiveList from '@/components/support/SupportArchiveList';
 
 export const metadata: Metadata = {
   title: "Support Archive | Rotary Club of Ely",

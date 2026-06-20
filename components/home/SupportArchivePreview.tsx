@@ -140,26 +140,6 @@ export default function SupportArchivePreview({
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .support-scroll {
-          animation: support-scroll 34s linear infinite;
-        }
-
-        .support-scroll:hover {
-          animation-play-state: paused;
-        }
-
-        @keyframes support-scroll {
-          from {
-            transform: translateY(0);
-          }
-
-          to {
-            transform: translateY(-50%);
-          }
-        }
-      `}</style>
     </section>
   );
 }
