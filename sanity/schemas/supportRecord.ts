@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
 
-export const supportRecord = defineType({
+export const supportRecordSchema = defineType({
   name: "supportRecord",
   title: "Support Archive",
   type: "document",

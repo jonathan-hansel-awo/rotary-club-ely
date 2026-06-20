@@ -6,13 +6,13 @@ import { clubMemberSchema } from "./clubMember";
 import { siteSettingsSchema } from "./siteSettings";
 import { causeSchema } from "./cause";
 import { sponsorSchema } from "./sponsor";
-import { supportRecord } from "./supportRecord";
+import { supportRecordSchema } from "./supportRecord";
 
 export const schemas = [
   eventSchema,
   newsPostSchema,
   impactStorySchema,
-  supportRecord,
+  supportRecordSchema,
   pageSchema,
   clubMemberSchema,
   siteSettingsSchema,
