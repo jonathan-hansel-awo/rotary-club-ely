@@ -328,72 +328,116 @@ export const aboutPageQuery = `
 export const homepageQuery = `
   {
     "upcomingEvents": *[
-  _type == "event" &&
-  (
-    (defined(dateStart) && dateStart > now()) ||
-    (!defined(dateStart) && eventStatus == "upcoming")
-  )
-] | order(featured desc, dateStart asc) [0...3] {
-  _id,
-  title,
-  slug,
-  dateStart,
-  dateEnd,
-  dateLabel,
-  eventStatus,
-  category,
-  location,
-  heroImage,
-  featured,
-  "status": select(
-    defined(dateStart) && dateStart > now() => "upcoming",
-    defined(dateStart) && dateStart <= now() => "past",
-    eventStatus
-  )
-},
-    "latestNews": *[_type == "newsPost"] | order(pinned desc, date desc) [0...4] {
-      _id, title, slug, date, pinned, image
+      _type == "event" &&
+      (
+        (defined(dateStart) && dateStart > now()) ||
+        (!defined(dateStart) && eventStatus == "upcoming")
+      )
+    ] | order(featured desc, dateStart asc) [0...3] {
+      _id,
+      title,
+      slug,
+      dateStart,
+      dateEnd,
+      dateLabel,
+      eventStatus,
+      category,
+      location,
+      heroImage,
+      featured,
+      "status": select(
+        defined(dateStart) && dateStart > now() => "upcoming",
+        defined(dateStart) && dateStart <= now() => "past",
+        eventStatus
+      )
     },
-"causes": *[_type == "cause" && active == true] | order(order asc) [0...6] {
-  _id,
-  name,
-  slug,
-  summary,
-  image,
-  featuredImage,
-  logo,
-  externalUrl
-},
-    "sponsors": *[_type == "sponsor"] | order(order asc) {
-      _id, name, logo, websiteUrl
+
+    "latestNews": *[_type == "newsPost"] 
+    | order(pinned desc, publishedAt desc) [0...4] {
+      _id,
+      title,
+      slug,
+      excerpt,
+      category,
+      "date": publishedAt,
+      publishedAt,
+      pinned,
+      featured,
+      image
     },
+
+    "causes": *[_type == "cause" && active == true] 
+    | order(order asc) [0...6] {
+      _id,
+      name,
+      slug,
+      summary,
+      image,
+      featuredImage,
+      logo,
+      externalUrl
+    },
+
+    "sponsors": *[_type == "sponsor"] 
+    | order(order asc) {
+      _id,
+      name,
+      logo,
+      websiteUrl
+    },
+
     "impactStats": {
-      "totalImpacts": count(*[_type == "impact"])
+      "totalImpacts": count(*[_type == "impactStory"])
     },
-    "members": *[_type == "clubMember"] | order(order asc) [0...8] {
-  _id, name, role, photo, bio
-},
+
+    "supportRecords": *[_type == "supportRecord"] 
+    | order(year desc, month desc, recipientName asc) [0...16] {
+      _id,
+      recipientName,
+      recipientType,
+      month,
+      year,
+      note,
+      website,
+      "relatedImpactSlug": relatedImpactStory->slug.current
+    },
+
+    "members": *[_type == "clubMember"] 
+    | order(order asc) [0...8] {
+      _id,
+      name,
+      role,
+      photo,
+      bio
+    },
+
     "settings": *[_type == "siteSettings"][0] {
-  clubName,
-  meetingDay,
-  meetingTime,
-  meetingLocation,
-  contactEmail,
-  heroImages[] {
-    ...,
-    alt,
-    caption
-  },
-  activityTiles[] {
-    label,
-    description,
-    href,
-    badge,
-    image {
-      ...,
-      alt
+      clubName,
+      meetingDay,
+      meetingTime,
+      meetingLocation,
+      contactEmail,
+      phone,
+      socialLinks[] {
+        platform,
+        url
+      },
+      footerText,
+      heroImages[] {
+        ...,
+        alt,
+        caption
+      },
+      activityTiles[] {
+        label,
+        description,
+        href,
+        badge,
+        image {
+          ...,
+          alt
+        }
+      }
     }
-  }
-},
   }
 `;

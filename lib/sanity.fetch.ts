@@ -20,6 +20,8 @@ import {
   pageBySlugQuery,
   siteSettingsQuery,
   aboutPageQuery,
+  supportArchiveQuery,
+  supportArchivePreviewQuery,
 } from "@/sanity/lib/queries";
 
 import type {
@@ -33,6 +35,7 @@ import type {
   SiteSettings,
   Page,
   ImpactStats,
+  SupportRecord,
 } from "@/lib/types";
 
 const DEFAULT_REVALIDATE = 1800;
@@ -124,6 +127,23 @@ export async function getImpactSlugs(): Promise<{ slug: string }[]> {
 export async function getImpactStats(): Promise<ImpactStats> {
   return client.fetch(
     impactStatsQuery,
+    {},
+    { next: { revalidate: DEFAULT_REVALIDATE } },
+  );
+}
+
+// ─── Support Archive ──────────────────────────────────────────
+export async function getSupportArchivePreview(): Promise<SupportRecord[]> {
+  return client.fetch(
+    supportArchivePreviewQuery,
+    {},
+    { next: { revalidate: DEFAULT_REVALIDATE } },
+  );
+}
+
+export async function getSupportArchive(): Promise<SupportRecord[]> {
+  return client.fetch(
+    supportArchiveQuery,
     {},
     { next: { revalidate: DEFAULT_REVALIDATE } },
   );
