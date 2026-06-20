@@ -31,8 +31,8 @@ const heroStats = [
   },
   {
     value: "£70k+",
-    label: "Raised Locally",
-    eyebrow: "Last 5 years",
+    label: "Raised in the last 5 years",
+    eyebrow: "Donated locally",
     icon: "heart",
   },
   {
