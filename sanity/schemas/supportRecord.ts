@@ -59,7 +59,7 @@ export const supportRecord = defineType({
       name: "relatedImpactStory",
       title: "Related impact story",
       type: "reference",
-      to: [{ type: "impact" }],
+      to: [{ type: "impactStory" }],
       description: "Optional link to an existing impact story.",
     }),
   ],
