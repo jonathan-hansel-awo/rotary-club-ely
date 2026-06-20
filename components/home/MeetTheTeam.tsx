@@ -320,7 +320,7 @@ export default function MeetTheTeam({ members }: MeetTheTeamProps) {
           <>
             <div className="mb-5 flex items-center gap-4 px-[clamp(1rem,2vw,2rem)]">
               <h3 className="font-heading text-2xl font-black text-grey-900">
-                Club members
+                Club Leadership
               </h3>
               <div className="h-px flex-1 bg-grey-200" />
             </div>
