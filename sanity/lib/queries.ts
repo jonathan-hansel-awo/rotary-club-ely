@@ -189,6 +189,36 @@ export const impactStatsQuery = `
   }
 `;
 
+// ─── Donations ───────────────────────────────────────────────────
+
+export const supportArchivePreviewQuery = `
+  *[_type == "supportRecord"] 
+  | order(year desc, month desc, recipientName asc)[0...16] {
+    _id,
+    recipientName,
+    recipientType,
+    month,
+    year,
+    note,
+    website,
+    "relatedImpactSlug": relatedImpactStory->slug.current
+  }
+`;
+
+export const supportArchiveQuery = `
+  *[_type == "supportRecord"] 
+  | order(year desc, month desc, recipientName asc) {
+    _id,
+    recipientName,
+    recipientType,
+    month,
+    year,
+    note,
+    website,
+    "relatedImpactSlug": relatedImpactStory->slug.current
+  }
+`;
+
 // ─── Causes ───────────────────────────────────────────────────
 export const activeCausesQuery = `
   *[_type == "cause" && active == true] | order(order asc) {
