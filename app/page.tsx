@@ -6,7 +6,9 @@ import SectionDivider from "@/components/ui/SectionDivider";
 
 // Dynamically import below-fold sections
 const Impact = dynamic(() => import("@/components/home/Impact"));
-const SupportArchivePreview = dynamic(() => import("@/components/home/SupportArchivePreview"));
+const SupportArchivePreview = dynamic(
+  () => import("@/components/home/SupportArchivePreview"),
+);
 const LatestNews = dynamic(() => import("@/components/home/LatestNews"));
 const OurCauses = dynamic(() => import("@/components/home/OurCauses"));
 const MeetTheTeam = dynamic(() => import("@/components/home/MeetTheTeam"));
@@ -48,7 +50,7 @@ export const metadata = {
     title: "Rotary Club of Ely",
     description:
       "Community events, charitable giving, and fellowship in Ely, Cambridgeshire.",
-    images: ["/og-default.jpg"],
+    images: ["/og-default.png"],
   },
 };
 
