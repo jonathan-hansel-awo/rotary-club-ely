@@ -60,14 +60,13 @@ export const supportRecordSchema = defineType({
   preview: {
     select: {
       title: "recipientName",
-      year: "year",
-      month: "month",
+      rotaryYear: "rotaryYear",
       type: "recipientType",
     },
-    prepare({ title, year, month, type }) {
+    prepare({ title, rotaryYear, type }) {
       return {
         title,
-        subtitle: `${month ? `${month}/` : ""}${year ?? "No year"}${
+        subtitle: `${rotaryYear ?? "No year"}${
           type ? ` · ${type}` : ""
         }`,
       };
@@ -78,8 +77,7 @@ export const supportRecordSchema = defineType({
       title: "Newest first",
       name: "newestFirst",
       by: [
-        { field: "year", direction: "desc" },
-        { field: "month", direction: "desc" },
+        { field: "rotaryYear", direction: "desc" },
         { field: "recipientName", direction: "asc" },
       ],
     },
