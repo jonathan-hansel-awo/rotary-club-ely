@@ -7,34 +7,11 @@ type SupportRecord = {
   _id: string;
   recipientName: string;
   recipientType?: string;
-  month?: number;
-  year: number;
+  rotaryYear: string;
   note?: string;
   website?: string;
   relatedImpactSlug?: string;
 };
-
-const months = [
-  "",
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-function formatDate(month?: number, year?: number) {
-  if (!year) return "";
-  if (!month) return `${year}`;
-  return `${months[month]} ${year}`;
-}
 
 function formatType(type?: string) {
   const labels: Record<string, string> = {
@@ -58,12 +35,12 @@ export default function SupportArchiveList({
   records: SupportRecord[];
 }) {
   const [search, setSearch] = useState("");
-  const [selectedYear, setSelectedYear] = useState("all");
+  const [selectedRotaryYear, setSelectedRotaryYear] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
 
-  const years = useMemo(() => {
-    return Array.from(new Set(records.map((record) => record.year))).sort(
-      (a, b) => b - a,
+  const rotaryYears = useMemo(() => {
+    return Array.from(new Set(records.map((record) => record.rotaryYear))).sort(
+      (a, b) => b.localeCompare(a),
     );
   }, [records]);
 
@@ -82,30 +59,31 @@ export default function SupportArchiveList({
         record.recipientName.toLowerCase().includes(query) ||
         record.note?.toLowerCase().includes(query);
 
-      const matchesYear =
-        selectedYear === "all" || String(record.year) === selectedYear;
+      const matchesRotaryYear =
+        selectedRotaryYear === "all" ||
+        record.rotaryYear === selectedRotaryYear;
 
       const matchesType =
         selectedType === "all" || record.recipientType === selectedType;
 
-      return matchesSearch && matchesYear && matchesType;
+      return matchesSearch && matchesRotaryYear && matchesType;
     });
-  }, [records, search, selectedYear, selectedType]);
+  }, [records, search, selectedRotaryYear, selectedType]);
 
-  const groupedRecords = useMemo(() => {
-    return filteredRecords.reduce<Record<number, SupportRecord[]>>(
-      (groups, record) => {
-        if (!groups[record.year]) groups[record.year] = [];
-        groups[record.year].push(record);
-        return groups;
-      },
-      {},
-    );
-  }, [filteredRecords]);
+const groupedRecords = useMemo(() => {
+  return filteredRecords.reduce<Record<string, SupportRecord[]>>(
+    (groups, record) => {
+      if (!groups[record.rotaryYear]) groups[record.rotaryYear] = [];
+      groups[record.rotaryYear].push(record);
+      return groups;
+    },
+    {},
+  );
+}, [filteredRecords]);
 
-  const groupedYears = Object.keys(groupedRecords)
-    .map(Number)
-    .sort((a, b) => b - a);
+const groupedYears = Object.keys(groupedRecords).sort((a, b) =>
+  b.localeCompare(a),
+);
 
   return (
     <section className="px-4 py-16">
@@ -127,17 +105,17 @@ export default function SupportArchiveList({
 
             <label className="block">
               <span className="mb-2 block text-sm font-bold text-slate-700">
-                Year
+                Rotary year
               </span>
               <select
-                value={selectedYear}
-                onChange={(event) => setSelectedYear(event.target.value)}
+                value={selectedRotaryYear}
+                onChange={(event) => setSelectedRotaryYear(event.target.value)}
                 className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-rotary-gold focus:ring-4 focus:ring-rotary-gold/20"
               >
-                <option value="all">All years</option>
-                {years.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
+                <option value="all">All Rotary years</option>
+                {rotaryYears.map((rotaryYear) => (
+                  <option key={rotaryYear} value={rotaryYear}>
+                    {rotaryYear}
                   </option>
                 ))}
               </select>
@@ -168,13 +146,14 @@ export default function SupportArchiveList({
             Showing {filteredRecords.length} of {records.length} records
           </p>
 
-          {(search || selectedYear !== "all" || selectedType !== "all") && (
+          {(search ||
+            selectedRotaryYear !== "all" ||
+            selectedType !== "all") && (
             <button
               type="button"
               onClick={() => {
                 setSearch("");
-                setSelectedYear("all");
-                setSelectedType("all");
+setSelectedRotaryYear("all");                setSelectedType("all");
               }}
               className="text-sm font-bold text-rotary-blue underline underline-offset-4"
             >
@@ -203,7 +182,7 @@ export default function SupportArchiveList({
                       <div className="flex items-start justify-between gap-4">
                         <div>
                           <p className="text-sm font-bold text-rotary-gold">
-                            {formatDate(record.month, record.year)}
+                            {record.rotaryYear}
                           </p>
 
                           <h3 className="mt-1 font-heading text-xl font-black text-rotary-blue">

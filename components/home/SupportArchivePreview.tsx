@@ -4,34 +4,11 @@ type SupportRecord = {
   _id: string;
   recipientName: string;
   recipientType?: string;
-  month?: number;
-  year: number;
+  rotaryYear: string;
   note?: string;
   website?: string;
   relatedImpactSlug?: string;
 };
-
-const months = [
-  "",
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-function formatDate(month?: number, year?: number) {
-  if (!year) return "";
-  if (!month) return `${year}`;
-  return `${months[month]} ${year}`;
-}
 
 function formatType(type?: string) {
   if (!type) return "Supported cause";
@@ -122,7 +99,7 @@ export default function SupportArchivePreview({
 
                       <div className="shrink-0 text-right">
                         <p className="text-sm font-bold text-slate-900">
-                          {formatDate(record.month, record.year)}
+                          {record.rotaryYear}
                         </p>
                         <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
                           {formatType(record.recipientType)}

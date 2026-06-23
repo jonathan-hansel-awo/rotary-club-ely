@@ -95,8 +95,7 @@ export interface SupportRecord {
     | "international"
     | "emergency"
     | "other";
-  month?: number;
-  year: number;
+  rotaryYear: string;
   note?: string;
   website?: string;
   relatedImpactSlug?: string;

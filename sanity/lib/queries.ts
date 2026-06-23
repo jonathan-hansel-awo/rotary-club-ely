@@ -222,16 +222,15 @@ export const impactStatsQuery = `
   }
 `;
 
-// ─── Donations ───────────────────────────────────────────────────
+// ─── Support Archive ──────────────────────────────────────────
 
 export const supportArchivePreviewQuery = `
   *[_type == "supportRecord"] 
-  | order(year desc, month desc, recipientName asc)[0...16] {
+  | order(rotaryYear desc, recipientName asc)[0...16] {
     _id,
     recipientName,
     recipientType,
-    month,
-    year,
+    rotaryYear,
     note,
     website,
     "relatedImpactSlug": relatedImpactStory->slug.current
@@ -240,12 +239,11 @@ export const supportArchivePreviewQuery = `
 
 export const supportArchiveQuery = `
   *[_type == "supportRecord"] 
-  | order(year desc, month desc, recipientName asc) {
+  | order(rotaryYear desc, recipientName asc) {
     _id,
     recipientName,
     recipientType,
-    month,
-    year,
+    rotaryYear,
     note,
     website,
     "relatedImpactSlug": relatedImpactStory->slug.current
@@ -391,12 +389,11 @@ export const homepageQuery = `
     },
 
     "supportRecords": *[_type == "supportRecord"] 
-    | order(year desc, month desc, recipientName asc) [0...16] {
+    | order(rotaryYear desc, recipientName asc) [0...16] {
       _id,
       recipientName,
       recipientType,
-      month,
-      year,
+      rotaryYear,
       note,
       website,
       "relatedImpactSlug": relatedImpactStory->slug.current

@@ -31,17 +31,11 @@ export const supportRecordSchema = defineType({
       initialValue: "charity",
     }),
     defineField({
-      name: "month",
-      title: "Month",
-      type: "number",
-      description: "Optional. Use 1 for January, 2 for February, etc.",
-      validation: (Rule) => Rule.min(1).max(12),
-    }),
-    defineField({
-      name: "year",
-      title: "Year",
-      type: "number",
-      validation: (Rule) => Rule.required().min(1900).max(2100),
+      name: "rotaryYear",
+      title: "Rotary year",
+      type: "string",
+      description: "Example: 2025/2026 or 2024/2025",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "note",
