@@ -3,6 +3,49 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/home/Hero";
 import FeaturedEvents from "@/components/home/FeaturedEvents";
 import SectionDivider from "@/components/ui/SectionDivider";
+import { Metadata } from "next";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://rotaryclubofely.co.uk";
+
+const homeTitle =
+  "Rotary Club of Ely | Community Events, Volunteering & Charity Support";
+
+const homeDescription =
+  "Rotary Club of Ely brings people together through community events, volunteering, fundraising and support for local and international good causes across Ely and East Cambridgeshire.";
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    name: "Rotary Club of Ely",
+    alternateName: "Ely Rotary",
+    url: siteUrl,
+    publisher: {
+      "@id": `${siteUrl}/#organization`,
+    },
+  };
+
+  const homePageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${siteUrl}/#webpage`,
+    url: siteUrl,
+    name: homeTitle,
+    description: homeDescription,
+    isPartOf: {
+      "@id": `${siteUrl}/#website`,
+    },
+    about: {
+      "@id": `${siteUrl}/#organization`,
+    },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: `${siteUrl}/og-default.png`,
+      width: 1200,
+      height: 630,
+    },
+  };
 
 // Dynamically import below-fold sections
 const Impact = dynamic(() => import("@/components/home/Impact"));
@@ -19,6 +62,13 @@ export default async function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([websiteSchema, homePageSchema]),
+        }}
+      />
+      
       <Hero
         imageSrc="/images/Hero/AR05B.jpg"
         imageAlt="Members of the Rotary Club of Ely at a community event"
@@ -42,14 +92,34 @@ export default async function Home() {
   );
 }
 
-export const metadata = {
-  title: "Rotary Club of Ely | People of Action in East Cambridgeshire",
-  description:
-    "The Rotary Club of Ely organises community events including Aquafest and the annual Fireworks display, raises funds for local and international causes, and welcomes new members.",
+export const metadata: Metadata = {
+  title: homeTitle,
+  description: homeDescription,
+
+  alternates: {
+    canonical: "/",
+  },
+
   openGraph: {
-    title: "Rotary Club of Ely",
-    description:
-      "Community events, charitable giving, and fellowship in Ely, Cambridgeshire.",
+    type: "website",
+    url: "/",
+    title: homeTitle,
+    description: homeDescription,
+    siteName: "Rotary Club of Ely",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Rotary Club of Ely — People of Action",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: homeTitle,
+    description: homeDescription,
     images: ["/og-default.png"],
   },
 };

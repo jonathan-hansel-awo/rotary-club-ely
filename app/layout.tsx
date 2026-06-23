@@ -21,6 +21,9 @@ const inter = Inter({
   display: "swap",
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://rotaryclubofely.co.uk";
+
 export const metadata: Metadata = {
   title: {
     template: "%s | Rotary Club of Ely",
@@ -28,9 +31,7 @@ export const metadata: Metadata = {
   },
   description:
     "People of Action, Right Here in Ely. The Rotary Club of Ely organises community events, raises funds for local and international causes, and welcomes new members.",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://rotaryclubofely.co.uk",
-  ),
+  metadataBase: new URL(siteUrl),
   openGraph: {
     siteName: "Rotary Club of Ely",
     type: "website",
@@ -64,24 +65,31 @@ export const metadata: Metadata = {
 
 const organisationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "NGO",
+  "@id": `${siteUrl}/#organization`,
   name: "Rotary Club of Ely",
-  url: "https://rotaryclubofely.co.uk",
-  logo: "https://rotaryclubofely.co.uk/rotary-logo.png",
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: "info@rotaryclubofely.co.uk",
-    contactType: "customer service",
+  alternateName: "Ely Rotary",
+  url: siteUrl,
+  logo: `${siteUrl}/rotary-logo.png`,
+  image: `${siteUrl}/og-default.png`,
+  description:
+    "Rotary Club of Ely is a local community service club supporting charities, good causes, volunteering and community events across Ely and the surrounding area.",
+  areaServed: [
+    {
+      "@type": "City",
+      name: "Ely",
+    },
+    {
+      "@type": "AdministrativeArea",
+      name: "Cambridgeshire",
+    },
+  ],
+  memberOf: {
+    "@type": "Organization",
+    name: "Rotary International",
+    url: "https://www.rotary.org/",
   },
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "19 Nutholt Lane",
-    addressLocality: "Ely",
-    addressRegion: "Cambridgeshire",
-    postalCode: "CB7 4PL",
-    addressCountry: "GB",
-  },
-  sameAs: [],
+  sameAs: ["https://rotary-ribi.org/clubs/homepage.php?ClubID=467"],
 };
 
 export default function RootLayout({
