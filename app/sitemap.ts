@@ -1,67 +1,70 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 import { client } from "@/sanity/lib/client";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://rotaryclubofely.co.uk";
+const baseUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://rotaryclubofely.co.uk";
 
-  // Fetch all published slugs from Sanity
-  const [events, contributions, newsPosts, causes] = await Promise.all([
-    client.fetch(
-      `*[_type == "event" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`,
+// Refresh the sitemap periodically so Sanity content does not stay stale forever.
+// 3600 = 1 hour. You can change this to 1800 if you want 30 minutes.
+export const revalidate = 3600;
+
+type SanitySlug = {
+  slug: string;
+  _updatedAt?: string;
+};
+
+function lastModified(date?: string) {
+  return date ? new Date(date) : new Date();
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [events, impactStories, newsPosts, causes] = await Promise.all([
+    client.fetch<SanitySlug[]>(
+      `*[_type == "event" && defined(slug.current)]{
+        "slug": slug.current,
+        _updatedAt
+      }`,
     ),
-    client.fetch(
-      `*[_type == "contribution" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`,
+
+    client.fetch<SanitySlug[]>(
+      `*[_type == "impactStory" && defined(slug.current)]{
+        "slug": slug.current,
+        _updatedAt
+      }`,
     ),
-    client.fetch(
-      `*[_type == "newsPost" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`,
+
+    client.fetch<SanitySlug[]>(
+      `*[_type == "newsPost" && defined(slug.current)]{
+        "slug": slug.current,
+        _updatedAt
+      }`,
     ),
-    client.fetch(
-      `*[_type == "cause" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`,
+
+    client.fetch<SanitySlug[]>(
+      `*[_type == "cause" && defined(slug.current)]{
+        "slug": slug.current,
+        _updatedAt
+      }`,
     ),
   ]);
 
-  const eventUrls = events.map((e: { slug: string; _updatedAt: string }) => ({
-    url: `${baseUrl}/events/${e.slug}`,
-    lastModified: new Date(e._updatedAt),
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
-
-  const contributionUrls = contributions.map(
-    (c: { slug: string; _updatedAt: string }) => ({
-      url: `${baseUrl}/impact/${c.slug}`,
-      lastModified: new Date(c._updatedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }),
-  );
-
-  const newsUrls = newsPosts.map((n: { slug: string; _updatedAt: string }) => ({
-    url: `${baseUrl}/news/${n.slug}`,
-    lastModified: new Date(n._updatedAt),
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
-
-  const causeUrls = causes.map((c: { slug: string; _updatedAt: string }) => ({
-    url: `${baseUrl}/causes/${c.slug}`,
-    lastModified: new Date(c._updatedAt),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
-
-  return [
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 1.0,
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/events`,
       lastModified: new Date(),
-      changeFrequency: "daily",
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
@@ -73,7 +76,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseUrl}/news`,
       lastModified: new Date(),
-      changeFrequency: "daily",
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
@@ -83,7 +86,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/about`,
+      url: `${baseUrl}/support-archive`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.6,
@@ -94,8 +97,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+  ];
+
+  const eventUrls: MetadataRoute.Sitemap = events.map((event) => ({
+    url: `${baseUrl}/events/${event.slug}`,
+    lastModified: lastModified(event._updatedAt),
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  const impactUrls: MetadataRoute.Sitemap = impactStories.map((story) => ({
+    url: `${baseUrl}/impact/${story.slug}`,
+    lastModified: lastModified(story._updatedAt),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  const newsUrls: MetadataRoute.Sitemap = newsPosts.map((post) => ({
+    url: `${baseUrl}/news/${post.slug}`,
+    lastModified: lastModified(post._updatedAt),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  const causeUrls: MetadataRoute.Sitemap = causes.map((cause) => ({
+    url: `${baseUrl}/causes/${cause.slug}`,
+    lastModified: lastModified(cause._updatedAt),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [
+    ...staticRoutes,
     ...eventUrls,
-    ...contributionUrls,
+    ...impactUrls,
     ...newsUrls,
     ...causeUrls,
   ];
