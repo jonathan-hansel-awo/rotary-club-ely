@@ -32,6 +32,9 @@ export const metadata: Metadata = {
   description:
     "People of Action, Right Here in Ely. The Rotary Club of Ely organises community events, raises funds for local and international causes, and welcomes new members.",
   metadataBase: new URL(siteUrl),
+  verification: {
+    google: "hxRweBGhYvzuS-09dSlixSHyDltpa9_JMjS3zgwoI_k",
+  },
   openGraph: {
     siteName: "Rotary Club of Ely",
     type: "website",
