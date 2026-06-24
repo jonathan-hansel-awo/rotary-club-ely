@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SkipToContent from "@/components/layout/SkipToContent";
 import SmoothScroll from "@/components/providers/SmoothScroll";
+import CookieNotice from "@/components/CookieNotice";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -126,6 +127,7 @@ export default function RootLayout({
           <main id="main-content">
         <SmoothScroll />
             {children}
+            <CookieNotice />
             </main>
         </PageTransition>
         <Footer />

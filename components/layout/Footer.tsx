@@ -288,12 +288,18 @@ export default async function Footer() {
             <p>
               Registered in England.{" "}
               <Link
-                href="/privacy"
+                href="/privacy-policy"
                 className="font-semibold text-white/70 underline underline-offset-4 transition hover:text-rotary-gold"
               >
                 Privacy Policy
               </Link>
             </p>
+            <Link
+              href="/cookie-policy"
+              className="transition hover:text-rotary-gold"
+            >
+              Cookie Policy
+            </Link>
           </div>
         </div>
       </div>
