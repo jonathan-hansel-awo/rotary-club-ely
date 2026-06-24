@@ -9,11 +9,11 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://rotaryclubofely.co.uk";
 
 const homeTitle =
-  "Rotary Club of Ely | Community Events, Volunteering & Charity Support";
+  "Rotary Club of Ely | Ely Rotary, Volunteering & Community Events";
 
 const homeDescription =
-  "Rotary Club of Ely brings people together through community events, volunteering, fundraising and support for local and international good causes across Ely and East Cambridgeshire.";
-
+  "Rotary Club of Ely, also known locally as Ely Rotary, brings people together through community events, volunteering, fundraising and support for good causes across Ely and East Cambridgeshire.";
+  
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
