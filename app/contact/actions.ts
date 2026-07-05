@@ -3,7 +3,7 @@
 import { Resend } from "resend";
 
 const CLUB_EMAIL = "info@rotaryclubofely.co.uk";
-const FROM_EMAIL = "Rotary Club of Ely <website@rotaryclubofely.co.uk>";
+const FROM_EMAIL = "Rotary Club of Ely";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
