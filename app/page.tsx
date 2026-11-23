@@ -1,5 +1,6 @@
 import { getHomepageData } from "@/lib/sanity.fetch";
 import dynamic from "next/dynamic";
+import ChristmasBanner from "@/components/christmas/ChristmasBanner";
 import Hero from "@/components/home/Hero";
 import FeaturedEvents from "@/components/home/FeaturedEvents";
 import SectionDivider from "@/components/ui/SectionDivider";
@@ -74,6 +75,7 @@ export default async function Home() {
         imageAlt="Members of the Rotary Club of Ely at a community event"
         heroImages={data.settings.heroImages}
       />
+      <ChristmasBanner />
       <SectionDivider />
       <Impact stats={data.impactStats} />
       <SectionDivider />

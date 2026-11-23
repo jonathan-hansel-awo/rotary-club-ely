@@ -50,6 +50,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
+      url: `${baseUrl}/christmas-collection`,
+      lastModified: new Date("2026-11-23"),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "weekly",

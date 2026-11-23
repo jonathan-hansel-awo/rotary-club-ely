@@ -67,6 +67,7 @@ const socialIconMap: Record<string, React.ComponentType> = {
 
 const quickLinks = [
   { label: "Events", href: "/events" },
+  { label: "Christmas Collection", href: "/christmas-collection" },
   { label: "Our Impact", href: "/impact" },
   { label: "Our Causes", href: "/causes" },
   { label: "Latest Updates", href: "/news" },

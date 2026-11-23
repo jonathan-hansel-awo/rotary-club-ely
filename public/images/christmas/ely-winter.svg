@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" fill="none">
+<defs>
+ <linearGradient id="sky" x2="0" y2="680" gradientUnits="userSpaceOnUse"><stop stop-color="#102846"/><stop offset="1" stop-color="#214e65"/></linearGradient>
+ <linearGradient id="snow" x2="0" y2="680" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#bdd6e1"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#f8d99a" stop-opacity=".28"/><stop offset="1" stop-color="#f8d99a" stop-opacity="0"/></radialGradient>
+ <pattern id="stars" width="137" height="109" patternUnits="userSpaceOnUse"><circle cx="16" cy="22" r="1.5" fill="#fff" opacity=".65"/><circle cx="92" cy="76" r="2" fill="#fff" opacity=".4"/><path d="M63 38v8m-4-4h8" stroke="#f7d99a" opacity=".7"/></pattern>
+ <g id="tree"><path d="M0-98-30-42h15L-40 0h80L15-42h15Z" fill="#173e47"/><path d="m0-98-12 23 12-5 12 5Z" fill="#eef2e9"/><path d="m-15-42-9 15 24-7 24 7-9-15Z" fill="#eef2e9"/><path d="M0 0v18" stroke="#183343" stroke-width="7"/></g>
+ <g id="house"><path d="M0 50V0h72v50" fill="#557889"/><path d="m-8 0 44-35L80 0" fill="#eff4ef"/><path d="m6-3 30-24L67-3" fill="#d2e2e4"/><path d="M32 50V24h14v26" fill="#203f54"/><path d="M9 13h13v17H9zm42 0h13v17H51z" fill="#ffd78b"/><path d="M15 13v17m42-17v17M9 22h13m29 0h13" stroke="#896847" stroke-width="2"/></g>
+</defs>
+<rect width="1000" height="680" rx="32" fill="url(#sky)"/>
+<circle cx="730" cy="150" r="240" fill="url(#glow)"/>
+<circle cx="763" cy="133" r="48" fill="#f4dfaa"/><circle cx="783" cy="115" r="44" fill="#17334d"/>
+<path fill="url(#stars)" d="M0 0h1000v520H0z"/>
+<!-- Ely's distinctive cathedral towers, rising above a winter streetscape. -->
+<g fill="#355b70" stroke="#a4bdc6" stroke-width="2">
+<path d="M365 452V287h24v-36h11v36h12v-36h10v36h24v165z"/>
+<path d="M376 287v-61h13v-14h10v14h13v-14h10v14h13v61z"/>
+<path d="M445 452v-94h110v-46l25-26 25 26v46h88v94z"/>
+<path d="M558 359v-71h9v-22h27v22h10v71z"/>
+<path d="M566 267v-22h8v-10h12v10h9v22"/>
+<path d="M682 452V326h11v-19h10v19h12v-19h10v19h12v126z"/>
+</g>
+<g fill="#f1d49b" opacity=".9"><path d="M389 322q10-24 20 0v43h-20zM389 386q10-24 20 0v43h-20zM568 305q12-20 24 0v30h-24z"/><path d="M465 396q6-17 12 0v27h-12zm27 0q6-17 12 0v27h-12zm29 0q6-17 12 0v27h-12zm96 0q6-17 12 0v27h-12zm28 0q6-17 12 0v27h-12z"/></g>
+<path d="M0 477q166-65 322-10t311-3 367 16v200H0Z" fill="#7596a4"/>
+<use href="#house" x="90" y="465"/><use href="#house" x="175" y="453"/><use href="#house" x="267" y="473"/><use href="#house" x="725" y="469"/><use href="#house" x="814" y="454"/>
+<path d="M0 545q148-63 320-12t310 1 370-3v149H0Z" fill="url(#snow)"/>
+<use href="#tree" x="55" y="534"/><use href="#tree" x="928" y="520"/><use href="#tree" x="878" y="563" transform="translate(175 90) scale(.8)"/>
+<path d="M300 680q-30-52 146-80t186-64" stroke="#fff" stroke-width="36" opacity=".5"/>
+<!-- Father Christmas and the sleigh. -->
+<g transform="translate(440 508)">
+<path d="M-70 44h162q25 0 25-22" stroke="#b47d32" stroke-width="7" stroke-linecap="round"/><path d="M-49 24v18m121-18v18" stroke="#b47d32" stroke-width="5"/>
+<path d="M-76-20h23q10 24 33 24h61q28 0 29-32h21v24q0 35-35 35H-37q-38 0-39-51" fill="#a93042"/>
+<path d="M-76-20h23q10 24 33 24h61q28 0 29-32h21" stroke="#f7dcaa" stroke-width="4"/>
+<path d="M-47 2q-7-44 16-50 26-8 34 50" fill="#ba4052"/><path d="M-39-46q-5-17 10-28 20 3 18 28" fill="#d5575c"/><path d="m-44-43 39-2" stroke="#fff0da" stroke-width="9" stroke-linecap="round"/>
+<circle cx="-25" cy="-34" r="15" fill="#f4d1ae"/><path d="M-39-33q2 30 27 8l-8 22q-25-4-19-30" fill="#fff6e5"/>
+<path d="M0 0v-29h29V0" fill="#e4bd65"/><path d="M15-29V0" stroke="#a33d4e" stroke-width="5"/><path d="M6-28q-17-17-1-17 11 0 10 17 10-21 17-12 9 13-17 12" stroke="#e4bd65" stroke-width="4"/>
+</g>
+<g transform="translate(653 519)" stroke="#d7b781" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<path d="m-93 15 61-10" stroke-width="2"/><path d="M-31 4q21-21 46 0l19-24 11 7-10 17-18 5-13 24m-24-25-11 27m9-7-12 7m37-2 10 1" fill="#c59b67"/>
+<path d="m34-22-7-22m4 10-12-2m10 9-14 2m25-43-4 26m2-9 10-8m-12 16 14-4"/>
+<circle cx="43" cy="-18" r="3.5" fill="#c44048" stroke="none"/>
+</g>
+<path d="M37 621h108m-54-9h91m591-3h121" stroke="#fff" stroke-width="3" opacity=".55"/>
+<g fill="#f5d798"><circle cx="107" cy="414" r="3"/><circle cx="193" cy="403" r="3"/><circle cx="286" cy="423" r="3"/><circle cx="744" cy="419" r="3"/><circle cx="833" cy="404" r="3"/></g>
+</svg>
