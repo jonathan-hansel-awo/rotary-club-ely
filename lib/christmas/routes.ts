@@ -439,8 +439,8 @@ export const streetIndex: { street: string; days: number[] }[] = [
   {
     "street": "Cambridge Road",
     "days": [
-      17,
-      11
+      11,
+      17
     ]
   },
   {
@@ -1232,8 +1232,7 @@ export const streetIndex: { street: string; days: number[] }[] = [
   {
     "street": "West End",
     "days": [
-      7,
-      10
+      7
     ]
   },
   {
