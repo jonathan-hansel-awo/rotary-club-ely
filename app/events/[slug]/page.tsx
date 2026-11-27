@@ -148,6 +148,16 @@ export default async function EventPage({ params }: EventPageProps) {
 
       <section className="bg-white py-16">
         <Container>
+          {slug === "christmas-collection" && (
+            <aside aria-labelledby="festive-page-title" className="mb-10 flex flex-col items-start gap-6 rounded-3xl border border-[#547083] bg-[#102c43] p-6 text-white sm:p-8 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-2xl">
+                <p className="mb-2 text-sm font-bold uppercase tracking-widest text-[#ffcf77]">Christmas Collection 2026</p>
+                <h2 id="festive-page-title" className="text-2xl font-bold tracking-tight">Follow the festive magic.</h2>
+                <p className="mt-3 text-base leading-relaxed text-[#d6e2ea]">For the full sleigh routes, live tracker and ways to donate, visit our festive Christmas Collection page.</p>
+              </div>
+              <Link href="/christmas-collection" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-xl bg-[#ffcf77] px-6 py-3 text-center text-base font-bold text-[#102c43] transition-colors hover:bg-[#ffe0a4]">Visit our festive page</Link>
+            </aside>
+          )}
           <div className="grid gap-12 lg:grid-cols-[1fr_360px]">
             <article className="prose prose-slate max-w-none prose-headings:font-black prose-a:text-rotary-blue">
               {event.description && <PortableText value={event.description} />}

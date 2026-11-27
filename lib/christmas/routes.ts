@@ -4,8 +4,8 @@
 // Gilbert Scott Drive and part of Kings Avenue appear only in the alphabetical list.
 export const collectionYear = 2026;
 export const donationUrl = "https://www.mygivinghub.com/";
-// Add the confirmed tracker URL here when the club provides it.
-export const trackerUrl: string | null = null;
+// The tracker is active only on collection evenings while the sleigh is moving.
+export const trackerUrl = "https://elysantatracker.com/";
 export type CollectionRoute = { day: number; weekday: string; streets: string[]; note?: string };
 export const routes: CollectionRoute[] = [
   {

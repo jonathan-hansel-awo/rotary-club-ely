@@ -24,6 +24,7 @@ export default function ChristmasCollectionPage() {
             <p>Our sleigh is back for an evening visit to a street near you. Join Ely Rotary and our wonderful volunteers in supporting local charities and good causes this Christmas.</p>
             <div className={styles.actions}>
               <a className={styles.goldButton} href="#find-your-street">Find your street</a>
+              <a className={styles.outlineButton} href={trackerUrl} target="_blank" rel="noopener noreferrer">Track the sleigh <span className="sr-only">(opens in a new tab)</span></a>
               <a className={styles.outlineButton} href="#give">Make a donation</a>
             </div>
             <p className={styles.heroDates}>7–22 December 2026 <span aria-hidden="true">✦</span> Weekday evenings, 6pm–around 8pm</p>
@@ -65,12 +66,32 @@ export default function ChristmasCollectionPage() {
               <p><strong>9am–3:45pm</strong><span>Ely High Street</span></p>
             </div>
           </div>
-          <aside className={styles.tracker} aria-labelledby="tracker-title">
+          <aside id="sleigh-tracker" className={styles.tracker} aria-labelledby="tracker-title">
             <svg viewBox="0 0 220 110" aria-hidden="true" className={styles.trackerArt}><path d="M10 90C40 20 90 120 120 58s65-36 90-41" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="5 8"/><circle cx="12" cy="88" r="5" fill="currentColor"/><path d="M173 28a16 16 0 1 1 32 0c0 12-16 25-16 25s-16-13-16-25Z" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="189" cy="27" r="5" fill="currentColor"/></svg>
-            <p className={styles.eyebrow}>{trackerUrl ? "Follow the Christmas magic" : "A little closer to Christmas"}</p>
+            <p className={styles.eyebrow}>Follow the Christmas magic</p>
             <h3 id="tracker-title">Where’s the sleigh?</h3>
-            {trackerUrl ? <><p>See the sleigh’s position during our collection evenings.</p><a className={styles.goldButton} href={trackerUrl} target="_blank" rel="noopener noreferrer">Open the sleigh tracker <span className="sr-only">(opens in a new tab)</span></a></> : <><p>Our live tracker is getting ready. We’ll add the link here and on our Facebook page nearer the first collection evening.</p><span className={styles.comingSoon}>Tracker coming soon</span></>}
+            <p>Follow Father Christmas and the sleigh through Ely in almost real time, so you can see how our evening is progressing.</p>
+            <p className={styles.trackerAvailability}><strong>Live on collection evenings only.</strong> The tracker is active while we’re travelling, between 6pm and around 8pm on our scheduled rounds.</p>
+            <a className={styles.goldButton} href={trackerUrl} target="_blank" rel="noopener noreferrer">Open the sleigh tracker <span className="sr-only">(opens in a new tab)</span></a>
           </aside>
+        </div>
+      </section>
+
+      <section id="our-sponsor" className={`${styles.section} ${styles.sponsorSection}`} aria-labelledby="sponsor-title">
+        <div className={styles.sponsorPanel}>
+          <figure className={styles.sponsorPhoto}>
+            {/* Photo supplied on Crown Garage’s Soham dealership page:
+                https://www.crowngarage.co.uk/images/soham/soham-exterior-photos-1.jpg */}
+            <Image src="/images/christmas/crown-garage-soham.webp" alt="The Crown Garage dealership in Soham, with its showroom and forecourt." width={1200} height={800} sizes="(max-width: 800px) 100vw, 50vw" />
+            <figcaption>Crown Garage, Soham. Photo: Crown Garage.</figcaption>
+          </figure>
+          <div className={styles.sponsorCopy}>
+            <p className={styles.redEyebrow}>With thanks to our vehicle sponsor</p>
+            <h2 id="sponsor-title">Every sleigh needs<br /><em>a Rudolph.</em></h2>
+            <p>Our heartfelt thanks to <strong>Crown Garage, Soham</strong> for providing “Rudolph”, the vehicle towing our sleigh and Father Christmas this year.</p>
+            <p>Their generous support helps us bring Christmas cheer to Ely’s streets and raise funds for local charities and good causes.</p>
+            <a className={styles.goldButton} href="https://www.crowngarage.co.uk/" target="_blank" rel="noopener noreferrer">Visit Crown Garage <span className="sr-only">(opens in a new tab)</span></a>
+          </div>
         </div>
       </section>
 
