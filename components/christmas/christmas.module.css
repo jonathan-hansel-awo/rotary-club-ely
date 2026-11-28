@@ -133,6 +133,10 @@
 @media print { .hero { padding: 2rem; } .heroVisual, .actions, .filters, .finderToolbar, .tracker, .downloads, .banner { display: none; } .heroInner { display: block; } .heroCopy h1 { font-size: 3rem; } .section { padding: 1rem; } .finder { border: 0; padding: 0; } .route { break-inside: avoid; } }
 
 .sponsorSection { padding-bottom: 0; scroll-margin-top: 7rem; }
+.sponsorSpotlight { display: flex; align-items: center; justify-content: space-between; gap: 1rem 2rem; width: calc(100% - 3rem); max-width: 1232px; margin: 1.5rem auto 0; padding: 1.2rem 1.5rem; border: 1px solid #c7d5d6; border-left: 4px solid #d49c30; border-radius: .8rem; background: #edf3f1; }
+.sponsorSpotlight p { color: #52616a; font-size: .9375rem; }
+.sponsorSpotlight strong { display: block; margin-bottom: .2rem; color: #173344; font-size: 1rem; }
+.sponsorSpotlight a { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; color: #833244; font-size: .9375rem; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 .sponsorPanel { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; border: 1px solid #d7e1df; border-radius: 1.5rem; background: #edf3f1; }
 .sponsorPhoto { min-width: 0; display: flex; flex-direction: column; background: #183e4e; }
 .sponsorPhoto img { width: 100%; height: 100%; min-height: 22rem; object-fit: cover; object-position: 52% center; }
@@ -145,3 +149,4 @@
 @media (max-width: 1050px) { .sponsorCopy { padding: 2rem; } }
 @media (max-width: 800px) { .sponsorPanel { grid-template-columns: 1fr; } .sponsorPhoto img { height: auto; min-height: 0; aspect-ratio: 3 / 2; } .sponsorCopy { padding: 1.8rem; } }
 @media (max-width: 560px) { .sponsorCopy { padding: 1.5rem; } .sponsorCopy .goldButton { width: 100%; } }
+@media (max-width: 700px) { .sponsorSpotlight { width: calc(100% - 2rem); flex-direction: column; align-items: flex-start; gap: .5rem; padding: 1rem 1.2rem; } .sponsorSpotlight a { flex-shrink: 1; } }

@@ -41,6 +41,11 @@ export default function ChristmasCollectionPage() {
         <p><span aria-hidden="true">♡</span> Collected with kindness. Given to local good causes.</p>
       </div>
 
+      <aside className={styles.sponsorSpotlight} aria-label="With thanks to our vehicle sponsor">
+        <p><strong>With thanks to Crown Garage, Soham</strong>Providing “Rudolph” to tow Father Christmas’s sleigh this year.</p>
+        <a href="#our-sponsor">Meet our vehicle sponsor</a>
+      </aside>
+
       <section id="find-your-street" className={styles.section} aria-labelledby="finder-title">
         <div className={styles.sectionHeading}>
           <div><p className={styles.redEyebrow}>The 2026 sleigh rounds</p><h2 id="finder-title">When’s your Christmas visit?</h2></div>
